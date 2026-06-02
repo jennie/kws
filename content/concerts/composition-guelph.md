@@ -1,14 +1,14 @@
 ---
-title: "Composition"
-date: "2027-01-10T14:30:00"
-venue: "Harcourt United Church, Guelph"
-series: "Baroque & Beyond"
-conductor: "James Sommerville"
+title: Composition
 artists:
-  - name: "Tom Allen"
-    role: "Host"
-image: "/images/artists/james-sommerville.jpg"
-description: "CBC Radio's Tom Allen hosts a programme of works that were inspired by or that make reference to visual artworks and literature."
+  - name: Tom Allen
+    role: Host
+conductor: James Sommerville
+date: 2027-01-10T14:30:00
+description: CBC Radio's Tom Allen hosts a programme of works that were inspired by or that make reference to visual artworks and literature.
+image: /images/artists/james-sommerville.jpg
+series: Baroque & Beyond
+venue: Harcourt United Church, Guelph
 ---
 
 ## Programme

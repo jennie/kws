@@ -1,11 +1,11 @@
 ---
-title: "Suite Dreams"
-date: "2027-05-02T14:30:00"
-venue: "Harcourt United Church, Guelph"
-series: "Baroque & Beyond"
-conductor: "David Fallis"
-image: "/images/artists/david-fallis.jpg"
-description: "David Fallis, a KW favourite, returns to lead a programme of works that explore Baroque melodies and contemporary reflections."
+title: Suite Dreams
+conductor: David Fallis
+date: 2027-05-02T14:30:00
+description: David Fallis, a KW favourite, returns to lead a programme of works that explore Baroque melodies and contemporary reflections.
+image: /images/artists/david-fallis.jpg
+series: Baroque & Beyond
+venue: Harcourt United Church, Guelph
 ---
 
 ## Programme
