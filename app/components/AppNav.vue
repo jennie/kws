@@ -19,11 +19,17 @@ function isActive(to: string) {
     <div class="max-w-[1800px] mx-auto px-6 lg:px-10 xl:px-14 flex items-center justify-between gap-6 py-5">
       <NuxtLink
         to="/"
-        class="font-display text-2xl md:text-[1.75rem] font-semibold leading-none tracking-tight text-paper-900 no-underline"
+        class="shrink-0 no-underline"
         aria-label="Kitchener Waterloo Symphony — Home"
       >
-        <span class="hidden sm:inline">Kitchener Waterloo Symphony</span>
-        <span class="sm:hidden">KWS</span>
+        <img
+          src="/images/kws-logo.svg"
+          alt=""
+          class="hidden sm:block h-11 lg:h-12 w-auto"
+          width="2028"
+          height="584"
+        >
+        <span class="sm:hidden font-display text-2xl font-semibold leading-none tracking-tight text-paper-900">KWS</span>
       </NuxtLink>
 
       <nav aria-label="Primary">
