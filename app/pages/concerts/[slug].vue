@@ -65,11 +65,16 @@ useSeoMeta({
         <p class="text-lg leading-relaxed">{{ concert.description }}</p>
       </header>
 
-      <img
-        :src="concert.image"
-        :alt="concert.title"
-        class="w-full aspect-video object-cover rounded-lg"
-      >
+      <figure class="space-y-2">
+        <img
+          :src="concert.image"
+          :alt="concert.title"
+          class="w-full aspect-video object-cover rounded-lg"
+        >
+        <figcaption v-if="concert.imageCredit" class="text-base text-paper-600">
+          Photo: {{ concert.imageCredit }}
+        </figcaption>
+      </figure>
 
       <div>
         <TicketButton

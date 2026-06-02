@@ -8,6 +8,7 @@ artists:
   - name: "Suzie Leblanc"
     role: "Soprano"
 image: "/images/artists/lea-moisan-perrier.jpg"
+imageCredit: "Kevin Calixte"
 description: "Léa Moisan-Perrier joins the KWS for a programme featuring classical and contemporary works that challenge and inspire."
 ---
 

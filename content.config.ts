@@ -10,6 +10,7 @@ export default defineContentConfig({
         date: z.string(),
         venue: z.string(),
         image: z.string(),
+        imageCredit: z.string().optional(),
         description: z.string(),
         ticketUrl: z.string().optional(),
         ticketProvider: z.string().optional(),
