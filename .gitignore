@@ -25,3 +25,11 @@ logs
 
 # Local Netlify folder
 .netlify
+
+# Root-level markdown only (keeps content/**/*.md tracked)
+/*.md
+
+# Any folder beginning with a dot
+.*/
+
+docs
