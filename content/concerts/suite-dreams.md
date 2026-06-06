@@ -4,6 +4,13 @@ conductor: David Fallis
 date: 2027-04-30T19:30:00
 description: David Fallis, a KW favourite, returns to lead a programme of works that explore Baroque melodies and contemporary reflections.
 image: /images/artists/david-fallis.jpg
+performances:
+  - date: 2027-04-30T19:30:00
+    venue: Knox Presbyterian Church, Waterloo
+  - date: 2027-05-01T19:30:00
+    venue: Central Presbyterian Church, Cambridge
+  - date: 2027-05-02T14:30:00
+    venue: Harcourt United Church, Guelph
 series: Baroque & Beyond
 venue: Knox Presbyterian Church, Waterloo
 ---

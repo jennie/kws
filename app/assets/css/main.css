@@ -2,8 +2,8 @@
 @import "@nuxt/ui";
 
 @theme static {
-  --font-display: "Petrona", "Iowan Old Style", Georgia, "Times New Roman", serif;
-  --font-sans: "Hanken Grotesk", "Helvetica Neue", system-ui, -apple-system, sans-serif;
+  --font-display: "Archivo", "Helvetica Neue", system-ui, -apple-system, sans-serif;
+  --font-sans: "Archivo", "Helvetica Neue", system-ui, -apple-system, sans-serif;
 
   --text-xs: 1rem;
   --text-xs--line-height: 1.5;
@@ -26,6 +26,11 @@
   --text-6xl: 5.25rem;
   --text-6xl--line-height: 0.98;
 
+  /* Width system. Two tiers: the page frame (nav, footer, listing, and the
+     wide bands of an article) and the reading measure (~70ch body column). */
+  --container-shell: 1360px;
+  --container-reading: 44rem;
+
   --color-paper-50: oklch(99% 0.003 70);
   --color-paper-100: oklch(97.5% 0.006 65);
   --color-paper-200: oklch(94% 0.009 60);
@@ -37,18 +42,6 @@
   --color-paper-800: oklch(18% 0.01 45);
   --color-paper-900: oklch(12% 0.008 40);
   --color-paper-950: oklch(8% 0.006 40);
-
-  --color-mulberry-50: oklch(96.5% 0.018 22);
-  --color-mulberry-100: oklch(92% 0.038 22);
-  --color-mulberry-200: oklch(83% 0.07 22);
-  --color-mulberry-300: oklch(70% 0.105 22);
-  --color-mulberry-400: oklch(57% 0.135 22);
-  --color-mulberry-500: oklch(47% 0.145 22);
-  --color-mulberry-600: oklch(39% 0.13 22);
-  --color-mulberry-700: oklch(31% 0.11 22);
-  --color-mulberry-800: oklch(23% 0.085 22);
-  --color-mulberry-900: oklch(16% 0.055 22);
-  --color-mulberry-950: oklch(10% 0.035 22);
 }
 
 @layer base {
@@ -67,12 +60,12 @@
   }
 
   ::selection {
-    background-color: var(--color-mulberry-700);
+    background-color: var(--color-paper-900);
     color: var(--color-paper-50);
   }
 
   :focus-visible {
-    outline: 3px solid var(--color-mulberry-600);
+    outline: 3px solid var(--color-paper-900);
     outline-offset: 3px;
     border-radius: 2px;
   }
@@ -110,6 +103,23 @@
 }
 .kws-skip-link:focus-visible {
   transform: translateY(0);
+}
+
+/* Eyebrows & micro-labels: meta keys (Date/Venue), section kickers, status tags.
+   One committed geometry replaces the ad-hoc 0.12–0.2em tracking that had crept
+   in per-component; tone (muted default vs ink) carries emphasis, per the Ink
+   Rule. paper-600 (not paper-500) keeps small uppercase text above the 4.5:1
+   AA floor on paper-50. */
+.kws-eyebrow {
+  font-size: 1rem;
+  line-height: 1.4;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-paper-600);
+}
+.kws-eyebrow--ink {
+  color: var(--color-paper-900);
 }
 </content>
 </invoke>

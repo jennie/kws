@@ -10,10 +10,10 @@ useSeoMeta({
 </script>
 
 <template>
-  <UContainer class="py-12 max-w-3xl">
-    <article v-if="page" class="prose dark:prose-invert max-w-none">
+  <div class="mx-auto max-w-shell px-6 py-12 lg:px-10">
+    <article v-if="page" class="prose dark:prose-invert max-w-reading [&_h1]:text-3xl sm:[&_h1]:text-4xl">
       <ContentRenderer :value="page" />
     </article>
     <p v-else>Page not found.</p>
-  </UContainer>
+  </div>
 </template>

@@ -15,6 +15,12 @@ export default defineNuxtConfig({
 
   css: ["~/assets/css/main.css"],
 
+  // Light-only paper palette; never invert under a dark system preference.
+  colorMode: {
+    preference: "light",
+    fallback: "light",
+  },
+
   app: {
     head: {
       link: [{ rel: "icon", type: "image/svg+xml", href: "/favicon.svg" }],
@@ -25,8 +31,7 @@ export default defineNuxtConfig({
     display: "swap",
     preload: true,
     families: {
-      Petrona: [400, 500, 600, 700],
-      "Hanken Grotesk": [400, 500, 600, 700],
+      Archivo: [400, 500, 600, 700],
     },
   },
 

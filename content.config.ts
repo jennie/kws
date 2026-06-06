@@ -19,6 +19,12 @@ export default defineContentConfig({
         artists: z.array(z.object({
           name: z.string(),
           role: z.string()
+        })).optional(),
+        performances: z.array(z.object({
+          date: z.string(),
+          venue: z.string(),
+          ticketUrl: z.string().optional(),
+          ticketProvider: z.string().optional()
         })).optional()
       })
     }),
