@@ -58,8 +58,8 @@ const grouped = computed(() => {
 const leadVenue = computed(() => splitVenue(next.value?.venue))
 
 useSeoMeta({
-  title: 'Kitchener Waterloo Symphony',
-  description: 'Concerts and events from the Kitchener Waterloo Symphony, serving the Waterloo Region for 75 years.'
+  title: 'Kitchener-Waterloo Symphony',
+  description: 'Concerts and events from the Kitchener-Waterloo Symphony, serving the Waterloo Region for 75 years.'
 })
 
 // Scroll-spy: ink the jump-nav link for the series currently in view.

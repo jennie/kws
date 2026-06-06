@@ -1,7 +1,7 @@
 <script setup lang="ts">
 useSeoMeta({
   title: 'Donate to the KWS',
-  description: 'Support the Kitchener Waterloo Symphony with a tax-deductible donation through Canada Helps.'
+  description: 'Support the Kitchener-Waterloo Symphony with a tax-deductible donation through Canada Helps.'
 })
 
 // The Canada Helps embed (cdf_embed.2.js) injects its donation form immediately

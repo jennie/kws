@@ -1,9 +1,9 @@
 ---
 title: About the KWS
-description: Meet the musicians, board, and staff of the Kitchener Waterloo Symphony.
+description: Meet the musicians, board, and staff of the Kitchener-Waterloo Symphony.
 ---
 
-# About the Kitchener Waterloo Symphony
+# About the Kitchener-Waterloo Symphony
 
 ## Our musicians
 

@@ -1,6 +1,6 @@
 ---
 title: "Contact"
-description: "Get in touch with the Kitchener Waterloo Symphony."
+description: "Get in touch with the Kitchener-Waterloo Symphony."
 ---
 
 ## Other ways to reach us

@@ -24,7 +24,7 @@ watch(() => route.path, () => { open.value = false })
       <NuxtLink
         to="/"
         class="shrink-0 no-underline"
-        aria-label="Kitchener Waterloo Symphony — Home"
+        aria-label="Kitchener-Waterloo Symphony — Home"
       >
         <img
           src="/images/kws-logo.svg"

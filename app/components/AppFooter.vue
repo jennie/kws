@@ -2,7 +2,7 @@
   <footer class="border-t border-paper-200">
     <div class="mx-auto grid max-w-shell gap-x-12 gap-y-8 px-6 py-12 md:grid-cols-[1.4fr_0.6fr_1.5fr] lg:px-10">
       <div class="space-y-2">
-        <h3 class="font-semibold text-paper-900">Kitchener Waterloo Symphony</h3>
+        <h3 class="font-semibold text-paper-900">Kitchener-Waterloo Symphony</h3>
         <address class="text-base not-italic leading-relaxed text-paper-700">
           14 Huntingwood Court<br>
           Kitchener, ON<br>
