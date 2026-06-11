@@ -5,6 +5,8 @@ description: A contemporary fable for baroque orchestra and narrator, The Gull, 
 image: /images/orchestra/kws-ensemble.jpg
 imageCredit: Bill Woodcock
 series: Family
+ticketProvider: Ham.com
+ticketUrl: https://ham.com
 venue: St. Matthews Centre, Kitchener
 ---
 

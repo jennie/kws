@@ -24,4 +24,4 @@ venue: Knox Presbyterian Church, Waterloo
 - Emilie Maier — Overture No. 2 in D Major
 - Emily Doolittle — A Short Slow Life
 - Jessie Montgomery — Shift, Change, Turn
-- W.A. Mozart — Symphony No. 39
+- W\.A. Mozart — Symphony No. 39

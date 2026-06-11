@@ -92,17 +92,13 @@ onMounted(() => {
 
       <template v-if="!isTouring">
         <dl class="mb-5">
-          <dt class="kws-eyebrow mt-4 first:mt-0">
-            Date
-          </dt>
-          <dd class="mt-1 text-sm text-paper-800">
+          <dt class="sr-only">Date and time</dt>
+          <dd class="text-sm text-paper-800">
             <time :datetime="isoDate(date)">{{ longDate(date) }} · {{ timeOf(date) }}</time>
           </dd>
           <template v-if="venue">
-            <dt class="kws-eyebrow mt-4">
-              Venue
-            </dt>
-            <dd class="mt-1 text-sm text-paper-800">
+            <dt class="sr-only">Venue</dt>
+            <dd class="mt-2 text-sm text-paper-800">
               {{ venueParts.name }}<br v-if="venueParts.city"><span v-if="venueParts.city" class="text-paper-600">{{ venueParts.city }}</span>
             </dd>
           </template>

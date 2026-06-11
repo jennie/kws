@@ -105,20 +105,20 @@
   transform: translateY(0);
 }
 
-/* Eyebrows & micro-labels: meta keys (Date/Venue), section kickers, status tags.
-   One committed geometry replaces the ad-hoc 0.12–0.2em tracking that had crept
-   in per-component; tone (muted default vs ink) carries emphasis, per the Ink
-   Rule. paper-600 (not paper-500) keeps small uppercase text above the 4.5:1
-   AA floor on paper-50. */
+/* Micro-labels: meta keys (Date/Venue), section counts, status tags, kickers.
+   Sentence case, set by weight and tone rather than caps + tracking, so the
+   label layer reads as quiet civic metadata, not an eyebrow scaffold. Keys
+   recede at medium weight / muted paper-600; the --ink variant asserts a status
+   through tone and weight. paper-600 (not paper-500) keeps these 18px labels
+   above the 4.5:1 AA floor on paper-50. */
 .kws-eyebrow {
   font-size: 1rem;
   line-height: 1.4;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-weight: 500;
   color: var(--color-paper-600);
 }
 .kws-eyebrow--ink {
+  font-weight: 600;
   color: var(--color-paper-900);
 }
 </content>

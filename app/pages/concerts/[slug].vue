@@ -42,17 +42,13 @@ useSeoMeta({
       </h1>
 
       <!-- Single-date meta -->
-      <dl v-if="!isTouring" class="mt-8 space-y-3">
-        <div class="flex items-baseline gap-4">
-          <dt class="kws-eyebrow w-20 shrink-0">Date</dt>
-          <dd class="text-lg text-paper-800">{{ longDate(concert.date) }}</dd>
+      <dl v-if="!isTouring" class="mt-8 space-y-2">
+        <div>
+          <dt class="sr-only">Date and time</dt>
+          <dd class="text-lg text-paper-800">{{ longDate(concert.date) }} · {{ timeOf(concert.date) }}</dd>
         </div>
-        <div class="flex items-baseline gap-4">
-          <dt class="kws-eyebrow w-20 shrink-0">Time</dt>
-          <dd class="text-lg text-paper-800">{{ timeOf(concert.date) }}</dd>
-        </div>
-        <div class="flex items-baseline gap-4">
-          <dt class="kws-eyebrow w-20 shrink-0">Venue</dt>
+        <div>
+          <dt class="sr-only">Venue</dt>
           <dd class="text-lg text-paper-800">{{ concert.venue }}</dd>
         </div>
       </dl>
@@ -131,10 +127,17 @@ useSeoMeta({
           v-for="c in moreInSeries"
           :key="c.path"
           :to="c.path"
-          class="block border border-paper-300 p-4 no-underline transition-colors hover:border-paper-900"
+          class="flex gap-3 border border-paper-300 p-4 no-underline transition-colors hover:border-paper-900"
         >
-          <span class="block font-display text-lg font-semibold leading-tight text-paper-900">{{ c.title }}</span>
-          <span class="mt-1 block text-sm text-paper-600">{{ longDate(c.date) }}</span>
+          <img
+            :src="c.image"
+            alt=""
+            class="aspect-square w-16 shrink-0 border border-paper-300 object-cover"
+          >
+          <div>
+            <span class="block font-display text-lg font-semibold leading-tight text-paper-900">{{ c.title }}</span>
+            <span class="mt-1 block text-sm text-paper-600">{{ longDate(c.date) }}</span>
+          </div>
         </NuxtLink>
       </div>
     </section>
