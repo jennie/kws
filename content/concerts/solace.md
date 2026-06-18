@@ -6,7 +6,9 @@ description: This deeply moving programme explores reflection, remembrance, and 
 image: /images/artists/naomi-woo.jpg
 imageCredit: Christa Holka
 series: Masterworks
-venue: Centre in the Square, Kitchener
+ticketProvider: Centre In The Square
+ticketUrl: https://kwtickets.evenue.net/event/26-27/27EE0123?_gl=1*papr36*_gcl_au*NzQwNTA3OTg0LjE3ODE2MTcyMzk.*_ga*MjA0Njg1MzA4LjE3ODE2MTcyMzk.*_ga_68T6DJE3KG*czE3ODE3OTI5NDYkbzYkZzEkdDE3ODE3OTI5NTIkajU0JGwwJGgxMzc2ODE1ODc4
+venue: Centre In The Square, Kitchener
 ---
 
 ## Programme
