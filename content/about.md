@@ -7,8 +7,6 @@ description: Meet the musicians, board, and staff of the Kitchener-Waterloo Symp
 
 ## Our musicians
 
-**James Sommerville** – Artistic Advisor
-
 ### Strings
 
 - **First Violin** – Bénédicte Lauzière (Concertmaster), Lance Ouellette (Associate Concertmaster), Jung Tsai (Second Associate Concertmaster), Peter Carter, Allene Chomyn, Julia Dixon, Kenneth Kwan, Anna Luhowy
@@ -56,7 +54,10 @@ description: Meet the musicians, board, and staff of the Kitchener-Waterloo Symp
 ## KWS staff
 
 - Jason Doell – Executive Director
-- Miriam Stewart-Kroeker – Orchestra Personnel Manager
-- Ian Whitman – Learning and Community Engagement Coordinator
-- Katherine Ronzio – Manager of Marketing and Communications
+- James Sommerville – Artistic Advisor
+- Katherine Ronzio – Communications Manager
 - Andrew Mellanby – Artistic Operations Manager
+- Miriam Stewart-Kroeker – Orchestra Personnel Manager
+- Meaghan McCracken - Orchestra Librarian
+- Ian Whitman – Learning and Community Engagement Coordinator
+-
