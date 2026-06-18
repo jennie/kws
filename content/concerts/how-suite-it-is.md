@@ -1,16 +1,22 @@
 ---
-title: Suite Dreams
+title: How Suite It Is
+description: David Fallis, a KW favourite, returns to lead a programme of works that explore Baroque melodies and contemporary reflections.
 conductor: David Fallis
 date: 2027-04-30T19:30:00
-description: David Fallis, a KW favourite, returns to lead a programme of works that explore Baroque melodies and contemporary reflections.
 image: /images/artists/david-fallis.jpg
 performances:
   - date: 2027-04-30T19:30:00
     venue: Knox Presbyterian Church, Waterloo
+    ticketUrl: https://ticketscene.ca/events/63833/
+    ticketProvider: Ticketscene
   - date: 2027-05-01T19:30:00
     venue: Central Presbyterian Church, Cambridge
+    ticketUrl: https://ticketscene.ca/events/63830/
+    ticketProvider: Ticketscene
   - date: 2027-05-02T14:30:00
     venue: Harcourt United Church, Guelph
+    ticketUrl: https://ticketscene.ca/events/63829/
+    ticketProvider: Ticketscene
 series: Baroque & Beyond
 venue: Knox Presbyterian Church, Waterloo
 ---
