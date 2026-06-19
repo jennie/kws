@@ -1,3 +1,56 @@
+<script setup lang="ts">
+// Inline newsletter feedback. The form keeps its native action/method/target,
+// so it still posts to Mailchimp in a new tab if JS fails. With JS, we submit
+// via Mailchimp's JSONP endpoint (no CORS) and report the result inline.
+type Status = "idle" | "loading" | "success" | "error";
+const status = ref<Status>("idle");
+const message = ref("");
+
+function onSubmit(event: Event) {
+  const form = event.target as HTMLFormElement;
+  const data = new URLSearchParams(new FormData(form) as unknown as string[][]);
+  const callback = "kwsMcJsonp_" + Date.now();
+  const url =
+    form.action.replace("/post?", "/post-json?") +
+    "&" +
+    data.toString() +
+    "&c=" +
+    callback;
+
+  status.value = "loading";
+  message.value = "";
+
+  const script = document.createElement("script");
+  const cleanup = () => {
+    delete (window as Record<string, unknown>)[callback];
+    script.remove();
+  };
+  (window as Record<string, unknown>)[callback] = (response: {
+    result: string;
+    msg: string;
+  }) => {
+    if (response.result === "success") {
+      status.value = "success";
+      message.value = "Thanks. Check your inbox to confirm your subscription.";
+      form.reset();
+    } else {
+      status.value = "error";
+      message.value =
+        response.msg?.replace(/<[^>]*>/g, "") ||
+        "Something went wrong. Please try again.";
+    }
+    cleanup();
+  };
+  script.onerror = () => {
+    status.value = "error";
+    message.value = "Couldn't reach the newsletter service. Please try again.";
+    cleanup();
+  };
+  script.src = url;
+  document.body.appendChild(script);
+}
+</script>
+
 <template>
   <footer class="border-t border-paper-200">
     <div class="mx-auto grid max-w-shell gap-x-12 gap-y-8 px-6 py-12 md:grid-cols-[1.4fr_0.6fr_1.5fr] lg:px-10">
@@ -34,6 +87,7 @@
           action="https://kwsymphony.us8.list-manage.com/subscribe/post?u=1135719e20fe09076414f20d6&id=bf756c6648&f_id=00e117e1f0"
           method="post"
           target="_blank"
+          @submit.prevent="onSubmit"
         >
           <div class="flex flex-col gap-2 sm:flex-row">
             <input
@@ -42,13 +96,14 @@
               placeholder="you@example.com"
               required
               aria-label="Email address"
-              class="min-h-[3rem] flex-1 border border-paper-500 bg-paper-50 px-3 py-2.5 text-base text-paper-900 placeholder:text-paper-500"
+              class="min-h-[3rem] flex-1 border border-paper-500 bg-paper-50 px-3 py-2.5 text-base text-paper-900 placeholder:text-paper-600"
             >
             <button
               type="submit"
-              class="inline-flex min-h-[3rem] items-center justify-center border-2 border-paper-900 bg-paper-900 px-6 py-2.5 font-semibold text-paper-50 transition-colors hover:bg-paper-50 hover:text-paper-900"
+              :disabled="status === 'loading'"
+              class="inline-flex min-h-[3rem] items-center justify-center border-2 border-paper-900 bg-paper-900 px-6 py-2.5 font-semibold text-paper-50 transition-colors hover:bg-paper-50 hover:text-paper-900 disabled:cursor-default"
             >
-              Subscribe
+              {{ status === "loading" ? "Subscribing…" : "Subscribe" }}
             </button>
           </div>
           <input type="hidden" name="tags" value="3169692">
@@ -67,6 +122,15 @@
             <input type="checkbox" required class="mt-1.5 size-4 shrink-0 accent-paper-900">
             <span>I agree to receive email updates from the KWS. You can unsubscribe at any time.</span>
           </label>
+          <p
+            v-if="message"
+            role="status"
+            aria-live="polite"
+            class="text-base font-medium text-paper-900"
+            :class="status === 'error' ? 'border-l-2 border-paper-900 pl-3' : ''"
+          >
+            {{ message }}
+          </p>
         </form>
       </div>
     </div>

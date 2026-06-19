@@ -53,6 +53,8 @@ function groupLabel(list: { performances?: unknown[] }[]) {
 const grouped = computed(() => {
   const bySeries = new Map<string, typeof upcoming.value>();
   for (const concert of upcoming.value) {
+    // The next concert leads the page; don't repeat it in its series group.
+    if (concert.path === nextPath.value) continue;
     const key = concert.series ?? "Other";
     if (!bySeries.has(key)) bySeries.set(key, []);
     bySeries.get(key)!.push(concert);
