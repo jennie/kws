@@ -7,13 +7,19 @@ export default defineNuxtConfig({
     "@nuxt/ui",
     "@netlify/nuxt",
     "@nuxtjs/google-fonts",
-    "@nuxtjs/plausible",
     "@nuxtjs/robots",
     "nuxt-studio",
     "@nuxt/content",
   ],
 
   css: ["~/assets/css/main.css"],
+
+  // Redirects for legacy kwsymphony.com URLs.
+  routeRules: {
+    "/allconcerts": { redirect: { to: "/", statusCode: 301 } },
+    "/jobs": { redirect: { to: "/about/jobs", statusCode: 301 } },
+    "/apply": { redirect: { to: "/about/jobs", statusCode: 301 } },
+  },
 
   // Light-only paper palette; never invert under a dark system preference.
   colorMode: {
@@ -24,6 +30,14 @@ export default defineNuxtConfig({
   app: {
     head: {
       link: [{ rel: "icon", type: "image/svg+xml", href: "/favicon.svg" }],
+      // Privacy-friendly analytics by Plausible
+      script: [
+        { src: "https://plausible.io/js/pa-doXDrDsuK2WHd80WGXTIr.js", async: true },
+        {
+          innerHTML:
+            "window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()",
+        },
+      ],
     },
   },
 
