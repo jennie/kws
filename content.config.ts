@@ -28,11 +28,22 @@ export default defineContentConfig({
         })).optional()
       })
     }),
+    jobs: defineCollection({
+      type: 'page',
+      source: 'about/jobs.md',
+      schema: z.object({
+        intro: z.string(),
+        emptyTitle: z.string(),
+        emptyMessage: z.string(),
+        aboutOpen: z.string(),
+        aboutEmpty: z.string()
+      })
+    }),
     pages: defineCollection({
       type: 'page',
       source: {
-        include: '*.md',
-        exclude: ['concerts/**']
+        include: '**/*.md',
+        exclude: ['concerts/**', 'about/jobs.md']
       }
     })
   }

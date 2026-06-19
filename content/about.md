@@ -5,6 +5,11 @@ description: Meet the musicians, board, and staff of the Kitchener-Waterloo Symp
 
 # About the Kitchener-Waterloo Symphony
 
+## Join the KWS
+
+::jobs-callout
+::
+
 ## Our musicians
 
 **James Sommerville** – Artistic Advisor
