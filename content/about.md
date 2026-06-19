@@ -12,39 +12,37 @@ description: Meet the musicians, board, and staff of the Kitchener-Waterloo Symp
 
 ## Our musicians
 
-**James Sommerville** – Artistic Advisor
-
 ### Strings
 
-- **First Violin** – Bénédicte Lauzière (Concertmaster), Lance Ouellette (Associate Concertmaster), Jung Tsai (Second Associate Concertmaster), Peter Carter, Allene Chomyn, Julia Dixon, Kenneth Kwan
-- **Second Violin** – Anita Walsh (Principal), Roxolana Toews (Associate Principal), Elspeth Durward (Assistant Principal), Sophie Drouin, Vicky Dvorak, Sheilanne Lindsay
-- **Viola** – Natasha Sharko (Principal), Jody Davenport (Associate Principal), Evalynn Tyros (Assistant Principal), Rebecca Diderrich, Brenna Hardy-Kavanagh, David Wadley
-- **Cello** – John Helmers (Principal), Cathy Anderson (Associate Principal), Rebecca Morton (Assistant Principal), Kendra Grittani, Miriam Stewart-Kroeker, Nancy Wharton
-- **Bass** – Ian Whitman (Principal), Talia Hatcher (Associate Principal), Milos Petrak (Assistant Principal), Bruce McGillivray
+- **First Violin** – Bénédicte Lauzière (Concertmaster), Lance Ouellette (Associate Concertmaster), Jung Tsai (Second Associate Concertmaster), Peter Carter, Allene Chomyn, Julia Dixon, Kenneth Kwan, Anna Luhowy
+- **Second Violin** – Anita Walsh (Principal), Roxolana Toews (Associate Principal), Elspeth Durward (Assistant Principal), Sophie Drouin, Vicky Dvorak, Sheilanne Lindsay, Michael Steinberg
+- **Viola** – Natasha Sharko (Principal), Jody Davenport (Associate Principal), Rebecca Diderrich, Brenna Hardy-Kavanagh, David Wadley
+- **Cello** – John Helmers (Principal), Cathy Anderson (Associate Principal), Rebecca Morton (Assistant Principal), Kendra Grittani, Miriam Stewart-Kroeker
+- **Bass** – Ian Whitman (Principal), Talia Hatcher (Associate Principal), Bruce McGillivray
 
 ### Woodwinds
 
 - **Flute** – Kevin O'Donnell
-- **Clarinet** – Ross Edwards (Principal), Barbara Hankins
 - **Oboe** – Lief Mosbaugh (Principal), Melissa Scott
-- **Bassoon** – Ian Hopkin (Principal), Nicolas Richard
+- **Clarinet** – Ross Edwards (Principal), Barbara Hankins
+- **Bassoon** – Ian Hopkin (Principal)
 
 ### Brass
 
 - **French Horn** – Katherine Robertson, Marie-Sonja Cotineau, Deborah Stroh
+- **Trumpet** – Matheus Moraes (Principal)
 - **Trombone** – Nate Fanning (Principal), Rachel Thomas, Doug Lavell (Bass Trombone)
-- **Trumpet** – Matheus Moraes (Principal), Dan Warren
 - **Tuba** – Jennifer Stephen (Principal)
 
 ### Percussion
 
-- Ron Brown (Principal Timpani), Lori West (Principal)
+- Ron Brown (Principal Timpani)
 
 ### Harp
 
 - Lori Gemmell
 
-## Board of directors
+## Board of Directors
 
 - Bill Poole – Chair
 - Paul Ross – Treasurer
@@ -61,7 +59,10 @@ description: Meet the musicians, board, and staff of the Kitchener-Waterloo Symp
 ## KWS staff
 
 - Jason Doell – Executive Director
-- Miriam Stewart-Kroeker – Orchestra Personnel Manager
-- Ian Whitman – Learning and Community Engagement Coordinator
-- Katherine Ronzio – Manager of Marketing and Communications
+- James Sommerville – Artistic Advisor
+- Katherine Ronzio – Communications Manager
 - Andrew Mellanby – Artistic Operations Manager
+- Miriam Stewart-Kroeker – Orchestra Personnel Manager
+- Meaghan McCracken - Orchestra Librarian
+- Ian Whitman – Learning and Community Engagement Coordinator
+-
