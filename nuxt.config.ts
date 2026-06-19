@@ -21,14 +21,9 @@ export default defineNuxtConfig({
     "/apply": { redirect: { to: "/about/jobs", statusCode: 301 } },
   },
 
-  // Light-only paper palette; never invert under a dark system preference.
-  colorMode: {
-    preference: "light",
-    fallback: "light",
-  },
-
   app: {
     head: {
+      htmlAttrs: { lang: "en" },
       link: [{ rel: "icon", type: "image/svg+xml", href: "/favicon.svg" }],
       // Privacy-friendly analytics by Plausible
       script: [
@@ -49,7 +44,12 @@ export default defineNuxtConfig({
     },
   },
 
+  // Light-only paper palette. Disabling color mode hard-locks the site to
+  // light: the `.dark` class is never applied, so Nuxt UI's dark tokens can't
+  // surface (e.g. white prose headings) under a system preference or a stored
+  // color-mode cookie.
   ui: {
+    colorMode: false,
     theme: {
       colors: ["primary", "secondary", "success", "info", "warning", "error", "neutral"],
     },

@@ -219,7 +219,7 @@ onMounted(() => {
             <a
               :href="`#${group.id}`"
               :aria-current="activeSeriesId === group.id ? 'true' : undefined"
-              class="text-base no-underline hover:text-paper-900 hover:underline"
+              class="inline-block py-1 -my-1 text-base no-underline hover:text-paper-900 hover:underline"
               :class="
                 activeSeriesId === group.id
                   ? 'font-semibold text-paper-900'
