@@ -8,10 +8,19 @@ const links = [
 
 const route = useRoute()
 const open = ref(false)
+const toggleBtn = ref<HTMLButtonElement | null>(null)
 
 function isActive(to: string) {
   if (to === '/') return route.path === '/' || route.path.startsWith('/concerts')
   return route.path === to || route.path.startsWith(to + '/')
+}
+
+// Close via Escape and return focus to the toggle, so focus isn't lost when the
+// menu region unmounts.
+function onEscape() {
+  if (!open.value) return
+  open.value = false
+  nextTick(() => toggleBtn.value?.focus())
 }
 
 // Close the mobile menu after navigating.
@@ -19,7 +28,7 @@ watch(() => route.path, () => { open.value = false })
 </script>
 
 <template>
-  <header class="border-b border-paper-200 bg-paper-50">
+  <header class="border-b border-paper-200 bg-paper-50" @keydown.esc="onEscape">
     <div class="mx-auto flex max-w-shell items-center justify-between gap-6 px-6 py-5 lg:px-10">
       <NuxtLink
         to="/"
@@ -55,6 +64,7 @@ watch(() => route.path, () => { open.value = false })
       </nav>
 
       <button
+        ref="toggleBtn"
         type="button"
         class="-mr-2 inline-flex h-11 w-11 items-center justify-center text-paper-900 md:hidden"
         :aria-expanded="open"
