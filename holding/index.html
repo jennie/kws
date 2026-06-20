@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kitchener-Waterloo Symphony</title>
+  <meta name="description" content="The Kitchener-Waterloo Symphony website is being updated. We'll be right back with information on our upcoming season.">
+  <meta name="robots" content="noindex">
+  <meta property="og:title" content="Kitchener-Waterloo Symphony">
+  <meta property="og:description" content="We'll be right back with information on our upcoming season.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper-50: oklch(99% 0.003 70);
+      --paper-100: oklch(97.5% 0.006 65);
+      --paper-200: oklch(94% 0.009 60);
+      --paper-300: oklch(88% 0.011 55);
+      --paper-600: oklch(40% 0.014 45);
+      --paper-700: oklch(28% 0.012 45);
+      --paper-800: oklch(18% 0.01 45);
+      --paper-900: oklch(12% 0.008 40);
+      --font: "Archivo", "Helvetica Neue", system-ui, -apple-system, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      font-family: var(--font);
+      font-size: 18px;
+      background-color: var(--paper-50);
+      color: var(--paper-800);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      font-size: 1.125rem;
+      line-height: 1.65;
+    }
+
+    a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
+
+    :focus-visible {
+      outline: 3px solid var(--paper-900);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    .wrap {
+      flex: 1 0 auto;
+      width: 100%;
+      max-width: 44rem;
+      margin: 0 auto;
+      padding: 4rem 1.5rem 3rem;
+    }
+
+    .logo {
+      width: 100%;
+      max-width: 22rem;
+      height: auto;
+      margin-bottom: 3rem;
+    }
+
+    h1 {
+      font-family: var(--font);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--paper-900);
+      font-size: 2.375rem;
+      line-height: 1.15;
+      margin: 0 0 1rem;
+    }
+
+    .lead {
+      font-size: 1.25rem;
+      color: var(--paper-700);
+      margin: 0 0 1rem;
+      max-width: 36rem;
+    }
+
+    h2 {
+      font-family: var(--font);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--paper-900);
+      font-size: 1.5rem;
+      line-height: 1.4;
+      margin: 0 0 0.5rem;
+    }
+
+    hr {
+      border: 0;
+      border-top: 1px solid var(--paper-300);
+      margin: 3rem 0;
+    }
+
+    .eyebrow {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--paper-900);
+      margin: 0 0 0.75rem;
+    }
+
+    .job {
+      border: 1px solid var(--paper-300);
+      padding: 1.75rem;
+    }
+    .job p { margin: 0 0 0.75rem; }
+    .job .meta { color: var(--paper-600); font-size: 1rem; }
+    .job p:last-child { margin-bottom: 0; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      min-height: 3rem;
+      padding: 0.625rem 1.5rem;
+      border: 2px solid var(--paper-900);
+      background: var(--paper-900);
+      color: var(--paper-50);
+      font-weight: 600;
+      text-decoration: none;
+      transition: background-color 0.15s, color 0.15s;
+    }
+    .btn:hover { background: var(--paper-50); color: var(--paper-900); }
+
+    .newsletter form { margin-top: 1rem; }
+    .field-row { display: flex; flex-direction: column; gap: 0.5rem; }
+    @media (min-width: 30rem) { .field-row { flex-direction: row; } }
+    .field-row input[type="email"] {
+      flex: 1 1 auto;
+      min-width: 0;
+      min-height: 3rem;
+      padding: 0.625rem 0.75rem;
+      border: 1px solid var(--paper-600);
+      background: var(--paper-50);
+      color: var(--paper-900);
+      font-size: 1.125rem;
+      font-family: var(--font);
+    }
+    .field-row input::placeholder { color: var(--paper-600); }
+    .consent {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+      font-size: 1rem;
+      color: var(--paper-700);
+    }
+    .consent input { margin-top: 0.35rem; flex-shrink: 0; width: 1rem; height: 1rem; accent-color: var(--paper-900); }
+    .hp { position: absolute; left: -5000px; }
+
+    footer {
+      flex-shrink: 0;
+      border-top: 1px solid var(--paper-200);
+    }
+    .footer-inner {
+      width: 100%;
+      max-width: 44rem;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      font-size: 1rem;
+      color: var(--paper-700);
+    }
+    .footer-inner strong { color: var(--paper-900); font-weight: 600; }
+    .footer-inner p { margin: 0 0 0.25rem; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <img class="logo" src="/kws-logo.svg" alt="Kitchener-Waterloo Symphony">
+
+    <h1>We'll be right back</h1>
+    <p class="lead">Our website is being updated. We'll be back shortly with information on our upcoming season.</p>
+
+    <section class="newsletter" aria-labelledby="newsletter-heading">
+      <p class="eyebrow" id="newsletter-heading">Hear it first</p>
+      <p>Subscribe for season announcements and concert reminders.</p>
+      <form
+        action="https://kwsymphony.us8.list-manage.com/subscribe/post?u=1135719e20fe09076414f20d6&amp;id=bf756c6648&amp;f_id=00e117e1f0"
+        method="post"
+        target="_blank"
+      >
+        <div class="field-row">
+          <input type="email" name="EMAIL" placeholder="you@example.com" required aria-label="Email address">
+          <button type="submit" class="btn">Subscribe</button>
+        </div>
+        <input type="hidden" name="tags" value="3169692">
+        <div class="hp" aria-hidden="true">
+          <input type="text" name="b_1135719e20fe09076414f20d6_bf756c6648" tabindex="-1" value="" autocomplete="off">
+        </div>
+        <label class="consent">
+          <input type="checkbox" required>
+          <span>I agree to receive email updates from the KWS. You can unsubscribe at any time.</span>
+        </label>
+      </form>
+    </section>
+
+    <hr>
+
+    <section class="job-section" aria-labelledby="job-heading">
+      <p class="eyebrow" id="job-heading">We're hiring</p>
+      <div class="job">
+        <h2>Marketing Coordinator</h2>
+        <p class="meta">Part-time, 15 hours/week. $24/hour. Start date: Tuesday, July 28, 2026.</p>
+        <p>The KWS is hiring a part-time Marketing Coordinator to support audience development and communications during a period of growth.</p>
+        <p>To apply, send a single PDF with your cover letter, resume, and two references to <a href="mailto:info@kwsymphony.com?subject=Marketing%20Coordinator">info@kwsymphony.com</a> with the subject line "Marketing Coordinator".</p>
+        <p class="meta">Application deadline: Friday, June 26, 2026 at 12:00 PM (noon).</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <p><strong>Kitchener-Waterloo Symphony</strong></p>
+      <p>14 Huntingwood Court, Kitchener, ON N2P 2A7</p>
+      <p>Box office: <a href="mailto:info@kwsymphony.com">info@kwsymphony.com</a></p>
+    </div>
+  </footer>
+</body>
+</html>

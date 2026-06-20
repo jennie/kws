@@ -1,6 +1,5 @@
+# coming-soon branch: serve the static holding page, no Nuxt build.
+# Revert to main as Netlify's production branch to launch the real site.
 [build]
-  command = "npm run build"
-  publish = "dist"
-
-[build.environment]
-  NODE_VERSION = "22"
+  command = "echo 'holding page: no build'"
+  publish = "holding"
