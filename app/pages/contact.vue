@@ -5,7 +5,9 @@ const { data: page } = await useAsyncData('contact-page', () =>
 
 useSeoMeta({
   title: () => page.value?.title ?? 'Contact',
-  description: () => page.value?.description
+  description: () => page.value?.description,
+  ogTitle: () => page.value?.title ?? 'Contact',
+  ogDescription: () => page.value?.description
 })
 
 const formRef = ref<HTMLFormElement | null>(null)

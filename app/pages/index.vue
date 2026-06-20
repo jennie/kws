@@ -92,6 +92,9 @@ useSeoMeta({
   title: "Kitchener-Waterloo Symphony",
   description:
     "Concerts and events from the Kitchener-Waterloo Symphony, serving the Waterloo Region for 75 years.",
+  ogTitle: "Kitchener-Waterloo Symphony",
+  ogDescription:
+    "Concerts and events from the Kitchener-Waterloo Symphony, serving the Waterloo Region for 75 years.",
 });
 
 // Scroll-spy: ink the jump-nav link for the series currently in view.
@@ -164,7 +167,6 @@ onMounted(() => {
             width="1600"
             height="900"
             sizes="md:100vw lg:55vw"
-            preload
             fetchpriority="high"
             class="h-full w-full object-cover"
             style="object-position: center 30%"

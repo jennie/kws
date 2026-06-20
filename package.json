@@ -16,6 +16,7 @@
     "@nuxt/ui": "^4.8.0",
     "@nuxtjs/google-fonts": "^3.2.0",
     "@nuxtjs/robots": "^6.0.9",
+    "@nuxtjs/sitemap": "^8.2.1",
     "better-sqlite3": "^12.10.0",
     "nuxt": "^4.4.6",
     "nuxt-studio": "^1.7.0",

@@ -23,7 +23,11 @@ const moreInSeries = computed(() =>
 
 useSeoMeta({
   title: () => concert.value?.title,
-  description: () => concert.value?.description
+  description: () => concert.value?.description,
+  ogTitle: () => concert.value?.title,
+  ogDescription: () => concert.value?.description,
+  ogImage: () =>
+    concert.value?.image ? ogConcertImage(concert.value.image) : absUrl('/images/og-default.png')
 })
 </script>
 
@@ -65,7 +69,6 @@ useSeoMeta({
         width="1600"
         height="900"
         sizes="md:100vw lg:896px"
-        preload
         fetchpriority="high"
         class="aspect-video w-full border border-paper-300 object-cover"
       />

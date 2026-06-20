@@ -9,11 +9,20 @@ export default defineNuxtConfig({
     "@netlify/nuxt",
     "@nuxtjs/google-fonts",
     "@nuxtjs/robots",
+    "@nuxtjs/sitemap",
     "nuxt-studio",
     "@nuxt/content",
   ],
 
   css: ["~/assets/css/main.css"],
+
+  // Canonical production host. Drives sitemap URLs, canonical links, and the
+  // Sitemap: line added to robots.txt. This is the cutover target domain, not
+  // the interim netlify.app host (see app/utils/seo.ts).
+  site: {
+    url: "https://www.kwsymphony.com",
+    name: "Kitchener-Waterloo Symphony",
+  },
 
   // Content is fully static (markdown, rebuilt on Studio edit), so prerender
   // every page to static HTML served from Netlify's CDN instead of rendering
@@ -22,7 +31,10 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       crawlLinks: true,
-      routes: ["/"],
+      // robots.txt isn't reachable by link-crawling, so name it explicitly to
+      // emit it as a static file (with the Sitemap: line the sitemap module
+      // injects) rather than leaving it to a request-time function.
+      routes: ["/", "/robots.txt"],
       // Don't prerender image-transform URLs the crawler finds in <img>/srcset.
       // They're served at request time by the Netlify Image CDN (or IPX in dev),
       // and 404 at build time, which would otherwise fail the prerender.
@@ -35,9 +47,34 @@ export default defineNuxtConfig({
   // can't transform images.
   image: {},
 
-  // Redirects for legacy kwsymphony.com URLs.
+  // 301 redirects from the old kwsymphony.com (Squarespace) URL structure to
+  // the new one, so search ranking and inbound links survive the domain
+  // cutover. Source paths are every URL in the old site's sitemap.xml. Nitro
+  // matches most-specific first, so the per-concert rules win over the
+  // /allconcerts/** catch-all.
   routeRules: {
+    // Top-level pages.
+    "/home": { redirect: { to: "/", statusCode: 301 } },
     "/allconcerts": { redirect: { to: "/", statusCode: 301 } },
+    "/news": { redirect: { to: "/", statusCode: 301 } },
+    "/update": { redirect: { to: "/", statusCode: 301 } },
+    "/gemmell-video": { redirect: { to: "/", statusCode: 301 } },
+    // Concert slugs that carried into the new season.
+    "/allconcerts/beauty-power": { redirect: { to: "/concerts/beauty-and-power", statusCode: 301 } },
+    "/allconcerts/folk-dances": { redirect: { to: "/concerts/folk-dances", statusCode: 301 } },
+    "/allconcerts/yuletide-pops": { redirect: { to: "/concerts/yuletide-pops", statusCode: 301 } },
+    "/allconcerts/solace": { redirect: { to: "/concerts/solace", statusCode: 301 } },
+    "/allconcerts/the-journey-home": { redirect: { to: "/concerts/the-journey-home", statusCode: 301 } },
+    // Every other (past-season) concert page → the concert listing.
+    "/allconcerts/**": { redirect: { to: "/", statusCode: 301 } },
+    // About-section content that no longer has its own page.
+    "/our-musicians": { redirect: { to: "/about", statusCode: 301 } },
+    "/board-of-directors-and-staff": { redirect: { to: "/about", statusCode: 301 } },
+    "/kws-in-the-community": { redirect: { to: "/about", statusCode: 301 } },
+    "/orchestral-musician-school-visits": { redirect: { to: "/about", statusCode: 301 } },
+    "/mnbios": { redirect: { to: "/about", statusCode: 301 } },
+    "/artist-bios": { redirect: { to: "/about", statusCode: 301 } },
+    // Jobs/apply (old /jobs is in the legacy sitemap; /apply is a known alias).
     "/jobs": { redirect: { to: "/about/jobs", statusCode: 301 } },
     "/apply": { redirect: { to: "/about/jobs", statusCode: 301 } },
   },

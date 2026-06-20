@@ -9,7 +9,9 @@ const hasOpenings = computed(() => (page.value?.body?.value?.length ?? 0) > 0)
 
 useSeoMeta({
   title: () => page.value?.title ?? 'Jobs',
-  description: () => page.value?.description
+  description: () => page.value?.description,
+  ogTitle: () => page.value?.title ?? 'Jobs',
+  ogDescription: () => page.value?.description
 })
 </script>
 
