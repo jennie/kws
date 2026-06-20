@@ -98,5 +98,28 @@ export function organisationJsonLd() {
       'Concerts and events from the Kitchener-Waterloo Symphony, serving the Waterloo Region for 75 years.',
     logo: absUrl('/images/kws-logo.svg'),
     areaServed: 'Waterloo Region, Ontario',
+    email: 'info@kwsymphony.com',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: '14 Huntingwood Court',
+      addressLocality: 'Kitchener',
+      addressRegion: 'ON',
+      postalCode: 'N2P 2A7',
+      addressCountry: 'CA',
+    },
+    sameAs: ['https://facebook.com/kwsymphony'],
+  }
+}
+
+// Home › Concerts › <title>. "Concerts" points at the home page, which is the
+// concert listing. Renders breadcrumbs in place of the raw URL in search.
+export function breadcrumbJsonLd(title: string, path: string) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Concerts', item: absUrl('/') },
+      { '@type': 'ListItem', position: 2, name: title, item: absUrl(path) },
+    ],
   }
 }

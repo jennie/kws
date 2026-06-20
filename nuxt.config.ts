@@ -9,6 +9,13 @@
 // redeploy.
 const siteUrl = process.env.NUXT_SITE_URL || "https://kwsymphony.netlify.app";
 
+// Only let the real production domain be indexed. The pre-cutover netlify.app
+// deploy now self-canonicalises and ships a sitemap, so without this it could
+// get indexed and compete with www after launch. @nuxtjs/robots reads this and
+// emits Disallow: / + noindex on the staging host; it flips to indexable when
+// NUXT_SITE_URL points at www at cutover.
+const indexable = siteUrl.includes("www.kwsymphony.com");
+
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: false },
@@ -30,6 +37,7 @@ export default defineNuxtConfig({
   site: {
     url: siteUrl,
     name: "Kitchener-Waterloo Symphony",
+    indexable,
   },
 
   // Inline the resolved host as a literal (isomorphic, same value on server and
@@ -97,7 +105,10 @@ export default defineNuxtConfig({
   app: {
     head: {
       htmlAttrs: { lang: "en" },
-      link: [{ rel: "icon", type: "image/svg+xml", href: "/favicon.svg" }],
+      link: [
+        { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+        { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
+      ],
       // Privacy-friendly analytics by Plausible
       script: [
         { src: "https://plausible.io/js/pa-doXDrDsuK2WHd80WGXTIr.js", async: true },

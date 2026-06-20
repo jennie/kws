@@ -30,10 +30,11 @@ useSeoMeta({
     concert.value?.image ? ogConcertImage(concert.value.image) : absUrl('/images/og-default.png')
 })
 
-// MusicEvent structured data for Google event rich results.
+// MusicEvent + breadcrumb structured data for Google rich results.
 useHead({
   script: [
-    { type: 'application/ld+json', innerHTML: ldJson(concertJsonLd(concert.value!)) }
+    { type: 'application/ld+json', innerHTML: ldJson(concertJsonLd(concert.value!)) },
+    { type: 'application/ld+json', innerHTML: ldJson(breadcrumbJsonLd(concert.value!.title, route.path)) }
   ]
 })
 </script>
