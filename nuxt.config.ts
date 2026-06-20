@@ -5,6 +5,7 @@ export default defineNuxtConfig({
 
   modules: [
     "@nuxt/ui",
+    "@nuxt/image",
     "@netlify/nuxt",
     "@nuxtjs/google-fonts",
     "@nuxtjs/robots",
@@ -13,6 +14,22 @@ export default defineNuxtConfig({
   ],
 
   css: ["~/assets/css/main.css"],
+
+  // Content is fully static (markdown, rebuilt on Studio edit), so prerender
+  // every page to static HTML served from Netlify's CDN instead of rendering
+  // on-demand in a function. crawlLinks follows the concert/nav/footer links
+  // out from "/" to reach every route.
+  nitro: {
+    prerender: {
+      crawlLinks: true,
+      routes: ["/"],
+    },
+  },
+
+  // Provider is auto-detected: IPX in local dev (sharp is available), and the
+  // Netlify Image CDN on deploy. Don't hard-set "netlify" or local `nuxt dev`
+  // can't transform images.
+  image: {},
 
   // Redirects for legacy kwsymphony.com URLs.
   routeRules: {

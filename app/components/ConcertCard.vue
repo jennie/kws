@@ -50,10 +50,10 @@ const statusLabel = computed(() => {
 
 const imageBroken = ref(false)
 const showImage = computed(() => !!props.image && !imageBroken.value)
-const imgRef = ref<HTMLImageElement | null>(null)
+const imgRef = ref<{ $el: HTMLImageElement } | null>(null)
 
 onMounted(() => {
-  const img = imgRef.value
+  const img = imgRef.value?.$el
   if (img && img.complete && !img.naturalWidth) imageBroken.value = true
 })
 </script>
@@ -61,15 +61,18 @@ onMounted(() => {
 <template>
   <article class="group flex h-full flex-col border border-paper-300 bg-paper-50">
     <NuxtLink :to="slug" class="block no-underline" :aria-label="title">
-      <img
+      <NuxtImg
         v-if="showImage"
         ref="imgRef"
         :src="image"
         :alt="title"
+        width="600"
+        height="400"
+        sizes="100vw sm:50vw lg:440px"
         loading="lazy"
         class="block aspect-[3/2] w-full object-cover object-[center_30%] border-b border-paper-300"
         @error="imageBroken = true"
-      >
+      />
       <div
         v-else
         class="kws-card-fallback flex aspect-[3/2] items-center justify-center border-b border-paper-300 text-paper-50"

@@ -157,10 +157,15 @@ onMounted(() => {
           :aria-label="next.title"
           class="block aspect-video border-b border-paper-900 no-underline lg:aspect-auto lg:border-b-0 lg:border-r"
         >
-          <img
+          <NuxtImg
             v-if="next.image"
             :src="next.image"
             :alt="next.title"
+            width="880"
+            height="495"
+            sizes="100vw lg:600px"
+            preload
+            fetchpriority="high"
             class="h-full w-full object-cover"
             style="object-position: center 30%"
           />

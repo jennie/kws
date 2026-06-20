@@ -59,11 +59,16 @@ useSeoMeta({
     </div>
 
     <figure class="mt-8 max-w-4xl">
-      <img
+      <NuxtImg
         :src="concert.image"
         :alt="concert.title"
+        width="896"
+        height="504"
+        sizes="100vw md:896px"
+        preload
+        fetchpriority="high"
         class="aspect-video w-full border border-paper-300 object-cover"
-      >
+      />
       <figcaption v-if="concert.imageCredit" class="mt-2 text-sm text-paper-600">
         Photo: {{ concert.imageCredit }}
       </figcaption>
@@ -129,11 +134,15 @@ useSeoMeta({
           :to="c.path"
           class="flex gap-3 border border-paper-300 p-4 no-underline transition-colors hover:border-paper-900"
         >
-          <img
+          <NuxtImg
             :src="c.image"
             alt=""
+            width="64"
+            height="64"
+            sizes="64px"
+            loading="lazy"
             class="aspect-square w-16 shrink-0 border border-paper-300 object-cover"
-          >
+          />
           <div>
             <span class="block font-display text-lg font-semibold leading-tight text-paper-900">{{ c.title }}</span>
             <span class="mt-1 block text-sm text-paper-600">{{ longDate(c.date) }}</span>
