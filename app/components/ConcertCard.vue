@@ -80,13 +80,13 @@ onMounted(() => {
       </div>
     </NuxtLink>
 
-    <div class="flex flex-1 flex-col p-6">
-      <div class="mb-3 flex items-baseline justify-between gap-3">
-        <span v-if="series" class="text-base font-medium text-paper-600">{{ series }}</span>
+    <div class="@container flex flex-1 flex-col p-6">
+      <div class="mb-3 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+        <span v-if="series" class="whitespace-nowrap text-base font-medium text-paper-600">{{ series }}</span>
         <span :style="`font-size:1rem;line-height:1.4;white-space:nowrap;text-transform:none;letter-spacing:normal;font-weight:${featured ? 600 : 500};color:var(${featured ? '--color-paper-900' : '--color-paper-600'});`">{{ statusLabel }}</span>
       </div>
 
-      <h3 class="mb-4 font-display text-[1.85rem] font-semibold leading-[1.1] tracking-tight text-paper-900">
+      <h3 class="mb-4 text-balance font-display text-xl font-semibold leading-[1.15] tracking-tight text-paper-900">
         <NuxtLink :to="slug" class="no-underline hover:underline">{{ title }}</NuxtLink>
       </h3>
 
@@ -116,7 +116,7 @@ onMounted(() => {
             v-for="(p, i) in performances"
             :key="i"
             :class="[
-              'grid grid-cols-[1fr_auto] items-center gap-x-4 gap-y-3 py-4',
+              'flex flex-col items-start gap-3 py-4 @min-[24rem]:flex-row @min-[24rem]:items-center @min-[24rem]:justify-between @min-[24rem]:gap-4',
               i === 0 ? 'border-t border-paper-400' : 'border-t border-paper-200'
             ]"
           >
@@ -124,7 +124,7 @@ onMounted(() => {
               <span class="block text-sm font-semibold text-paper-900">
                 <time :datetime="isoDate(p.date)">{{ shortDate(p.date) }} · {{ timeOf(p.date) }}</time>
               </span>
-              <span class="block text-sm text-paper-600">{{ p.venue }}</span>
+              <span class="block text-xs text-paper-600">{{ p.venue }}</span>
             </div>
             <TicketButton :url="p.ticketUrl" :provider="p.ticketProvider" size="sm" />
           </li>
