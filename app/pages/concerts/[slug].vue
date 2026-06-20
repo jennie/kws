@@ -62,9 +62,9 @@ useSeoMeta({
       <NuxtImg
         :src="concert.image"
         :alt="concert.title"
-        width="896"
-        height="504"
-        sizes="100vw md:896px"
+        width="1600"
+        height="900"
+        sizes="md:100vw lg:896px"
         preload
         fetchpriority="high"
         class="aspect-video w-full border border-paper-300 object-cover"

@@ -161,9 +161,9 @@ onMounted(() => {
             v-if="next.image"
             :src="next.image"
             :alt="next.title"
-            width="880"
-            height="495"
-            sizes="100vw lg:600px"
+            width="1600"
+            height="900"
+            sizes="md:100vw lg:55vw"
             preload
             fetchpriority="high"
             class="h-full w-full object-cover"
