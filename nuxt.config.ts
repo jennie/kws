@@ -23,6 +23,10 @@ export default defineNuxtConfig({
     prerender: {
       crawlLinks: true,
       routes: ["/"],
+      // Don't prerender image-transform URLs the crawler finds in <img>/srcset.
+      // They're served at request time by the Netlify Image CDN (or IPX in dev),
+      // and 404 at build time, which would otherwise fail the prerender.
+      ignore: ["/.netlify/images", "/_ipx"],
     },
   },
 
