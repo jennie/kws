@@ -22,10 +22,10 @@ function onSubmit(event: Event) {
 
   const script = document.createElement("script");
   const cleanup = () => {
-    delete (window as Record<string, unknown>)[callback];
+    delete (window as unknown as Record<string, unknown>)[callback];
     script.remove();
   };
-  (window as Record<string, unknown>)[callback] = (response: {
+  (window as unknown as Record<string, unknown>)[callback] = (response: {
     result: string;
     msg: string;
   }) => {
@@ -96,12 +96,12 @@ function onSubmit(event: Event) {
               placeholder="you@example.com"
               required
               aria-label="Email address"
-              class="min-h-[3rem] flex-1 border border-paper-500 bg-paper-50 px-3 py-2.5 text-base text-paper-900 placeholder:text-paper-600"
+              class="min-h-12 flex-1 border border-paper-500 bg-paper-50 px-3 py-2.5 text-base text-paper-900 placeholder:text-paper-600"
             >
             <button
               type="submit"
               :disabled="status === 'loading'"
-              class="inline-flex min-h-[3rem] items-center justify-center border-2 border-paper-900 bg-paper-900 px-6 py-2.5 font-semibold text-paper-50 transition-colors hover:bg-paper-50 hover:text-paper-900 disabled:cursor-default"
+              class="inline-flex min-h-12 items-center justify-center border-2 border-paper-900 bg-paper-900 px-6 py-2.5 font-semibold text-paper-50 transition-colors hover:bg-paper-50 hover:text-paper-900 disabled:cursor-default"
             >
               {{ status === "loading" ? "Subscribing…" : "Subscribe" }}
             </button>

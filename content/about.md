@@ -7,8 +7,7 @@ description: Meet the musicians, board, and staff of the Kitchener-Waterloo Symp
 
 ## Join the KWS
 
-::jobs-callout
-::
+:jobs-callout
 
 ## Our musicians
 

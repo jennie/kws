@@ -295,13 +295,13 @@ onMounted(() => {
         <div class="mt-9 flex flex-wrap items-center justify-center gap-4">
           <NuxtLink
             to="/contact"
-            class="inline-flex min-h-[3.25rem] items-center justify-center border-2 border-paper-900 bg-paper-900 px-7 py-3.5 font-semibold text-paper-50 no-underline transition-colors hover:bg-paper-50 hover:text-paper-900"
+            class="inline-flex min-h-13 items-center justify-center border-2 border-paper-900 bg-paper-900 px-7 py-3.5 font-semibold text-paper-50 no-underline transition-colors hover:bg-paper-50 hover:text-paper-900"
           >
             Contact the box office
           </NuxtLink>
           <NuxtLink
             to="/donate"
-            class="inline-flex min-h-[3.25rem] items-center justify-center border-2 border-paper-900 px-7 py-3.5 font-semibold text-paper-900 no-underline transition-colors hover:bg-paper-900 hover:text-paper-50"
+            class="inline-flex min-h-13 items-center justify-center border-2 border-paper-900 px-7 py-3.5 font-semibold text-paper-900 no-underline transition-colors hover:bg-paper-900 hover:text-paper-50"
           >
             Support the KWS
           </NuxtLink>
