@@ -97,6 +97,13 @@ useSeoMeta({
     "Concerts and events from the Kitchener-Waterloo Symphony, serving the Waterloo Region for 75 years.",
 });
 
+// Organisation structured data for the knowledge panel.
+useHead({
+  script: [
+    { type: "application/ld+json", innerHTML: ldJson(organisationJsonLd()) },
+  ],
+});
+
 // Scroll-spy: ink the jump-nav link for the series currently in view.
 const activeSeriesId = ref("");
 onMounted(() => {
