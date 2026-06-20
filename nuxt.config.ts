@@ -1,4 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+
+// The host the new site is actually served from. Until DNS is repointed,
+// www.kwsymphony.com still serves the old Squarespace site, so canonical links,
+// the sitemap, and Open Graph image URLs must use the netlify.app subdomain to
+// resolve (otherwise social-preview scrapers 404 on the old domain). Not
+// derived from Netlify's URL env, which can already be pinned to www.
+// AT CUTOVER: set NUXT_SITE_URL=https://www.kwsymphony.com in Netlify and
+// redeploy.
+const siteUrl = process.env.NUXT_SITE_URL || "https://kwsymphony.netlify.app";
+
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: false },
@@ -16,12 +26,17 @@ export default defineNuxtConfig({
 
   css: ["~/assets/css/main.css"],
 
-  // Canonical production host. Drives sitemap URLs, canonical links, and the
-  // Sitemap: line added to robots.txt. This is the cutover target domain, not
-  // the interim netlify.app host (see app/utils/seo.ts).
+  // Drives sitemap URLs, canonical links, and the Sitemap: line in robots.txt.
   site: {
-    url: "https://www.kwsymphony.com",
+    url: siteUrl,
     name: "Kitchener-Waterloo Symphony",
+  },
+
+  // Inline the resolved host as a literal (isomorphic, same value on server and
+  // client) so seo.ts/schema.ts can build absolute URLs in pure utils, even
+  // inside head getter functions where Nuxt composables aren't callable.
+  vite: {
+    define: { __SITE_URL__: JSON.stringify(siteUrl) },
   },
 
   // Content is fully static (markdown, rebuilt on Studio edit), so prerender

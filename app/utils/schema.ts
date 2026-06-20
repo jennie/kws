@@ -3,12 +3,14 @@
 // a MusicGroup for the organisation knowledge panel. splitVenue, absUrl and
 // SITE_URL are auto-imported from the sibling util files.
 
-const ORGANISATION = {
+// A function (not a constant) so the url resolves against the live host at call
+// time rather than at module load, when the Nuxt context isn't available.
+const organisation = () => ({
   '@type': 'MusicGroup',
   name: 'Kitchener-Waterloo Symphony',
   alternateName: 'KWS',
-  url: SITE_URL,
-}
+  url: absUrl(''),
+})
 
 type Stop = { date: string; venue: string; ticketUrl?: string; ticketProvider?: string }
 type Concert = {
@@ -50,7 +52,7 @@ function offer(url?: string, provider?: string) {
 }
 
 function performers(concert: Concert) {
-  const list: object[] = [ORGANISATION]
+  const list: object[] = [organisation()]
   if (concert.conductor) list.push({ '@type': 'Person', name: concert.conductor })
   for (const a of concert.artists ?? []) list.push({ '@type': 'Person', name: a.name })
   return list
@@ -66,7 +68,7 @@ export function concertJsonLd(concert: Concert) {
     eventStatus: 'https://schema.org/EventScheduled',
     eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
     performer: performers(concert),
-    organizer: ORGANISATION,
+    organizer: organisation(),
   }
   // Touring concerts list their stops in `performances`; single-date concerts
   // carry date/venue/tickets at the top level. Emit one MusicEvent per stop.
@@ -91,7 +93,7 @@ export function concertJsonLd(concert: Concert) {
 export function organisationJsonLd() {
   return {
     '@context': 'https://schema.org',
-    ...ORGANISATION,
+    ...organisation(),
     description:
       'Concerts and events from the Kitchener-Waterloo Symphony, serving the Waterloo Region for 75 years.',
     logo: absUrl('/images/kws-logo.svg'),
