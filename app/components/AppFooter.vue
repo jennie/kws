@@ -53,7 +53,7 @@ function onSubmit(event: Event) {
 
 <template>
   <footer class="border-t border-paper-200">
-    <div class="mx-auto grid max-w-shell gap-x-12 gap-y-8 px-6 py-12 md:grid-cols-[1.4fr_0.6fr_1.5fr] lg:px-10">
+    <div class="mx-auto grid max-w-shell gap-x-12 gap-y-8 px-6 py-12 md:grid-cols-2 lg:grid-cols-[1.4fr_0.6fr_1.5fr] lg:px-10">
       <div class="space-y-2">
         <h3 class="font-semibold text-paper-900">Kitchener-Waterloo Symphony</h3>
         <address class="text-base not-italic leading-relaxed text-paper-700">
@@ -77,7 +77,7 @@ function onSubmit(event: Event) {
         </ul>
       </nav>
 
-      <div class="min-w-0 space-y-3">
+      <div class="min-w-0 space-y-3 md:col-span-2 md:max-w-md lg:col-span-1 lg:max-w-none">
         <h3 class="font-semibold text-paper-900">Newsletter</h3>
         <p class="text-base text-paper-700">
           Subscribe for season announcements and concert reminders.
