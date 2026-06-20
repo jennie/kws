@@ -244,14 +244,14 @@ onMounted(() => {
           class="scroll-mt-20"
         >
           <div
-            class="mb-6 flex items-baseline justify-between gap-4 border-b-2 border-paper-900 pb-3"
+            class="mb-6 flex flex-col gap-1 border-b-2 border-paper-900 pb-3 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4"
           >
             <h2
               class="font-display text-2xl font-semibold tracking-tight text-paper-900 lg:text-3xl"
             >
               {{ group.series }}
             </h2>
-            <span class="kws-eyebrow">{{ group.label }}</span>
+            <span class="kws-eyebrow sm:whitespace-nowrap">{{ group.label }}</span>
           </div>
 
           <div class="grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
