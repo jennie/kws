@@ -192,7 +192,9 @@ onMounted(() => {
             id="lead-title"
             class="mb-4 font-display text-3xl font-bold leading-[1.02] tracking-tight text-paper-900 lg:text-[3rem]"
           >
-            <NuxtLink :to="nextPath" class="no-underline hover:underline">{{ next.title }}</NuxtLink>
+            <NuxtLink :to="nextPath" class="no-underline hover:underline">{{
+              next.title
+            }}</NuxtLink>
           </h2>
           <p
             v-if="next.description"
@@ -265,7 +267,9 @@ onMounted(() => {
             >
               {{ group.series }}
             </h2>
-            <span class="kws-eyebrow sm:whitespace-nowrap">{{ group.label }}</span>
+            <span class="kws-eyebrow sm:whitespace-nowrap">{{
+              group.label
+            }}</span>
           </div>
 
           <div class="grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
@@ -303,15 +307,15 @@ onMounted(() => {
         </h1>
         <p class="mx-auto mt-5 max-w-xl text-lg leading-[1.55] text-paper-700">
           The season concludes shortly. Sign up for season announcements,
-          revisit past programmes, or reach the box office while we finalize the
-          year ahead.
+          revisit past programmes, or reach the us while we finalize the year
+          ahead.
         </p>
         <div class="mt-9 flex flex-wrap items-center justify-center gap-4">
           <NuxtLink
             to="/contact"
             class="inline-flex min-h-13 items-center justify-center border-2 border-paper-900 bg-paper-900 px-7 py-3.5 font-semibold text-paper-50 no-underline transition-colors hover:bg-paper-50 hover:text-paper-900"
           >
-            Contact the box office
+            Contact us
           </NuxtLink>
           <NuxtLink
             to="/donate"
