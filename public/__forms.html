@@ -1,0 +1,25 @@
+<!doctype html>
+<!--
+  Static copy of every Netlify form on the site. Netlify's build-time parser
+  only scans pre-built static HTML, and the prerendered Vue output of the
+  contact form is parsed unreliably (form detected, but submissions silently
+  dropped). This plain file registers each form and its exact field schema.
+  Keep field names in sync with the live form in app/pages/contact.vue.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Netlify form detection</title>
+  </head>
+  <body>
+    <form name="contact" method="post" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="contact" />
+      <input name="bot-field" />
+      <input type="text" name="first-name" />
+      <input type="text" name="last-name" />
+      <input type="email" name="email" />
+      <input type="text" name="subject" />
+      <textarea name="message"></textarea>
+    </form>
+  </body>
+</html>
