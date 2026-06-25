@@ -28,7 +28,7 @@ description: Meet the musicians, board, and staff of the Kitchener-Waterloo Symp
 
 ### Brass
 
-- **French Horn** – Katherine Robertson, Marie-Sonja Cotineau, Deborah Stroh
+- **Horn** – Katherine Robertson, Marie-Sonja Cotineau, Deborah Stroh
 - **Trumpet** – Matheus Moraes (Principal)
 - **Trombone** – Nate Fanning (Principal), Rachel Thomas, Doug Lavell (Bass Trombone)
 - **Tuba** – Jennifer Stephen (Principal)
@@ -64,4 +64,3 @@ description: Meet the musicians, board, and staff of the Kitchener-Waterloo Symp
 - Miriam Stewart-Kroeker – Orchestra Personnel Manager
 - Meaghan McCracken - Orchestra Librarian
 - Ian Whitman – Learning and Community Engagement Coordinator
--
