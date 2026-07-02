@@ -1,13 +1,13 @@
 ---
 title: Shift, Change, Turn
-description: Léa Moisan-Perrier joins the KWS for a programme featuring classical and contemporary works that challenge and inspire.
 artists:
   - name: Suzie Leblanc
     role: Soprano
 conductor: Léa Moisan-Perrier
 date: 2026-10-16T19:30:00
-image: /images/artists/lea-moisan-perrier.jpg
-imageCredit: Kevin Calixte
+description: Léa Moisan-Perrier joins the KWS for a programme featuring classical and contemporary works that challenge and inspire.
+image: /images/artists/Moisan-Perrier-cropped.jpg
+imageCredit: Nadia Zheng
 performances:
   - date: 2026-10-16T19:30:00
     venue: Knox Presbyterian Church, Waterloo
