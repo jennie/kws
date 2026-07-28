@@ -33,6 +33,16 @@ function onSubmit(event: Event) {
       status.value = "success";
       message.value = "Thanks. Check your inbox to confirm your subscription.";
       form.reset();
+    } else if (response.result === "redirect") {
+      // Mailchimp requires a captcha on this audience (msg is "captcha").
+      // JSONP can't present the challenge, so it asks us to hand off to the
+      // hosted form, which renders the captcha and prefills EMAIL from the
+      // query string. Same-tab: a new tab opened from this callback, outside
+      // a user gesture, would be blocked.
+      cleanup();
+      message.value = "Taking you to a secure form to finish subscribing.";
+      window.location.assign(form.action + "&" + data.toString());
+      return;
     } else {
       status.value = "error";
       message.value =
