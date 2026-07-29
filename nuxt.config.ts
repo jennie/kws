@@ -142,12 +142,15 @@ export default defineNuxtConfig({
 
   // nuxt-studio detects the repo from CI env vars (e.g. Netlify) at deploy time;
   // set it explicitly so local production builds also resolve a repository.
+  // Branch follows the deploy: Netlify sets BRANCH per context, so a branch
+  // deploy's Studio commits to that branch instead of publishing to production.
+  // Hardcoding "main" here would override the module's own BRANCH detection.
   studio: {
     repository: {
       provider: "github",
       owner: "jennie",
       repo: "kws",
-      branch: "main",
+      branch: process.env.BRANCH || "main",
     },
   },
 });
