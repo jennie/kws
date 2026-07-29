@@ -58,7 +58,9 @@ export default defineNuxtConfig({
       // robots.txt isn't reachable by link-crawling, so name it explicitly to
       // emit it as a static file (with the Sitemap: line the sitemap module
       // injects) rather than leaving it to a request-time function.
-      routes: ["/", "/robots.txt"],
+      // /lce-entry is staff-only and deliberately unlinked, so crawlLinks can't
+      // reach it. Name it explicitly or it never gets emitted.
+      routes: ["/", "/robots.txt", "/lce-entry"],
       // Don't prerender image-transform URLs the crawler finds in <img>/srcset.
       // They're served at request time by the Netlify Image CDN (or IPX in dev),
       // and 404 at build time, which would otherwise fail the prerender.
@@ -77,6 +79,12 @@ export default defineNuxtConfig({
   // matches most-specific first, so the per-concert rules win over the
   // /allconcerts/** catch-all.
   routeRules: {
+    // Staff-only LCE entry screen. This emits <meta name="robots"
+    // content="noindex, nofollow"> on the page and drops it from sitemap.xml;
+    // it does not add a robots.txt Disallow, which is what we want (a Disallow
+    // stops crawling but doesn't deindex a URL someone already knows). Access
+    // is enforced by the API, not by the URL being unlisted.
+    "/lce-entry": { robots: false },
     // Top-level pages.
     "/home": { redirect: { to: "/", statusCode: 301 } },
     "/allconcerts": { redirect: { to: "/", statusCode: 301 } },
