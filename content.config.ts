@@ -41,6 +41,19 @@ export default defineContentConfig({
         imageCredit: z.string().optional()
       })
     }),
+    musicians: defineCollection({
+      type: 'data',
+      source: 'musicians/*.yml',
+      schema: z.object({
+        name: z.string(),
+        section: z.enum(['Strings', 'Woodwinds', 'Brass', 'Percussion', 'Harp & Keyboard']),
+        instrument: z.string(),
+        title: z.string().optional(),
+        photo: z.string().optional(),
+        order: z.number().optional(),
+        bio: z.string().optional()
+      })
+    }),
     jobs: defineCollection({
       type: 'page',
       source: 'about/jobs.md',
