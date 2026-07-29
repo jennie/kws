@@ -31,7 +31,7 @@ function onSubmit(event: Event) {
   }) => {
     if (response.result === "success") {
       status.value = "success";
-      message.value = "Thanks. Check your inbox to confirm your subscription.";
+      message.value = "Thanks for signing up!";
       form.reset();
     } else if (response.result === "redirect") {
       // Mailchimp requires a captcha on this audience (msg is "captcha").
@@ -136,8 +136,14 @@ function onSubmit(event: Event) {
             v-if="message"
             role="status"
             aria-live="polite"
-            class="text-base font-medium text-paper-900"
-            :class="status === 'error' ? 'border-l-2 border-paper-900 pl-3' : ''"
+            class="text-base font-semibold"
+            :class="
+              status === 'success'
+                ? 'bg-paper-900 px-4 py-3 text-paper-50'
+                : status === 'error'
+                  ? 'border-l-2 border-paper-900 pl-3 text-paper-900'
+                  : 'text-paper-900'
+            "
           >
             {{ message }}
           </p>
