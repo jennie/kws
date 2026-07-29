@@ -60,7 +60,9 @@ export default defineNuxtConfig({
       // injects) rather than leaving it to a request-time function.
       // /lce-entry is staff-only and deliberately unlinked, so crawlLinks can't
       // reach it. Name it explicitly or it never gets emitted.
-      routes: ["/", "/robots.txt", "/lce-entry"],
+      // /about/orchestra is only linked from about.md, which the client edits
+      // in Studio; a deleted link there would silently drop the route.
+      routes: ["/", "/robots.txt", "/lce-entry", "/about/orchestra"],
       // Don't prerender image-transform URLs the crawler finds in <img>/srcset.
       // They're served at request time by the Netlify Image CDN (or IPX in dev),
       // and 404 at build time, which would otherwise fail the prerender.

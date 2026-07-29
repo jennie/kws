@@ -7,6 +7,7 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
+    "test": "vitest run",
     "typecheck": "nuxt typecheck",
     "postinstall": "nuxt prepare"
   },
@@ -29,6 +30,7 @@
   },
   "devDependencies": {
     "nuxt-component-meta": "^0.17.2",
+    "vitest": "^4.1.10",
     "vue-tsc": "^3.3.8"
   },
   "overrides": {

@@ -11,35 +11,7 @@ description: Meet the musicians, board, and staff of the Kitchener-Waterloo Symp
 
 ## Our musicians
 
-### Strings
-
-- **First Violin** – Bénédicte Lauzière (Concertmaster), Lance Ouellette (Associate Concertmaster), Jung Tsai (Second Associate Concertmaster), Peter Carter, Allene Chomyn, Julia Dixon, Kenneth Kwan, Anna Luhowy
-- **Second Violin** – Anita Walsh (Principal), Roxolana Toews (Associate Principal), Elspeth Durward (Assistant Principal), Sophie Drouin, Vicky Dvorak, Sheilanne Lindsay, Michael Steinberg
-- **Viola** – Natasha Sharko (Principal), Jody Davenport (Associate Principal), Rebecca Diderrich, Brenna Hardy-Kavanagh, David Wadley
-- **Cello** – John Helmers (Principal), Cathy Anderson (Associate Principal), Rebecca Morton (Assistant Principal), Kendra Grittani, Miriam Stewart-Kroeker
-- **Bass** – Ian Whitman (Principal), Talia Hatcher (Associate Principal), Bruce McGillivray
-
-### Woodwinds
-
-- **Flute** – Kevin O'Donnell
-- **Oboe** – Lief Mosbaugh (Principal), Melissa Scott
-- **Clarinet** – Ross Edwards (Principal), Barbara Hankins
-- **Bassoon** – Ian Hopkin (Principal)
-
-### Brass
-
-- **Horn** – Katherine Robertson, Marie-Sonja Cotineau, Deborah Stroh
-- **Trumpet** – Matheus Moraes (Principal)
-- **Trombone** – Nate Fanning (Principal), Rachel Thomas, Doug Lavell (Bass Trombone)
-- **Tuba** – Jennifer Stephen (Principal)
-
-### Percussion
-
-- Ron Brown (Principal Timpani)
-
-### Harp
-
-- Lori Gemmell
+The full roster, by section and instrument, is on [the orchestra page](/about/orchestra).
 
 ## Board of Directors
 
