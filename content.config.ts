@@ -28,6 +28,19 @@ export default defineContentConfig({
         })).optional()
       })
     }),
+    lceEvents: defineCollection({
+      type: 'data',
+      source: 'lce/*.yml',
+      schema: z.object({
+        title: z.string(),
+        date: z.string(),
+        location: z.string(),
+        description: z.string(),
+        linkUrl: z.string().optional(),
+        image: z.string().optional(),
+        imageCredit: z.string().optional()
+      })
+    }),
     jobs: defineCollection({
       type: 'page',
       source: 'about/jobs.md',
