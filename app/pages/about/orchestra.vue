@@ -17,6 +17,7 @@ useSeoMeta({
 
 <template>
   <div class="mx-auto max-w-shell px-6 py-12 lg:px-10">
+    <AboutSubNav />
     <header class="mb-12 max-w-reading">
       <h1 class="font-display text-3xl font-semibold tracking-tight text-paper-900 sm:text-4xl">
         The orchestra

@@ -102,11 +102,11 @@ export default defineNuxtConfig({
     // Every other (past-season) concert page → the concert listing.
     "/allconcerts/**": { redirect: { to: "/", statusCode: 301 } },
     // About-section content that no longer has its own page.
-    "/our-musicians": { redirect: { to: "/about", statusCode: 301 } },
+    "/our-musicians": { redirect: { to: "/about/orchestra", statusCode: 301 } },
     "/board-of-directors-and-staff": { redirect: { to: "/about", statusCode: 301 } },
     "/kws-in-the-community": { redirect: { to: "/about", statusCode: 301 } },
     "/orchestral-musician-school-visits": { redirect: { to: "/about", statusCode: 301 } },
-    "/mnbios": { redirect: { to: "/about", statusCode: 301 } },
+    "/mnbios": { redirect: { to: "/about/orchestra", statusCode: 301 } },
     "/artist-bios": { redirect: { to: "/about", statusCode: 301 } },
     // Jobs/apply (old /jobs is in the legacy sitemap; /apply is a known alias).
     "/jobs": { redirect: { to: "/about/jobs", statusCode: 301 } },
