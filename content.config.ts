@@ -48,7 +48,7 @@ export default defineContentConfig({
         name: z.string(),
         section: z.enum(['Strings', 'Woodwinds', 'Brass', 'Percussion', 'Harp & Keyboard']),
         instrument: z.string(),
-        title: z.string().optional(),
+        chair: z.string().optional(),
         photo: z.string().optional(),
         order: z.number().optional(),
         bio: z.string().optional()
