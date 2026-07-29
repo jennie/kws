@@ -121,5 +121,14 @@
   font-weight: 600;
   color: var(--color-paper-900);
 }
-</content>
-</invoke>
+
+/* The Studio editor mounts itself on every route: nuxt-studio's client plugin
+   appends a <nuxt-studio> element to <body> whenever a Studio session cookie is
+   present, with no route awareness and no supported way to opt a page out. The
+   LCE entry screen is the one place that's wrong. Its whole point is a narrow,
+   fixed-field surface, and the coordinator has Studio access only as a side
+   effect of reusing that session for auth, so dropping the full editor chrome
+   on top of the form works against it. The page sets this class on <body>. */
+body.kws-no-studio-editor nuxt-studio {
+  display: none;
+}

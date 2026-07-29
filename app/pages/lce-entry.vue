@@ -15,6 +15,13 @@ useSeoMeta({
   title: "Add a community event",
 });
 
+// Keep the Studio editor chrome off this page. nuxt-studio mounts it on every
+// route once a session exists, so the class is the hook for the rule in
+// main.css. Scoped to this route: useHead removes it again on navigate away.
+useHead({
+  bodyAttrs: { class: "kws-no-studio-editor" },
+});
+
 interface StudioSessionUser {
   name: string;
   email: string;
