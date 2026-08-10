@@ -77,7 +77,7 @@ useHead({
     <figure v-if="hero" class="mt-8 max-w-4xl">
       <NuxtImg
         :src="hero.src"
-        :alt="concert.title"
+        :alt="hero.description ?? concert.title"
         width="1600"
         height="900"
         sizes="md:100vw lg:896px"

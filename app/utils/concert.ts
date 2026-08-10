@@ -28,9 +28,10 @@ export function isoDate(value?: string) {
   return d.toISOString()
 }
 
-// Figcaption for a concert image: description, then the photo credit when there is one.
-export function imageCaption(image?: { description?: string; credit?: string }) {
-  return [image?.description, image?.credit && `Photo: ${image.credit}`].filter(Boolean).join(' ')
+// Figcaption for a concert image: the photo credit only. `description` is the
+// image's alt text and is deliberately not shown (client call, 2026-08-10).
+export function imageCaption(image?: { credit?: string }) {
+  return image?.credit ? `Photo: ${image.credit}` : ''
 }
 
 // Venue stored as "Hall name, City" — split into hall name and "City, ON".

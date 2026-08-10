@@ -5,7 +5,11 @@ const props = defineProps<{
 
 // Cap-ready: bound this list and fill the show-more position below. No cap in phase 2.
 const visibleImages = computed(() =>
-  props.images.map((img) => ({ src: img.src, caption: imageCaption(img) }))
+  props.images.map((img) => ({
+    src: img.src,
+    alt: img.description ?? '',
+    caption: imageCaption(img)
+  }))
 )
 </script>
 
@@ -14,7 +18,7 @@ const visibleImages = computed(() =>
     <figure v-for="img in visibleImages" :key="img.src">
       <NuxtImg
         :src="img.src"
-        alt=""
+        :alt="img.alt"
         width="1600"
         sizes="md:100vw lg:896px"
         loading="lazy"
