@@ -62,10 +62,10 @@ export default defineNuxtConfig({
       // reach it. Name it explicitly or it never gets emitted.
       // /about/orchestra is only linked from about.md, which the client edits
       // in Studio; a deleted link there would silently drop the route.
-      // /community is reachable today through the AppFooter link, but it is
-      // named here anyway: nav placement is still open, and if the page ever
-      // loses its last link it stops rendering, drops out of the sitemap, and
-      // turns the two /kws-in-the-community redirects below into 404s.
+      // /community is reachable through the AppNav and AppFooter links, but it
+      // is named here anyway: if the page ever loses its last link it stops
+      // rendering, drops out of the sitemap, and turns the two
+      // /kws-in-the-community redirects below into 404s.
       routes: [
         "/",
         "/robots.txt",
@@ -114,8 +114,8 @@ export default defineNuxtConfig({
     // About-section content that no longer has its own page.
     "/our-musicians": { redirect: { to: "/about/orchestra", statusCode: 301 } },
     "/board-of-directors-and-staff": { redirect: { to: "/about", statusCode: 301 } },
-    "/kws-in-the-community": { redirect: { to: "/about", statusCode: 301 } },
-    "/orchestral-musician-school-visits": { redirect: { to: "/about", statusCode: 301 } },
+    "/kws-in-the-community": { redirect: { to: "/community", statusCode: 301 } },
+    "/orchestral-musician-school-visits": { redirect: { to: "/community", statusCode: 301 } },
     "/mnbios": { redirect: { to: "/about/orchestra", statusCode: 301 } },
     "/artist-bios": { redirect: { to: "/about", statusCode: 301 } },
     // Jobs/apply (old /jobs is in the legacy sitemap; /apply is a known alias).

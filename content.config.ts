@@ -36,7 +36,11 @@ export default defineContentConfig({
       source: 'lce/*.yml',
       schema: z.object({
         title: z.string(),
+        // Day and clock time are separate fields: the time is genuinely
+        // optional, and folding it into `date` made a blank time and a midnight
+        // event the same stored value. Compose them with `eventDateTime`.
         date: z.string(),
+        time: z.string().optional(),
         location: z.string(),
         description: z.string(),
         linkUrl: z.string().optional(),

@@ -2,6 +2,7 @@
 const links = [
   { label: 'Concerts', to: '/' },
   { label: 'About', to: '/about' },
+  { label: 'Community', to: '/community' },
   { label: 'Donate', to: '/donate' },
   { label: 'Contact', to: '/contact' }
 ]

@@ -17,26 +17,14 @@ const [{ data: page }, { data: events }] = await Promise.all([
 // programme runs roughly 50 events a year and the client wants all of them.
 const ARCHIVE_LIMIT = 12
 
-// One pass, one clock reading, one definition of the upcoming/past boundary.
-// The archive only ever shows its tail, so slice before reversing: the past
-// list grows every season and reversing all of it to keep 12 is wasted work.
+// `splitLceEvents` owns the upcoming/past boundary and the chronological order,
+// shared with the homepage module. The archive only ever shows its tail, so
+// slice before reversing: the past list grows every season and reversing all of
+// it to keep 12 is wasted work.
 const listings = computed(() => {
-  const now = Date.now()
-  const upcoming = []
-  const past = []
-  for (const event of events.value ?? []) {
-    const t = new Date(event.date).getTime()
-    if (Number.isNaN(t)) continue
-    if (t >= now) upcoming.push(event)
-    else past.push(event)
-  }
+  const { upcoming, past } = splitLceEvents(events.value ?? [])
   return { upcoming, past: past.slice(-ARCHIVE_LIMIT).reverse() }
 })
-
-// The entry form writes T00:00:00 when the coordinator leaves the time blank,
-// so midnight means "no time given" rather than an event at midnight.
-const eventTime = (date: string) =>
-  date.endsWith('T00:00:00') ? '' : timeOf(date)
 
 useSeoMeta({
   title: () => page.value?.title ?? 'Learning & community engagement',
@@ -101,8 +89,8 @@ useSeoMeta({
 
           <div class="min-w-0 flex-1">
             <p class="text-base font-medium text-paper-600">
-              {{ longDate(event.date)
-              }}<span v-if="eventTime(event.date)"> · {{ eventTime(event.date) }}</span>
+              {{ longDate(eventDateTime(event))
+              }}<span v-if="event.time"> · {{ timeOf(eventDateTime(event)) }}</span>
             </p>
             <h3
               class="mt-2 font-display text-xl font-semibold tracking-tight text-paper-900 lg:text-2xl"
@@ -149,7 +137,7 @@ useSeoMeta({
           :key="event.id"
           class="border-t border-paper-200 pt-6 first:border-t-0 first:pt-0"
         >
-          <p class="text-base text-paper-600">{{ longDate(event.date) }}</p>
+          <p class="text-base text-paper-600">{{ longDate(eventDateTime(event)) }}</p>
           <h3 class="mt-1 font-display text-lg font-semibold tracking-tight text-paper-900">
             {{ event.title }}
           </h3>

@@ -1,7 +1,20 @@
 <script setup lang="ts">
-const { data: concerts } = await useAsyncData("concerts-upcoming", () =>
-  queryCollection("concerts").order("date", "ASC").all(),
-);
+// Coarse lower bound on the LCE query: the module shows three events, and
+// without it the homepage payload carries every event ever entered, a list that
+// only grows. A day of slack absorbs the gap between the build container's
+// clock and local time; the exact boundary is applied in `lceUpcoming` below.
+const lceSince = new Date(Date.now() - 86_400_000).toISOString().slice(0, 10);
+
+// The two collections are unrelated, so fetch them concurrently rather than
+// letting the concert query gate the LCE one.
+const [{ data: concerts }, { data: lceEvents }] = await Promise.all([
+  useAsyncData("concerts-upcoming", () =>
+    queryCollection("concerts").order("date", "ASC").all(),
+  ),
+  useAsyncData("lce-upcoming", () =>
+    queryCollection("lceEvents").where("date", ">=", lceSince).all(),
+  ),
+]);
 
 const upcoming = computed(() => {
   const now = Date.now();
@@ -10,6 +23,13 @@ const upcoming = computed(() => {
     return !Number.isNaN(t) && t >= now;
   });
 });
+
+// Three, per the signed SOW. Shows fewer if fewer exist; the section hides
+// entirely at zero.
+const LCE_MODULE_LIMIT = 3;
+const lceUpcoming = computed(() =>
+  splitLceEvents(lceEvents.value ?? []).upcoming.slice(0, LCE_MODULE_LIMIT),
+);
 
 const next = computed(() => upcoming.value[0]);
 const nextPath = computed(() => next.value?.path);
@@ -327,5 +347,62 @@ onMounted(() => {
         </div>
       </section>
     </div>
+
+    <!--
+      Learning & community engagement. Full-bleed band so it reads as its own
+      thing next to the season, distinct through tone and structure rather than
+      colour. Sits outside the season conditional above so it survives the
+      season-ended empty state. Deliberately not in the "Jump to series" nav.
+    -->
+    <section
+      v-if="lceUpcoming.length"
+      aria-labelledby="lce-heading"
+      class="border-y border-paper-300 bg-paper-100"
+    >
+      <div class="mx-auto max-w-shell px-6 py-12 lg:px-10 lg:py-16">
+        <div
+          class="mb-8 flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
+        >
+          <h2
+            id="lce-heading"
+            class="font-display text-2xl font-semibold tracking-tight text-paper-900 lg:text-3xl"
+          >
+            Learning &amp; community engagement
+          </h2>
+          <NuxtLink
+            to="/community"
+            class="text-base font-semibold text-paper-900 underline underline-offset-4 hover:no-underline"
+          >
+            See all community events
+          </NuxtLink>
+        </div>
+
+        <!--
+          Rows carry no link of their own: LCE events are listing-only, so every
+          row would point at /community and repeat the link above it.
+        -->
+        <ul
+          class="max-w-4xl divide-y divide-paper-300 border-y border-paper-300"
+        >
+          <li
+            v-for="event in lceUpcoming"
+            :key="event.id"
+            class="py-5 sm:flex sm:gap-8"
+          >
+            <p class="text-base font-medium text-paper-600 sm:w-52 sm:shrink-0">
+              {{ longDate(eventDateTime(event)) }}
+            </p>
+            <div class="mt-1 min-w-0 sm:mt-0">
+              <h3
+                class="font-display text-xl font-semibold tracking-tight text-paper-900"
+              >
+                {{ event.title }}
+              </h3>
+              <p class="mt-1 text-base text-paper-800">{{ event.location }}</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
   </div>
 </template>

@@ -62,12 +62,18 @@ function slugify(title: string) {
  * allows it and fall back to double quotes where it doesn't. Anything that
  * fails the plain test is still valid YAML, just noisier.
  */
+// Plain scalars that a YAML 1.1 parser reads back as something other than the
+// string that was written: sexagesimals (19:30 is the integer 1170), and the
+// long-form booleans and nulls. Every one of these has to be quoted.
+const YAML_NOT_A_STRING = /^([-+]?[0-9][0-9_]*(:[0-5]?[0-9])+|y|n|yes|no|on|off|true|false|null|~)$/i
+
 function yamlScalar(value: string) {
   // Leading "/" is allowed so image paths serialize bare, the way the existing
   // concert files write them.
   const isPlain = /^[A-Za-z0-9/][^\n]*$/.test(value)
     && !/:\s|\s#/.test(value)
     && !/[:\s]$/.test(value)
+    && !YAML_NOT_A_STRING.test(value)
   return isPlain ? value : JSON.stringify(value)
 }
 
@@ -124,7 +130,10 @@ export default defineEventHandler(async (event) => {
   // doesn't rewrite the file it didn't change.
   let yaml = ''
   yaml += yamlField('title', entry.title)
-  yaml += yamlField('date', `${entry.date}T${entry.time ?? '00:00'}:00`)
+  yaml += yamlField('date', entry.date)
+  // A blank time is an absent field, not a midnight stand-in. "hh:mm" quotes
+  // itself through yamlScalar's sexagesimal rule.
+  if (entry.time) yaml += yamlField('time', entry.time)
   yaml += yamlField('description', entry.description)
   yaml += yamlField('location', entry.location)
   if (entry.linkUrl) yaml += yamlField('linkUrl', entry.linkUrl)
