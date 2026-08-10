@@ -62,7 +62,17 @@ export default defineNuxtConfig({
       // reach it. Name it explicitly or it never gets emitted.
       // /about/orchestra is only linked from about.md, which the client edits
       // in Studio; a deleted link there would silently drop the route.
-      routes: ["/", "/robots.txt", "/lce-entry", "/about/orchestra"],
+      // /community is reachable today through the AppFooter link, but it is
+      // named here anyway: nav placement is still open, and if the page ever
+      // loses its last link it stops rendering, drops out of the sitemap, and
+      // turns the two /kws-in-the-community redirects below into 404s.
+      routes: [
+        "/",
+        "/robots.txt",
+        "/lce-entry",
+        "/about/orchestra",
+        "/community",
+      ],
       // Don't prerender image-transform URLs the crawler finds in <img>/srcset.
       // They're served at request time by the Netlify Image CDN (or IPX in dev),
       // and 404 at build time, which would otherwise fail the prerender.

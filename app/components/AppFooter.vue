@@ -82,6 +82,7 @@ function onSubmit(event: Event) {
         <ul class="space-y-1 text-base">
           <li><NuxtLink to="/" class="text-paper-700 hover:underline">Home</NuxtLink></li>
           <li><NuxtLink to="/about" class="text-paper-700 hover:underline">About</NuxtLink></li>
+          <li><NuxtLink to="/community" class="text-paper-700 hover:underline">Community</NuxtLink></li>
           <li><NuxtLink to="/donate" class="text-paper-700 hover:underline">Donate</NuxtLink></li>
           <li><NuxtLink to="/contact" class="text-paper-700 hover:underline">Contact</NuxtLink></li>
         </ul>
