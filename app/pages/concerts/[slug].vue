@@ -17,11 +17,7 @@ const isTouring = computed(() => (concert.value?.performances?.length ?? 0) > 0)
 
 // images[0] is the hero; images[1..n] are the gallery below the programme body.
 const hero = computed(() => concert.value?.images[0])
-const heroCaption = computed(() =>
-  [hero.value?.description, hero.value?.credit && `Photo: ${hero.value.credit}`]
-    .filter(Boolean)
-    .join(' ')
-)
+const heroCaption = computed(() => imageCaption(hero.value))
 
 const moreInSeries = computed(() =>
   (allConcerts.value ?? [])
@@ -135,6 +131,8 @@ useHead({
     <div class="prose mt-10 max-w-reading">
       <ContentRenderer :value="concert" />
     </div>
+
+    <ConcertGallery :images="concert.images.slice(1)" />
 
     <!-- Repeat CTA for single-date concerts -->
     <div v-if="!isTouring" class="mt-10 border-t border-paper-300 pt-8 max-w-reading">

@@ -28,6 +28,11 @@ export function isoDate(value?: string) {
   return d.toISOString()
 }
 
+// Figcaption for a concert image: description, then the photo credit when there is one.
+export function imageCaption(image?: { description?: string; credit?: string }) {
+  return [image?.description, image?.credit && `Photo: ${image.credit}`].filter(Boolean).join(' ')
+}
+
 // Venue stored as "Hall name, City" — split into hall name and "City, ON".
 export function splitVenue(value?: string): { name: string; city: string } {
   const parts = value?.split(',') ?? []
