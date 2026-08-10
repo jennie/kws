@@ -1,9 +1,10 @@
 ---
 title: How Suite It Is
-description: David Fallis, a KW favourite, returns to lead a programme of works that explore Baroque melodies and contemporary reflections.
 conductor: David Fallis
 date: 2027-04-30T19:30:00
-image: /images/artists/david-fallis.jpg
+description: David Fallis, a KW favourite, returns to lead a programme of works that explore Baroque melodies and contemporary reflections.
+images:
+  - src: /images/artists/david-fallis.jpg
 performances:
   - date: 2027-04-30T19:30:00
     venue: Knox Presbyterian Church, Waterloo

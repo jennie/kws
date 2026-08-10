@@ -15,6 +15,14 @@ const { data: allConcerts } = await useAsyncData('concerts-all', () =>
 
 const isTouring = computed(() => (concert.value?.performances?.length ?? 0) > 0)
 
+// images[0] is the hero; images[1..n] are the gallery below the programme body.
+const hero = computed(() => concert.value?.images[0])
+const heroCaption = computed(() =>
+  [hero.value?.description, hero.value?.credit && `Photo: ${hero.value.credit}`]
+    .filter(Boolean)
+    .join(' ')
+)
+
 const moreInSeries = computed(() =>
   (allConcerts.value ?? [])
     .filter((c) => c.series && c.series === concert.value?.series && c.path !== concert.value?.path)
@@ -27,7 +35,7 @@ useSeoMeta({
   ogTitle: () => concert.value?.title,
   ogDescription: () => concert.value?.description,
   ogImage: () =>
-    concert.value?.image ? ogConcertImage(concert.value.image) : absUrl('/images/og-default.png')
+    hero.value ? ogConcertImage(hero.value.src) : absUrl('/images/og-default.png')
 })
 
 // MusicEvent + breadcrumb structured data for Google rich results.
@@ -70,9 +78,9 @@ useHead({
       </p>
     </div>
 
-    <figure class="mt-8 max-w-4xl">
+    <figure v-if="hero" class="mt-8 max-w-4xl">
       <NuxtImg
-        :src="concert.image"
+        :src="hero.src"
         :alt="concert.title"
         width="1600"
         height="900"
@@ -80,8 +88,8 @@ useHead({
         fetchpriority="high"
         class="aspect-video w-full border border-paper-300 object-cover"
       />
-      <figcaption v-if="concert.imageCredit" class="mt-2 text-sm text-paper-600">
-        Photo: {{ concert.imageCredit }}
+      <figcaption v-if="heroCaption" class="mt-2 text-sm text-paper-600">
+        {{ heroCaption }}
       </figcaption>
     </figure>
 
@@ -146,7 +154,7 @@ useHead({
           class="flex gap-3 border border-paper-300 p-4 no-underline transition-colors hover:border-paper-900"
         >
           <NuxtImg
-            :src="c.image"
+            :src="c.images[0]?.src"
             alt=""
             width="64"
             height="64"

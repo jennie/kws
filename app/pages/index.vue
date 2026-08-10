@@ -13,6 +13,7 @@ const upcoming = computed(() => {
 
 const next = computed(() => upcoming.value[0]);
 const nextPath = computed(() => next.value?.path);
+const nextImage = computed(() => next.value?.images[0]);
 
 const performanceCount = computed(() =>
   upcoming.value.reduce((sum, c) => sum + (c.performances?.length ?? 1), 0),
@@ -168,8 +169,8 @@ onMounted(() => {
           class="block aspect-video border-b border-paper-900 no-underline lg:aspect-auto lg:border-b-0 lg:border-r"
         >
           <NuxtImg
-            v-if="next.image"
-            :src="next.image"
+            v-if="nextImage"
+            :src="nextImage.src"
             :alt="next.title"
             width="1600"
             height="900"
@@ -279,7 +280,7 @@ onMounted(() => {
               :title="concert.title"
               :date="concert.date"
               :venue="concert.venue"
-              :image="concert.image"
+              :image="concert.images[0]?.src"
               :slug="concert.path"
               :ticket-url="concert.ticketUrl"
               :ticket-provider="concert.ticketProvider"

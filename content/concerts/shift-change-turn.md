@@ -6,8 +6,9 @@ artists:
 conductor: Léa Moisan-Perrier
 date: 2026-10-16T19:30:00
 description: Léa Moisan-Perrier joins the KWS for a programme featuring classical and contemporary works that challenge and inspire.
-image: /images/artists/Moisan-Perrier-cropped.jpg
-imageCredit: Nadia Zheng
+images:
+  - src: /images/artists/Moisan-Perrier-cropped.jpg
+    credit: Nadia Zheng
 performances:
   - date: 2026-10-16T19:30:00
     venue: Knox Presbyterian Church, Waterloo

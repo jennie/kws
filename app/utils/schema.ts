@@ -17,7 +17,7 @@ type Concert = {
   title: string
   date: string
   venue: string
-  image: string
+  images: { src: string; description?: string; credit?: string }[]
   description: string
   conductor?: string
   artists?: { name: string; role: string }[]
@@ -64,7 +64,8 @@ export function concertJsonLd(concert: Concert) {
     '@type': 'MusicEvent',
     name: concert.title,
     description: concert.description,
-    image: [absUrl(concert.image)],
+    // images is `.min(1)` in the content schema, so images[0] always exists.
+    image: [absUrl(concert.images[0]!.src)],
     eventStatus: 'https://schema.org/EventScheduled',
     eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
     performer: performers(concert),
