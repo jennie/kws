@@ -17,5 +17,5 @@ venue: Centre In The Square, Kitchener
 ## Programme
 
 - Austin Wintory — Music from the video game Journey
-- Ryan Trew — Come Closer
+- Ryan Trew — Come Closer: Songs on Texts by Elizabeth Krehm
 - Johannes Brahms — Symphony No. 2 in D major, Op. 73
