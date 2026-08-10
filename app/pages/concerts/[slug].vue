@@ -15,9 +15,8 @@ const { data: allConcerts } = await useAsyncData('concerts-all', () =>
 
 const isTouring = computed(() => (concert.value?.performances?.length ?? 0) > 0)
 
-// images[0] is the hero; images[1..n] are the gallery below the programme body.
-const hero = computed(() => concert.value?.images[0])
-const heroCaption = computed(() => imageCaption(hero.value))
+const hero = computed(() => heroImage(concert.value))
+const heroCaption = computed(() => imageCaption(hero.value?.credit))
 
 const moreInSeries = computed(() =>
   (allConcerts.value ?? [])
@@ -152,7 +151,7 @@ useHead({
           class="flex gap-3 border border-paper-300 p-4 no-underline transition-colors hover:border-paper-900"
         >
           <NuxtImg
-            :src="c.images[0]?.src"
+            :src="heroImage(c)?.src"
             alt=""
             width="64"
             height="64"

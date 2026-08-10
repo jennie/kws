@@ -33,7 +33,7 @@ const lceUpcoming = computed(() =>
 
 const next = computed(() => upcoming.value[0]);
 const nextPath = computed(() => next.value?.path);
-const nextImage = computed(() => next.value?.images[0]);
+const nextImage = computed(() => heroImage(next.value));
 
 const performanceCount = computed(() =>
   upcoming.value.reduce((sum, c) => sum + (c.performances?.length ?? 1), 0),
@@ -300,7 +300,7 @@ onMounted(() => {
               :title="concert.title"
               :date="concert.date"
               :venue="concert.venue"
-              :image="concert.images[0]?.src"
+              :image="heroImage(concert)?.src"
               :slug="concert.path"
               :ticket-url="concert.ticketUrl"
               :ticket-provider="concert.ticketProvider"

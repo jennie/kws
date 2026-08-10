@@ -1,7 +1,7 @@
 // schema.org JSON-LD builders. Concert pages emit MusicEvent (one event per
 // performance) to qualify for Google's event rich results; the home page emits
-// a MusicGroup for the organisation knowledge panel. splitVenue, absUrl and
-// SITE_URL are auto-imported from the sibling util files.
+// a MusicGroup for the organisation knowledge panel. splitVenue, absUrl,
+// SITE_URL and heroImage are auto-imported from the sibling util files.
 
 // A function (not a constant) so the url resolves against the live host at call
 // time rather than at module load, when the Nuxt context isn't available.
@@ -64,8 +64,8 @@ export function concertJsonLd(concert: Concert) {
     '@type': 'MusicEvent',
     name: concert.title,
     description: concert.description,
-    // images is `.min(1)` in the content schema, so images[0] always exists.
-    image: [absUrl(concert.images[0]!.src)],
+    // images is `.min(1)` in the content schema, so the hero always exists.
+    image: [absUrl(heroImage(concert)!.src)],
     eventStatus: 'https://schema.org/EventScheduled',
     eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
     performer: performers(concert),

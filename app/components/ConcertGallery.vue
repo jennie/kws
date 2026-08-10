@@ -8,7 +8,7 @@ const visibleImages = computed(() =>
   props.images.map((img) => ({
     src: img.src,
     alt: img.description ?? '',
-    caption: imageCaption(img)
+    caption: imageCaption(img.credit)
   }))
 )
 </script>

@@ -30,8 +30,16 @@ export function isoDate(value?: string) {
 
 // Figcaption for a concert image: the photo credit only. `description` is the
 // image's alt text and is deliberately not shown (client call, 2026-08-10).
-export function imageCaption(image?: { credit?: string }) {
-  return image?.credit ? `Photo: ${image.credit}` : ''
+export function imageCaption(credit?: string) {
+  return credit ? `Photo: ${credit}` : ''
+}
+
+// images[0] is the hero, and every surface that shows one image shows this one:
+// the detail-page lead, the card thumbnail, the OG image and the JSON-LD image.
+// images[1..n] are the gallery. The client controls the order in Studio, so keep
+// the rule here rather than re-deriving `images[0]` at each call site.
+export function heroImage<T>(concert?: { images?: T[] } | null): T | undefined {
+  return concert?.images?.[0]
 }
 
 // Venue stored as "Hall name, City" — split into hall name and "City, ON".

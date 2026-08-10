@@ -83,7 +83,7 @@ useSeoMeta({
               v-if="event.imageCredit"
               class="mt-2 text-base text-paper-600"
             >
-              {{ imageCaption({ credit: event.imageCredit }) }}
+              {{ imageCaption(event.imageCredit) }}
             </figcaption>
           </figure>
 
