@@ -74,23 +74,23 @@ useHead({
     </div>
 
     <!--
-      Passing both width and height makes the image pipeline crop to 16:9
-      server-side, so the browser receives an image that already matches the
-      box and object-position never fires. The crop has to be aimed here or
-      not at all: sharp's default is a dead-centre crop, which decapitates
-      anyone photographed with headroom. `position: attention` aims it at the
-      salient region, which on a portrait is the face.
+      The hero is never cropped. It is the concert's key art, and a ratio crop
+      throws away the detail that makes the photograph worth showing: the 16:9
+      version of the Opera Pops hero cut the conductor's baton out of frame.
+      Passing height as well as width would make the image pipeline crop to
+      that ratio server-side, so only width is set here. Height is bounded
+      instead, because the sources are mixed orientation and an uncropped
+      1600px portrait at full column width runs taller than the viewport and
+      buries the ticket button underneath it.
     -->
     <figure v-if="hero" class="mt-10 max-w-4xl">
       <NuxtImg
         :src="hero.src"
         :alt="hero.description ?? concert.title"
         width="1600"
-        height="900"
         sizes="md:100vw lg:1008px"
-        :modifiers="{ position: 'attention' }"
         fetchpriority="high"
-        class="aspect-video w-full border border-paper-300 object-cover"
+        class="block h-auto max-h-[36rem] w-auto max-w-full border border-paper-300"
       />
       <figcaption v-if="heroCaption" class="mt-2 text-sm text-paper-600">
         {{ heroCaption }}

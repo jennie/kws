@@ -28,8 +28,10 @@ export function isoDate(value?: string) {
   return d.toISOString()
 }
 
-// Figcaption for a concert image: the photo credit only. `description` is the
-// image's alt text and is deliberately not shown (client call, 2026-08-10).
+// Formats the photo credit for a figcaption. The hero shows this alone. The
+// gallery prepends the image `description`, so who is in the photograph is
+// readable without a screen reader — revisit with Katherine, since the
+// 2026-08-10 call was that `description` stays alt text only.
 export function imageCaption(credit?: string) {
   return credit ? `Photo: ${credit}` : ''
 }

@@ -5,11 +5,17 @@ const props = defineProps<{
 
 // Cap-ready: bound this list and fill the show-more position below. No cap in phase 2.
 const visibleImages = computed(() =>
-  props.images.map((img) => ({
-    src: img.src,
-    alt: img.description ?? '',
-    caption: imageCaption(img.credit)
-  }))
+  props.images.map((img) => {
+    const description = img.description?.trim()
+    return {
+      src: img.src,
+      // The description is rendered visibly in the figcaption below, so the
+      // image is decorative to assistive tech. Leaving it in alt as well makes
+      // a screen reader announce the same sentence twice for one photograph.
+      alt: '',
+      caption: [description, imageCaption(img.credit)].filter(Boolean).join(' ')
+    }
+  })
 )
 </script>
 
@@ -44,7 +50,7 @@ const visibleImages = computed(() =>
             quality="80"
             class="block aspect-[3/2] w-full border border-paper-300 object-cover"
           />
-          <figcaption v-if="img.caption" class="mt-2 max-w-reading text-sm text-paper-600">
+          <figcaption v-if="img.caption" class="mt-2 max-w-reading text-base text-paper-600">
             {{ img.caption }}
           </figcaption>
         </figure>
