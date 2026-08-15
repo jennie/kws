@@ -88,12 +88,12 @@ useHead({
       </figcaption>
     </figure>
 
-    <div v-if="!isTouring" class="mt-10 max-w-reading">
+    <div v-if="!isTouring" class="mt-8 max-w-reading">
       <TicketButton :url="concert.ticketUrl" :provider="concert.ticketProvider" size="lg" />
     </div>
 
     <!-- Touring: performances block replaces single date/venue + CTA -->
-    <section v-else class="mt-10 max-w-reading" aria-labelledby="performances">
+    <section v-else class="mt-8 max-w-reading" aria-labelledby="performances">
       <h2 id="performances" class="font-display text-2xl font-semibold tracking-tight text-paper-900">
         Performances
       </h2>
@@ -116,7 +116,7 @@ useHead({
     <section
       v-if="concert.conductor || concert.artists?.length"
       aria-label="Performers"
-      class="mt-10 max-w-reading space-y-1 text-lg text-paper-800"
+      class="mt-14 max-w-reading space-y-1 text-lg text-paper-800"
     >
       <p v-if="concert.conductor">
         <span class="font-semibold">Conductor</span> · {{ concert.conductor }}
@@ -134,34 +134,42 @@ useHead({
     <ConcertGallery :images="concert.images.slice(1)" />
 
     <!-- Repeat CTA for single-date concerts -->
-    <div v-if="!isTouring" class="mt-10 border-t border-paper-300 pt-8 max-w-reading">
+    <div v-if="!isTouring" class="mt-14 border-t border-paper-300 pt-8 max-w-reading">
       <TicketButton :url="concert.ticketUrl" :provider="concert.ticketProvider" size="lg" />
     </div>
 
     <!-- More in series -->
-    <section v-if="moreInSeries.length" :aria-label="`More in ${concert.series}`" class="mt-14">
+    <section v-if="moreInSeries.length" :aria-label="`More in ${concert.series}`" class="mt-20 max-w-4xl">
       <h2 class="font-display text-2xl font-semibold tracking-tight text-paper-900">
         More in {{ concert.series }}
       </h2>
-      <div class="mt-5 grid gap-4 sm:grid-cols-3">
+      <!--
+        Card at sm and up, same anatomy as the home-page concert card minus the
+        series label, venue and ticket button. The earlier 64px thumb was the
+        one image on this page still sized like a favicon, and its 3-up row was
+        the only block running the full shell width, which made the least
+        important content the widest thing here. Mobile keeps the compact row:
+        three stacked 3:2 cards cost about 950px of scroll on a phone.
+      -->
+      <div class="mt-5 grid gap-4 sm:grid-cols-3 sm:gap-6">
         <NuxtLink
           v-for="c in moreInSeries"
           :key="c.path"
           :to="c.path"
-          class="flex gap-3 border border-paper-300 p-4 no-underline transition-colors hover:border-paper-900"
+          class="flex items-center gap-3 border border-paper-300 p-3 no-underline transition-colors hover:border-paper-900 sm:block sm:p-0"
         >
           <NuxtImg
             :src="heroImage(c)?.src"
             alt=""
-            width="64"
-            height="64"
-            sizes="64px"
+            width="318"
+            height="212"
+            sizes="90px sm:318px"
             loading="lazy"
-            class="aspect-square w-16 shrink-0 border border-paper-300 object-cover object-[center_25%]"
+            class="block aspect-square w-20 shrink-0 border border-paper-300 object-cover object-[center_25%] sm:aspect-[3/2] sm:w-full sm:border-0 sm:border-b sm:border-paper-300"
           />
-          <div>
+          <div class="sm:p-4">
             <span class="block font-display text-lg font-semibold leading-tight text-paper-900">{{ c.title }}</span>
-            <span class="mt-1 block text-sm text-paper-600">{{ longDate(c.date) }}</span>
+            <span class="mt-1 block text-base text-paper-600">{{ longDate(c.date) }}</span>
           </div>
         </NuxtLink>
       </div>
