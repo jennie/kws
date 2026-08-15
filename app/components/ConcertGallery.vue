@@ -33,8 +33,14 @@ const visibleImages = computed(() =>
       orientations gave every row a different shape, and the images that came
       in as tall portraits dominated the page. 3:2 matches the concert card
       and the related-concert card, so the page carries one image shape below
-      the 16:9 hero, and `position: attention` keeps faces in frame where a
-      centre crop would cut them off.
+      the 16:9 hero, and `position: top` keeps faces in frame where a centre
+      crop would cut them off.
+
+      `fit: cover` is required, not optional: Netlify's Image CDN defaults to
+      fit=contain and ignores `position` unless cover is set, so without it the
+      crop falls back to the browser's centred object-cover. Keep `position` to
+      the five values Netlify accepts (top, bottom, left, right, center) —
+      sharp's `attention` works under ipx in dev but 400s on the deploy.
     -->
     <ul class="grid gap-x-6 gap-y-10 sm:grid-cols-2">
       <li v-for="img in visibleImages" :key="img.src" class="min-w-0">
@@ -45,7 +51,7 @@ const visibleImages = computed(() =>
             width="984"
             height="656"
             sizes="100vw sm:492px"
-            :modifiers="{ position: 'attention' }"
+            :modifiers="{ fit: 'cover', position: 'top' }"
             loading="lazy"
             format="webp"
             quality="80"

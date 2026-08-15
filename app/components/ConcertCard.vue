@@ -69,7 +69,7 @@ onMounted(() => {
         width="600"
         height="400"
         sizes="100vw sm:50vw lg:440px"
-        :modifiers="{ position: 'attention' }"
+        :modifiers="{ fit: 'cover', position: 'top' }"
         loading="lazy"
         class="block aspect-[3/2] w-full object-cover border-b border-paper-300"
         @error="imageBroken = true"
