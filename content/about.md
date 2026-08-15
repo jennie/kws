@@ -31,8 +31,19 @@ The full roster, by section and instrument, is on [the orchestra page](/about/or
 
 - Jason Doell – Executive Director
 - James Sommerville – Artistic Advisor
-- Katherine Ronzio – Communications Manager
+
+### Artistic Operations
+
 - Andrew Mellanby – Artistic Operations Manager
 - Miriam Stewart-Kroeker – Orchestra Personnel Manager
-- Meaghan McCracken - Orchestra Librarian
+- Meaghan McCracken – Orchestra Librarian
+- Josh Brach – Artistic Operations Coordinator
+
+### Marketing & Development
+
+- Katherine Ronzio – Communications Manager
+- Misha Bedi – Marketing Coordinator
+
+### Learning & Community Engagement
+
 - Ian Whitman – Learning and Community Engagement Coordinator
