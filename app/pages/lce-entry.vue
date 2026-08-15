@@ -320,13 +320,12 @@ const errorClass = "mt-1 text-sm font-semibold text-paper-900";
 
           <div>
             <label :class="labelClass" for="event-description"
-              >Description (required)</label
+              >Description</label
             >
             <textarea
               id="event-description"
               v-model="form.description"
               rows="6"
-              required
               maxlength="2000"
               :class="fieldClass"
               :aria-invalid="Boolean(fieldErrors.description)"

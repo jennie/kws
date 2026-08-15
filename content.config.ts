@@ -42,7 +42,10 @@ export default defineContentConfig({
         date: z.string(),
         time: z.string().optional(),
         location: z.string(),
-        description: z.string(),
+        // Optional: the client's own event lists routinely carry a title, a
+        // date and a venue and nothing else, and a recurring series would only
+        // repeat the same sentence on every entry.
+        description: z.string().optional(),
         linkUrl: z.string().optional(),
         image: z.string().optional(),
         imageCredit: z.string().optional()

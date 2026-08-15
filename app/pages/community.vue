@@ -98,7 +98,7 @@ useSeoMeta({
               {{ event.title }}
             </h3>
             <p class="mt-2 text-base text-paper-800">{{ event.location }}</p>
-            <p class="mt-3 text-lg leading-relaxed text-paper-700">
+            <p v-if="event.description" class="mt-3 text-lg leading-relaxed text-paper-700">
               {{ event.description }}
             </p>
             <a

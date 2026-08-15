@@ -37,7 +37,7 @@ const bodySchema = z.object({
   date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Choose a date.'),
   time: z.preprocess(emptyToUndefined, z.string().regex(/^\d{2}:\d{2}$/).optional()),
   location: z.string().trim().min(1, 'Add a location.').max(200),
-  description: z.string().trim().min(1, 'Add a description.').max(2000),
+  description: z.preprocess(emptyToUndefined, z.string().trim().max(2000).optional()),
   linkUrl: z.preprocess(emptyToUndefined, z.url('Enter a full web address, starting with https://').max(500).optional()),
   imageCredit: z.preprocess(emptyToUndefined, z.string().trim().max(200).optional()),
   image: z.object({
@@ -134,7 +134,7 @@ export default defineEventHandler(async (event) => {
   // A blank time is an absent field, not a midnight stand-in. "hh:mm" quotes
   // itself through yamlScalar's sexagesimal rule.
   if (entry.time) yaml += yamlField('time', entry.time)
-  yaml += yamlField('description', entry.description)
+  if (entry.description) yaml += yamlField('description', entry.description)
   yaml += yamlField('location', entry.location)
   if (entry.linkUrl) yaml += yamlField('linkUrl', entry.linkUrl)
   if (imagePath) yaml += yamlField('image', imagePath)
