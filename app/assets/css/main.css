@@ -78,9 +78,15 @@
   }
 
   a {
-    color: inherit;
+    color: var(--color-paper-900);
+    text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 0.2em;
+  }
+
+  /* Heading permalink anchors wrap the whole heading; they are not inline links. */
+  :is(h1, h2, h3, h4, h5, h6) > a {
+    text-decoration: none;
   }
 
   hr {

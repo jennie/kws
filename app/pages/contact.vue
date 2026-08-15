@@ -70,9 +70,7 @@ const labelClass = "block text-sm font-semibold text-paper-700";
         <p class="mt-1 text-base text-paper-700">
           A member of the KWS team will reply by email. For anything urgent,
           reach us at
-          <a href="mailto:info@kwsymphony.com" class="hover:underline"
-            >info@kwsymphony.com</a
-          >.
+          <a href="mailto:info@kwsymphony.com">info@kwsymphony.com</a>.
         </p>
       </div>
 

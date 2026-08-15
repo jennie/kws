@@ -72,7 +72,7 @@ function onSubmit(event: Event) {
           N2P 2A7
         </address>
         <p class="text-base text-paper-700">
-          <a href="mailto:info@kwsymphony.com" class="hover:underline">info@kwsymphony.com</a>
+          <a href="mailto:info@kwsymphony.com">info@kwsymphony.com</a>
         </p>
         <p class="text-base text-paper-700">Charitable registration #: <span style="white-space:nowrap">122524713 RR0001</span></p>
       </div>
@@ -80,11 +80,11 @@ function onSubmit(event: Event) {
       <nav class="space-y-2" aria-label="Footer">
         <h3 class="font-semibold text-paper-900">Explore</h3>
         <ul class="space-y-1 text-base">
-          <li><NuxtLink to="/" class="text-paper-700 hover:underline">Home</NuxtLink></li>
-          <li><NuxtLink to="/about" class="text-paper-700 hover:underline">About</NuxtLink></li>
-          <li><NuxtLink to="/community" class="text-paper-700 hover:underline">Community</NuxtLink></li>
-          <li><NuxtLink to="/donate" class="text-paper-700 hover:underline">Donate</NuxtLink></li>
-          <li><NuxtLink to="/contact" class="text-paper-700 hover:underline">Contact</NuxtLink></li>
+          <li><NuxtLink to="/">Home</NuxtLink></li>
+          <li><NuxtLink to="/about">About</NuxtLink></li>
+          <li><NuxtLink to="/community">Community</NuxtLink></li>
+          <li><NuxtLink to="/donate">Donate</NuxtLink></li>
+          <li><NuxtLink to="/contact">Contact</NuxtLink></li>
         </ul>
       </nav>
 

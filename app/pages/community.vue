@@ -147,7 +147,7 @@ useSeoMeta({
             :href="event.linkUrl"
             target="_blank"
             rel="noopener noreferrer"
-            class="mt-2 inline-block text-base font-medium text-paper-900 hover:underline"
+            class="mt-2 inline-block text-base font-medium"
           >
             More about this event<span class="sr-only"> (opens in a new tab)</span>
           </a>

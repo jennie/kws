@@ -99,7 +99,7 @@ watch(() => route.path, () => { open.value = false })
         </ul>
       </nav>
       <div class="mt-4 border-t border-paper-200 pt-4 text-base text-paper-700">
-        <p><a href="mailto:info@kwsymphony.com" class="hover:underline">info@kwsymphony.com</a></p>
+        <p><a href="mailto:info@kwsymphony.com">info@kwsymphony.com</a></p>
         <p>14 Huntingwood Court, Kitchener</p>
       </div>
     </div>

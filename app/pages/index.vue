@@ -371,7 +371,7 @@ onMounted(() => {
           </h2>
           <NuxtLink
             to="/community"
-            class="text-base font-semibold text-paper-900 underline underline-offset-4 hover:no-underline"
+            class="text-base font-semibold"
           >
             See all community events
           </NuxtLink>

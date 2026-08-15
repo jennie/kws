@@ -45,7 +45,7 @@ useHead({
 <template>
   <article v-if="concert" class="mx-auto max-w-shell px-6 py-12 lg:px-10">
     <div class="max-w-reading">
-      <NuxtLink to="/" class="inline-block text-base font-medium text-paper-700 no-underline hover:text-paper-900 hover:underline">
+      <NuxtLink to="/" class="inline-block text-base font-medium">
         ← All concerts
       </NuxtLink>
 
