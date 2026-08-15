@@ -41,7 +41,8 @@ const placeholder = computed(() => {
       sizes="50vw sm:33vw lg:280px"
       format="webp"
       quality="80"
-      :modifiers="{ fit: 'cover', position: 'top' }"
+      fit="cover"
+      :modifiers="{ position: 'top' }"
       loading="lazy"
       class="block aspect-square w-full border border-paper-300 object-cover"
     />

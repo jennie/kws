@@ -41,6 +41,14 @@ const visibleImages = computed(() =>
       crop falls back to the browser's centred object-cover. Keep `position` to
       the five values Netlify accepts (top, bottom, left, right, center) —
       sharp's `attention` works under ipx in dev but 400s on the deploy.
+
+      `fit` goes on the prop and `position` in `modifiers`, and they are not
+      interchangeable. NuxtImg builds its modifier object as
+      `{ ...props.modifiers, width, height, format, quality, background, fit }`,
+      so a `fit` passed inside `modifiers` is overwritten by the undefined
+      `fit` prop and never reaches the URL. `position` has no matching prop, so
+      it survives either way. Passing both inside `modifiers` shipped a deploy
+      where every gallery image was letterboxed to contain.
     -->
     <ul class="grid gap-x-6 gap-y-10 sm:grid-cols-2">
       <li v-for="img in visibleImages" :key="img.src" class="min-w-0">
@@ -51,7 +59,8 @@ const visibleImages = computed(() =>
             width="984"
             height="656"
             sizes="100vw sm:492px"
-            :modifiers="{ fit: 'cover', position: 'top' }"
+            fit="cover"
+            :modifiers="{ position: 'top' }"
             loading="lazy"
             format="webp"
             quality="80"

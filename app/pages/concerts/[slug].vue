@@ -173,7 +173,8 @@ useHead({
             width="318"
             height="212"
             sizes="108px sm:318px"
-            :modifiers="{ fit: 'cover', position: 'top' }"
+            fit="cover"
+            :modifiers="{ position: 'top' }"
             loading="lazy"
             class="block aspect-[3/2] w-24 shrink-0 border border-paper-300 object-cover sm:w-full sm:border-0 sm:border-b sm:border-paper-300"
           />
