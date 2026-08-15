@@ -92,7 +92,7 @@ useHead({
         fetchpriority="high"
         class="block h-auto max-h-[36rem] w-auto max-w-full border border-paper-300"
       />
-      <figcaption v-if="heroCaption" class="mt-2 text-sm text-paper-600">
+      <figcaption v-if="heroCaption" class="mt-2 text-base italic text-paper-500">
         {{ heroCaption }}
       </figcaption>
     </figure>

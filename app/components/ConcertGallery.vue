@@ -13,7 +13,8 @@ const visibleImages = computed(() =>
       // image is decorative to assistive tech. Leaving it in alt as well makes
       // a screen reader announce the same sentence twice for one photograph.
       alt: '',
-      caption: [description, imageCaption(img.credit)].filter(Boolean).join(' ')
+      description,
+      credit: imageCaption(img.credit)
     }
   })
 )
@@ -50,8 +51,11 @@ const visibleImages = computed(() =>
             quality="80"
             class="block aspect-[3/2] w-full border border-paper-300 object-cover"
           />
-          <figcaption v-if="img.caption" class="mt-2 max-w-reading text-base text-paper-600">
-            {{ img.caption }}
+          <!-- paper-500 is the lightest step that still clears WCAG AA on
+               paper-50 at this size: 4.73:1 against a 4.5 floor. -->
+          <figcaption v-if="img.description || img.credit" class="mt-2 max-w-reading text-base">
+            <span v-if="img.description" class="block text-paper-600">{{ img.description }}</span>
+            <span v-if="img.credit" class="block italic text-paper-500">{{ img.credit }}</span>
           </figcaption>
         </figure>
       </li>
