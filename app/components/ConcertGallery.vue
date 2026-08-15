@@ -20,26 +20,29 @@ const visibleImages = computed(() =>
     class="mt-12 max-w-4xl border-t border-paper-200 pt-10"
   >
     <!--
-      Height-bounded, not width-bounded. Most artist photos are portraits at
-      1600px tall; at full column width one of them ran 1509px, taller than the
-      viewport, and buried the ticket CTA. Capping the height instead lets
-      portraits and landscapes carry comparable weight and sit side by side,
-      and keeps the settled no-crop rule for galleries: max-height plus
-      max-width with auto sizing scales to fit both bounds, so nothing is
-      cropped and nothing is letterboxed.
+      One 3:2 crop for every gallery image, aimed at the subject rather than
+      the centre of the frame. This replaces the earlier no-crop rule, which
+      was chosen so group shots would not lose people: uncropped mixed
+      orientations gave every row a different shape, and the images that came
+      in as tall portraits dominated the page. 3:2 matches the concert card
+      and the related-concert card, so the page carries one image shape below
+      the 16:9 hero, and `position: attention` keeps faces in frame where a
+      centre crop would cut them off.
     -->
-    <ul class="grid items-start gap-x-6 gap-y-10 sm:grid-cols-2">
+    <ul class="grid gap-x-6 gap-y-10 sm:grid-cols-2">
       <li v-for="img in visibleImages" :key="img.src" class="min-w-0">
         <figure>
           <NuxtImg
             :src="img.src"
             :alt="img.alt"
-            width="1600"
-            sizes="md:100vw lg:492px"
+            width="984"
+            height="656"
+            sizes="100vw sm:492px"
+            :modifiers="{ position: 'attention' }"
             loading="lazy"
             format="webp"
             quality="80"
-            class="block h-auto max-h-[22rem] w-auto max-w-full border border-paper-300 sm:max-h-[26rem]"
+            class="block aspect-[3/2] w-full border border-paper-300 object-cover"
           />
           <figcaption v-if="img.caption" class="mt-2 max-w-reading text-sm text-paper-600">
             {{ img.caption }}

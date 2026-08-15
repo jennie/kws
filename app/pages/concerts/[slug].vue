@@ -73,6 +73,14 @@ useHead({
       </p>
     </div>
 
+    <!--
+      Passing both width and height makes the image pipeline crop to 16:9
+      server-side, so the browser receives an image that already matches the
+      box and object-position never fires. The crop has to be aimed here or
+      not at all: sharp's default is a dead-centre crop, which decapitates
+      anyone photographed with headroom. `position: attention` aims it at the
+      salient region, which on a portrait is the face.
+    -->
     <figure v-if="hero" class="mt-10 max-w-4xl">
       <NuxtImg
         :src="hero.src"
@@ -80,8 +88,9 @@ useHead({
         width="1600"
         height="900"
         sizes="md:100vw lg:1008px"
+        :modifiers="{ position: 'attention' }"
         fetchpriority="high"
-        class="aspect-video w-full border border-paper-300 object-cover object-[center_25%]"
+        class="aspect-video w-full border border-paper-300 object-cover"
       />
       <figcaption v-if="heroCaption" class="mt-2 text-sm text-paper-600">
         {{ heroCaption }}
@@ -163,9 +172,10 @@ useHead({
             alt=""
             width="318"
             height="212"
-            sizes="90px sm:318px"
+            sizes="108px sm:318px"
+            :modifiers="{ position: 'attention' }"
             loading="lazy"
-            class="block aspect-square w-20 shrink-0 border border-paper-300 object-cover object-[center_25%] sm:aspect-[3/2] sm:w-full sm:border-0 sm:border-b sm:border-paper-300"
+            class="block aspect-[3/2] w-24 shrink-0 border border-paper-300 object-cover sm:w-full sm:border-0 sm:border-b sm:border-paper-300"
           />
           <div class="sm:p-4">
             <span class="block font-display text-lg font-semibold leading-tight text-paper-900">{{ c.title }}</span>
