@@ -70,7 +70,7 @@ onMounted(() => {
         height="400"
         sizes="100vw sm:50vw lg:440px"
         loading="lazy"
-        class="block aspect-[3/2] w-full object-cover object-[center_30%] border-b border-paper-300"
+        class="block aspect-[3/2] w-full object-cover object-[center_25%] border-b border-paper-300"
         @error="imageBroken = true"
       />
       <div

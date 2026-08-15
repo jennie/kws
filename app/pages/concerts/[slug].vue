@@ -57,7 +57,7 @@ useHead({
       </h1>
 
       <!-- Single-date meta -->
-      <dl v-if="!isTouring" class="mt-8 space-y-2">
+      <dl v-if="!isTouring" class="mt-6 space-y-2">
         <div>
           <dt class="sr-only">Date and time</dt>
           <dd class="text-lg text-paper-800">{{ longDate(concert.date) }} · {{ timeOf(concert.date) }}</dd>
@@ -68,27 +68,27 @@ useHead({
         </div>
       </dl>
 
-      <p v-if="concert.description" class="mt-8 text-lg leading-relaxed text-paper-800">
+      <p v-if="concert.description" class="mt-6 text-lg leading-relaxed text-paper-800">
         {{ concert.description }}
       </p>
     </div>
 
-    <figure v-if="hero" class="mt-8 max-w-4xl">
+    <figure v-if="hero" class="mt-10 max-w-4xl">
       <NuxtImg
         :src="hero.src"
         :alt="hero.description ?? concert.title"
         width="1600"
         height="900"
-        sizes="md:100vw lg:896px"
+        sizes="md:100vw lg:1008px"
         fetchpriority="high"
-        class="aspect-video w-full border border-paper-300 object-cover"
+        class="aspect-video w-full border border-paper-300 object-cover object-[center_25%]"
       />
       <figcaption v-if="heroCaption" class="mt-2 text-sm text-paper-600">
         {{ heroCaption }}
       </figcaption>
     </figure>
 
-    <div v-if="!isTouring" class="mt-8 max-w-reading">
+    <div v-if="!isTouring" class="mt-10 max-w-reading">
       <TicketButton :url="concert.ticketUrl" :provider="concert.ticketProvider" size="lg" />
     </div>
 
@@ -157,7 +157,7 @@ useHead({
             height="64"
             sizes="64px"
             loading="lazy"
-            class="aspect-square w-16 shrink-0 border border-paper-300 object-cover"
+            class="aspect-square w-16 shrink-0 border border-paper-300 object-cover object-[center_25%]"
           />
           <div>
             <span class="block font-display text-lg font-semibold leading-tight text-paper-900">{{ c.title }}</span>

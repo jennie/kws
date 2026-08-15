@@ -39,6 +39,8 @@ const placeholder = computed(() => {
       width="600"
       height="600"
       sizes="50vw sm:33vw lg:280px"
+      format="webp"
+      quality="80"
       loading="lazy"
       class="block aspect-square w-full border border-paper-300 object-cover object-[center_25%]"
     />
