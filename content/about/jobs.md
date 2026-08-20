@@ -7,7 +7,3 @@ emptyMessage: We don't have any positions open at the moment. New roles and audi
 emptyTitle: No openings right now
 intro: Current openings with the Kitchener-Waterloo Symphony are listed below.
 ---
-
-##
-
-There are no current job openings.
