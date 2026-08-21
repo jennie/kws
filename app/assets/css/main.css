@@ -138,3 +138,13 @@
 body.kws-no-studio-editor nuxt-studio {
   display: none;
 }
+
+/* Studio also injects `body[data-studio-active][data-expand-sidebar] {
+   margin-left: 760px }` at runtime to make room for its sidebar. With the
+   editor hidden that offset just shoves the page off to the right, so undo it.
+   The injected <style> arrives after this file and matches at equal
+   specificity, hence !important. */
+body.kws-no-studio-editor {
+  margin-left: 0 !important;
+  transition: none !important;
+}
