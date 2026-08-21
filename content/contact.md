@@ -8,5 +8,6 @@ navigation:
 ## Other ways to reach us
 
 - Email: <info@kwsymphony.com>
-- Mailing address: c/o Catalyst Commons, 210-137 Glasgow St, Office# 315, Kitchener, ON N2G 4X8
+- Mailing address: c/o Catalyst Commons, 210-137 Glasgow St, Office# 315, Kitchener, ON N2G&nbsp;4X8
 - Facebook: [facebook.com/kwsymphony](https://facebook.com/kwsymphony)
+- Instagram: [instagram.com/kwsymphony](https://www.instagram.com/kwsymphony/)

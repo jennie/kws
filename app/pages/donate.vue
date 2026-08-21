@@ -92,7 +92,7 @@ onBeforeUnmount(() => clearInterval(pollTimer))
         c/o Catalyst Commons<br>
         210-137 Glasgow St, Office# 315<br>
         Kitchener, ON<br>
-        N2G 4X8
+        N2G&nbsp;4X8
       </address>
       <p>
         For donations of securities and corporate sponsorship please reach out

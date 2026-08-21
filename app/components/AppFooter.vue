@@ -70,7 +70,7 @@ function onSubmit(event: Event) {
           c/o Catalyst Commons<br>
           210-137 Glasgow St, Office# 315<br>
           Kitchener, ON<br>
-          N2G 4X8
+          N2G&nbsp;4X8
         </address>
         <p class="text-base text-paper-700">
           <a href="mailto:info@kwsymphony.com" class="hover:underline">info@kwsymphony.com</a>
