@@ -195,9 +195,10 @@ onMounted(() => {
             width="1600"
             height="900"
             sizes="md:100vw lg:55vw"
+            fit="cover"
+            :modifiers="{ position: 'top' }"
             fetchpriority="high"
             class="h-full w-full object-cover"
-            style="object-position: center 30%"
           />
         </NuxtLink>
         <div class="flex flex-col justify-center p-8 lg:p-10">
