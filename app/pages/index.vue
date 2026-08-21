@@ -191,7 +191,7 @@ onMounted(() => {
           <NuxtImg
             v-if="nextImage"
             :src="nextImage.src"
-            :alt="next.title"
+            :alt="nextImage.description || next.title"
             width="1600"
             height="900"
             sizes="md:100vw lg:55vw"
@@ -301,6 +301,7 @@ onMounted(() => {
               :date="concert.date"
               :venue="concert.venue"
               :image="heroImage(concert)?.src"
+              :image-alt="heroImage(concert)?.description"
               :slug="concert.path"
               :ticket-url="concert.ticketUrl"
               :ticket-provider="concert.ticketProvider"

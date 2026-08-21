@@ -11,6 +11,7 @@ const props = withDefaults(defineProps<{
   date: string
   venue?: string
   image?: string
+  imageAlt?: string
   slug: string
   ticketUrl?: string
   ticketProvider?: string
@@ -65,7 +66,7 @@ onMounted(() => {
         v-if="showImage"
         ref="imgRef"
         :src="image"
-        :alt="title"
+        :alt="imageAlt || title"
         width="600"
         height="400"
         sizes="100vw sm:50vw lg:440px"
