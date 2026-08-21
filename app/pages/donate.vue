@@ -50,9 +50,17 @@ onBeforeUnmount(() => clearInterval(pollTimer))
     <header class="max-w-reading space-y-3">
       <h1 class="font-display text-3xl font-bold tracking-tight text-paper-900 sm:text-4xl">Donate</h1>
       <p class="text-lg leading-relaxed text-paper-700">
-        Your support keeps live orchestral music thriving in the Waterloo Region.
-        Donations are processed securely through Canada Helps and are eligible for
-        a charitable tax receipt.
+        Through mainstage concerts and our Learning and Community Engagement
+        activities, the Kitchener-Waterloo Symphony strives to make a meaningful
+        contribution to the cultural life of the region and we cannot do this
+        without your support.
+      </p>
+      <p class="text-lg font-semibold leading-relaxed text-paper-900">
+        Please donate to your symphony!
+      </p>
+      <p class="text-lg leading-relaxed text-paper-700">
+        Credit card donations are processed securely through Canada Helps, just
+        fill out your information below.
       </p>
     </header>
 
@@ -61,7 +69,8 @@ onBeforeUnmount(() => clearInterval(pollTimer))
          content below never jumps. -->
     <div
       ref="embedContainer"
-      class="relative mt-8 min-h-[42rem] w-full max-w-md border border-paper-300"
+      class="relative mt-8 min-h-[42rem] w-full max-w-md"
+      :class="{ 'border border-paper-300': !loaded }"
       aria-label="Canada Helps donation form"
     >
       <p
@@ -72,11 +81,25 @@ onBeforeUnmount(() => clearInterval(pollTimer))
       </p>
     </div>
 
-    <section class="mt-8 max-w-reading space-y-2 text-base text-paper-700">
+    <section class="mt-8 max-w-reading space-y-4 text-base text-paper-700">
       <p>
-        For information about planned giving, corporate sponsorship, or to make a
-        donation by phone or cheque, please see our
-        <NuxtLink to="/contact" class="underline">contact page</NuxtLink>.
+        If you would like to make a donation via cheque, please make the cheque
+        payable to KITCHENER-WATERLOO SYMPHONY ORCHESTRA ASSOCIATION INC. and
+        send to:
+      </p>
+      <address class="not-italic leading-relaxed">
+        Kitchener-Waterloo Symphony<br>
+        c/o Catalyst Commons<br>
+        210-137 Glasgow St, Office# 315<br>
+        Kitchener, ON<br>
+        N2G&nbsp;4X8
+      </address>
+      <p>
+        For donations of securities and corporate sponsorship please reach out
+        to our Communications Manager, Katherine Ronzio, at
+        <a href="mailto:communications.manager@kwsymphony.com" class="underline"
+          >communications.manager@kwsymphony.com</a
+        >.
       </p>
       <p>Charitable registration number: 122524713 RR0001</p>
     </section>

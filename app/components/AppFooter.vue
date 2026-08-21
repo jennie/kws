@@ -67,9 +67,10 @@ function onSubmit(event: Event) {
       <div class="space-y-2">
         <h3 class="font-semibold text-paper-900">Kitchener-Waterloo Symphony</h3>
         <address class="text-base not-italic leading-relaxed text-paper-700">
-          14 Huntingwood Court<br>
+          c/o Catalyst Commons<br>
+          210-137 Glasgow St, Office# 315<br>
           Kitchener, ON<br>
-          N2P 2A7
+          N2G&nbsp;4X8
         </address>
         <p class="text-base text-paper-700">
           <a href="mailto:info@kwsymphony.com">info@kwsymphony.com</a>
