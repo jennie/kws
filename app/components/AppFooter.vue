@@ -65,7 +65,7 @@ function onSubmit(event: Event) {
   <footer class="border-t border-paper-200">
     <div class="mx-auto grid max-w-shell gap-x-12 gap-y-8 px-6 py-12 md:grid-cols-2 lg:grid-cols-[1.4fr_0.6fr_1.5fr] lg:px-10">
       <div class="space-y-2">
-        <h3 class="font-semibold text-paper-900">Kitchener-Waterloo Symphony</h3>
+        <h2 class="font-semibold text-paper-900">Kitchener-Waterloo Symphony</h2>
         <address class="text-base not-italic leading-relaxed text-paper-700">
           c/o Catalyst Commons<br>
           210-137 Glasgow St, Office# 315<br>
@@ -79,7 +79,7 @@ function onSubmit(event: Event) {
       </div>
 
       <nav class="space-y-2" aria-label="Footer">
-        <h3 class="font-semibold text-paper-900">Explore</h3>
+        <h2 class="font-semibold text-paper-900">Explore</h2>
         <ul class="space-y-1 text-base">
           <li><NuxtLink to="/">Home</NuxtLink></li>
           <li><NuxtLink to="/about">About</NuxtLink></li>
@@ -90,7 +90,7 @@ function onSubmit(event: Event) {
       </nav>
 
       <div class="min-w-0 space-y-3 md:col-span-2 md:max-w-md lg:col-span-1 lg:max-w-none">
-        <h3 class="font-semibold text-paper-900">Newsletter</h3>
+        <h2 class="font-semibold text-paper-900">Newsletter</h2>
         <p class="text-base text-paper-700">
           Subscribe for season announcements and concert reminders.
         </p>
