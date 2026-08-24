@@ -18,8 +18,24 @@ useSeoMeta({
 // Keep the Studio editor chrome off this page. nuxt-studio mounts it on every
 // route once a session exists, so the class is the hook for the rule in
 // main.css. Scoped to this route: useHead removes it again on navigate away.
+//
+// The inline script deals with the other half of the same problem. Studio
+// persists the last-edited file in localStorage as `studio-active`; on mount it
+// restores that location and, with syncEditorAndRoute on (the default), pushes
+// the host app to the file's route. On a hard load of /lce-entry that bounces
+// the coordinator to /about with no form. The redirect lives in Studio's
+// minified app bundle, so it can't be intercepted from a component — clearing
+// the active flag before any module script parses is what stops it. Studio sets
+// the same flag to false whenever the sidebar is closed, so this is a state it
+// already expects.
 useHead({
   bodyAttrs: { class: "kws-no-studio-editor" },
+  script: [
+    {
+      innerHTML:
+        'try{var k="studio-active",v=localStorage.getItem(k);if(v){var s=JSON.parse(v);if(s&&s.active){s.active=false;localStorage.setItem(k,JSON.stringify(s))}}}catch(e){}',
+    },
+  ],
 });
 
 interface StudioSessionUser {
