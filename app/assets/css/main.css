@@ -53,6 +53,13 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+
+    /* The homepage series nav is `sticky top-0` at 62px. Without this, moving
+       focus backwards up the page scrolls the target flush to the viewport top,
+       where the bar covers it completely: concert title links (29px) and Buy
+       tickets buttons (60px) both disappear behind it. WCAG 2.2 SC 2.4.11.
+       Also keeps in-page anchor targets clear of the bar. */
+    scroll-padding-top: 5rem;
   }
 
   body {
