@@ -98,7 +98,7 @@ useHead({
     </figure>
 
     <div v-if="!isTouring" class="mt-8 max-w-reading">
-      <TicketButton :url="concert.ticketUrl" :provider="concert.ticketProvider" size="lg" />
+      <TicketButton :url="concert.ticketUrl" :provider="concert.ticketProvider" :concert-title="concert.title" size="lg" />
     </div>
 
     <!-- Touring: performances block replaces single date/venue + CTA -->
@@ -116,7 +116,7 @@ useHead({
             <p class="text-lg font-semibold text-paper-900">{{ longDate(p.date) }} · {{ timeOf(p.date) }}</p>
             <p class="text-base text-paper-600">{{ p.venue }}</p>
           </div>
-          <TicketButton :url="p.ticketUrl" :provider="p.ticketProvider" size="lg" />
+          <TicketButton :url="p.ticketUrl" :provider="p.ticketProvider" :concert-title="`${concert.title}, ${longDate(p.date)}`" size="lg" />
         </li>
       </ul>
     </section>
@@ -144,7 +144,7 @@ useHead({
 
     <!-- Repeat CTA for single-date concerts -->
     <div v-if="!isTouring" class="mt-14 border-t border-paper-300 pt-8 max-w-reading">
-      <TicketButton :url="concert.ticketUrl" :provider="concert.ticketProvider" size="lg" />
+      <TicketButton :url="concert.ticketUrl" :provider="concert.ticketProvider" :concert-title="concert.title" size="lg" />
     </div>
 
     <!-- More in series -->

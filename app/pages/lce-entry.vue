@@ -123,6 +123,18 @@ async function processImage(file: File) {
   return { type: "image/jpeg" as const, data: dataUrl.split(",")[1]! };
 }
 
+// Input id to the field key the API returns errors under, so client-side and
+// server-side validation feed the same display.
+const FIELD_KEY_BY_ID: Record<string, string> = {
+  "event-title": "title",
+  "event-date": "date",
+  "event-time": "time",
+  "event-location": "location",
+  "event-description": "description",
+  "event-link": "linkUrl",
+  "event-image-credit": "imageCredit",
+};
+
 async function onSubmit() {
   const element = formRef.value;
   if (!element) return;
@@ -131,7 +143,25 @@ async function onSubmit() {
   submitError.value = "";
 
   if (!element.checkValidity()) {
-    element.reportValidity();
+    // Don't fall back to reportValidity(). Its bubble is transient, covers
+    // only the first invalid field, and leaves aria-invalid false, so a
+    // screen reader user tabbing back through the form afterwards has no way
+    // to tell which fields are wrong (SC 3.3.1). Fill fieldErrors from the
+    // validity state instead, so the per-field error text and the role="alert"
+    // summary already wired for server errors run on this path too.
+    fieldErrors.value = Object.fromEntries(
+      // Cast so the shared constraint-validation members resolve; every
+      // control this form contains has them.
+      Array.from(element.elements as HTMLCollectionOf<HTMLInputElement>)
+        .filter((el) => el.willValidate && !el.validity.valid)
+        .flatMap((el) => {
+          const key = FIELD_KEY_BY_ID[el.id];
+          return key ? [[key, [el.validationMessage]] as const] : [];
+        }),
+    );
+    submitError.value = "Check the highlighted fields below and try again.";
+    await nextTick();
+    errorSummaryRef.value?.focus();
     return;
   }
 

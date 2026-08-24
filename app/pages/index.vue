@@ -242,6 +242,7 @@ onMounted(() => {
             <TicketButton
               :url="next.ticketUrl"
               :provider="next.ticketProvider"
+              :concert-title="next.title"
               size="lg"
             />
           </div>

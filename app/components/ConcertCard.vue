@@ -111,7 +111,7 @@ onMounted(() => {
         </dl>
         <p v-if="performerLine" class="mb-5 text-sm font-medium text-paper-600">{{ performerLine }}</p>
         <div class="mt-auto border-t border-paper-200 pt-5">
-          <TicketButton :url="ticketUrl" :provider="ticketProvider" block />
+          <TicketButton :url="ticketUrl" :provider="ticketProvider" :concert-title="title" block />
         </div>
       </template>
 
@@ -132,7 +132,7 @@ onMounted(() => {
               </span>
               <span class="block text-xs text-paper-600">{{ p.venue }}</span>
             </div>
-            <TicketButton :url="p.ticketUrl" :provider="p.ticketProvider" size="sm" />
+            <TicketButton :url="p.ticketUrl" :provider="p.ticketProvider" :concert-title="`${title}, ${shortDate(p.date)}`" size="sm" />
           </li>
         </ul>
       </template>

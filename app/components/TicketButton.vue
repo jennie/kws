@@ -1,15 +1,27 @@
 <script setup lang="ts">
-withDefaults(defineProps<{
+const props = withDefaults(defineProps<{
   url?: string
   provider?: string
   size?: 'sm' | 'md' | 'lg'
   block?: boolean
   label?: string
+  // Concert this CTA buys tickets for. Every button reads "Buy tickets", so
+  // without this they all compute the same accessible name and a screen
+  // reader's links list shows a column of identical rows with no way to tell
+  // them apart. Visible text is unchanged; the title only enters the
+  // accessible name, which still starts with the visible label (SC 2.5.3).
+  concertTitle?: string
 }>(), {
   size: 'md',
   block: false,
   label: 'Buy tickets'
 })
+
+const accessibleName = computed(() =>
+  props.concertTitle
+    ? `${props.label} for ${props.concertTitle} (opens in a new tab)`
+    : undefined
+)
 
 const sizeClass = {
   sm: 'px-4 py-2 text-base min-h-[2.75rem]',
@@ -24,6 +36,7 @@ const sizeClass = {
     :href="url"
     target="_blank"
     rel="noopener noreferrer"
+    :aria-label="accessibleName"
     :class="[
       'group inline-flex items-center justify-center gap-2.5 font-sans font-bold no-underline border-2 transition-colors',
       'bg-paper-900 text-paper-50 border-paper-900 hover:bg-paper-50 hover:text-paper-900',
