@@ -11,7 +11,7 @@ description: Meet the musicians, board, and staff of the Kitchener-Waterloo Symp
 
 ## Our musicians
 
-The full roster, by section and instrument, is on [the orchestra page](/about/orchestra).!
+The full roster, by section and instrument, is on [the orchestra page](/about/orchestra).
 
 ## Board of Directors
 
