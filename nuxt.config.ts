@@ -77,6 +77,13 @@ export default defineNuxtConfig({
       // They're served at request time by the Netlify Image CDN (or IPX in dev),
       // and 404 at build time, which would otherwise fail the prerender.
       ignore: ["/.netlify/images", "/_ipx"],
+      // Emit about.html rather than about/index.html. With the subfolder form,
+      // /about/ is the real path on disk and Netlify 301s /about to it - while
+      // the canonical tag, the sitemap, and every internal link say /about. That
+      // put all 15 sitemap URLs on a redirect and pointed each canonical at a
+      // URL that doesn't serve. Flat files let Netlify's Pretty URLs serve
+      // /about directly, so the whole site agrees on the no-slash form.
+      autoSubfolderIndex: false,
     },
   },
 
