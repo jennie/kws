@@ -15,15 +15,23 @@
   --text-lg--line-height: 1.55;
   --text-xl: 1.5rem;
   --text-xl--line-height: 1.4;
-  --text-2xl: 1.875rem;
+
+  /* Display steps are fluid between a 360px phone and a 768px tablet, then
+     hold at the values the design system specifies. Sized for the desktop
+     column, 2xl and up overrun a phone: the page H1 at 2.375rem needs ~380px
+     and breaks "Concerts & events" onto two lines below about 410px, and a
+     concert title at 3rem lands three words to a line. Each clamp keeps a rem
+     term in the middle so browser zoom still scales the heading (SC 1.4.4);
+     the vw term only decides where between the two ends it sits. */
+  --text-2xl: clamp(1.625rem, 1.404rem + 1.103vw, 1.875rem);
   --text-2xl--line-height: 1.25;
-  --text-3xl: 2.375rem;
+  --text-3xl: clamp(1.875rem, 1.434rem + 2.206vw, 2.375rem);
   --text-3xl--line-height: 1.15;
-  --text-4xl: 3rem;
+  --text-4xl: clamp(2.25rem, 1.588rem + 3.309vw, 3rem);
   --text-4xl--line-height: 1.08;
-  --text-5xl: 4rem;
+  --text-5xl: clamp(2.75rem, 1.647rem + 5.515vw, 4rem);
   --text-5xl--line-height: 1.02;
-  --text-6xl: 5.25rem;
+  --text-6xl: clamp(3.25rem, 1.485rem + 8.824vw, 5.25rem);
   --text-6xl--line-height: 0.98;
 
   /* Width system. Two tiers: the page frame (nav, footer, listing, and the
@@ -99,6 +107,16 @@
   hr {
     border: 0;
     border-top: 1px solid var(--color-paper-300);
+  }
+
+  /* An email address or URL in running copy is one unbreakable token.
+     community.engagement@kwsymphony.com sets ~360px at the body size, which is
+     wider than the reading column on any phone narrower than about 410px, and
+     pushed /community into horizontal scroll. `break-word` (not `anywhere`)
+     only breaks when the address cannot fit on a line of its own, so on wider
+     screens it still sets unbroken. */
+  .prose :is(a, code) {
+    overflow-wrap: break-word;
   }
 }
 

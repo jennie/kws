@@ -201,14 +201,17 @@ onMounted(() => {
             class="h-full w-full object-cover"
           />
         </NuxtLink>
-        <div class="flex flex-col justify-center p-8 lg:p-10">
-          <div class="mb-4 flex items-baseline justify-between gap-4">
+        <div class="flex flex-col justify-center p-6 sm:p-8 lg:p-10">
+          <!-- The two labels each stay whole: at 360px "Next concert" was
+               breaking mid-label against the series name. Wrapping the row
+               drops it to its own line instead. -->
+          <div class="mb-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
             <span
               v-if="next.series"
               class="text-base font-medium text-paper-600"
               >{{ next.series }}</span
             >
-            <span class="kws-eyebrow kws-eyebrow--ink">Next concert</span>
+            <span class="kws-eyebrow kws-eyebrow--ink whitespace-nowrap">Next concert</span>
           </div>
           <h2
             id="lead-title"
@@ -220,7 +223,7 @@ onMounted(() => {
           </h2>
           <p
             v-if="next.description"
-            class="mb-6 max-w-[46ch] text-lg text-paper-600"
+            class="mb-6 max-w-[46ch] text-base text-paper-600 sm:text-lg"
           >
             {{ next.description }}
           </p>

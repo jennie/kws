@@ -123,17 +123,65 @@ async function processImage(file: File) {
   return { type: "image/jpeg" as const, data: dataUrl.split(",")[1]! };
 }
 
-// Input id to the field key the API returns errors under, so client-side and
-// server-side validation feed the same display.
-const FIELD_KEY_BY_ID: Record<string, string> = {
-  "event-title": "title",
-  "event-date": "date",
-  "event-time": "time",
-  "event-location": "location",
-  "event-description": "description",
-  "event-link": "linkUrl",
-  "event-image-credit": "imageCredit",
-};
+// One row per field: the input id, the key the API returns errors under, the
+// label the error summary links with, and the messages. The messages match the
+// zod ones in server/api/lce-events.post.ts word for word, so a field reads the
+// same whether the browser caught it or the server did. Nothing here uses
+// `el.validationMessage`: that text is the browser's, not ours ("Fill out this
+// field" in Firefox, "Please fill out this field." in Chrome), it names the
+// gesture rather than the thing being asked for, and it changes under us.
+interface FieldSpec {
+  id: string;
+  key: string;
+  label: string;
+  /** Shown when the control is required and empty. */
+  missing?: string;
+  /** Shown for anything else the control rejects: a half-typed date, a link
+   *  that isn't a URL. Falls back to a generic line, because a submit that
+   *  neither publishes nor says why is the worst outcome here. */
+  invalid?: string;
+}
+
+const FIELDS: FieldSpec[] = [
+  { id: "event-title", key: "title", label: "Event title", missing: "Add a title." },
+  {
+    id: "event-date",
+    key: "date",
+    label: "Date",
+    missing: "Choose a date.",
+    invalid: "Enter a complete date, or pick one from the calendar.",
+  },
+  {
+    id: "event-time",
+    key: "time",
+    label: "Start time",
+    invalid: "Enter a complete time, or leave this blank.",
+  },
+  { id: "event-location", key: "location", label: "Location", missing: "Add a location." },
+  { id: "event-description", key: "description", label: "Description" },
+  {
+    id: "event-link",
+    key: "linkUrl",
+    label: "Link",
+    invalid: "Enter a full web address, starting with https://",
+  },
+  { id: "event-image-credit", key: "imageCredit", label: "Photo credit" },
+];
+
+const FIELD_BY_ID = Object.fromEntries(FIELDS.map((f) => [f.id, f]));
+
+// The summary lists only fields that actually have an error, in form order, so
+// the list reads top to bottom the way the form does.
+const errorList = computed(() =>
+  FIELDS.flatMap((field) => {
+    const message = fieldErrors.value[field.key]?.[0];
+    return message ? [{ id: field.id, label: field.label, message }] : [];
+  }),
+);
+
+function focusField(id: string) {
+  document.getElementById(id)?.focus();
+}
 
 async function onSubmit() {
   const element = formRef.value;
@@ -155,11 +203,16 @@ async function onSubmit() {
       Array.from(element.elements as HTMLCollectionOf<HTMLInputElement>)
         .filter((el) => el.willValidate && !el.validity.valid)
         .flatMap((el) => {
-          const key = FIELD_KEY_BY_ID[el.id];
-          return key ? [[key, [el.validationMessage]] as const] : [];
+          const field = FIELD_BY_ID[el.id];
+          if (!field) return [];
+          const message =
+            (el.validity.valueMissing ? field.missing : field.invalid) ??
+            field.invalid ??
+            "Check this field.";
+          return [[field.key, [message]] as const];
         }),
     );
-    submitError.value = "Check the highlighted fields below and try again.";
+    submitError.value = "";
     await nextTick();
     errorSummaryRef.value?.focus();
     return;
@@ -178,8 +231,10 @@ async function onSubmit() {
   } catch (error: unknown) {
     const body = (error as { data?: { statusMessage?: string; data?: { errors?: Record<string, string[]> } } }).data;
     fieldErrors.value = body?.data?.errors ?? {};
+    // A field-level failure is already spelled out in the summary list; only a
+    // whole-request failure needs a sentence of its own.
     submitError.value = Object.keys(fieldErrors.value).length
-      ? "Check the highlighted fields below and try again."
+      ? ""
       : (body?.statusMessage ??
         "The event couldn't be published. Try again, or contact the web team.");
     await nextTick();
@@ -209,11 +264,25 @@ onBeforeUnmount(() => {
   if (imagePreview.value) URL.revokeObjectURL(imagePreview.value);
 });
 
-const fieldClass =
-  "mt-1 w-full border border-paper-500 bg-paper-50 px-3 py-2.5 text-base text-paper-900 placeholder:text-paper-500";
+// `min-w-0` is load-bearing for the date and time inputs. They sit in a grid,
+// whose items default to `min-width: auto`, and a native date or time control
+// carries an intrinsic width that on iOS is wider than a phone's reading
+// column. The track sized itself to that intrinsic width and both fields ran
+// off the right edge of the page; every other field, being a plain block, was
+// fine. Zeroing the minimum lets `w-full` win.
+const FIELD_BASE =
+  "mt-1 w-full min-w-0 bg-paper-50 px-3 py-2.5 text-base text-paper-900 placeholder:text-paper-500";
+
+// A field in error is framed rather than tinted: the palette is achromatic, so
+// the 2px ink border is the one weight in the form that reads as "this one",
+// the same device the featured concert card uses.
+const fieldClass = (invalid = false) =>
+  `${FIELD_BASE} ${invalid ? "border-2 border-paper-900" : "border border-paper-500"}`;
 const labelClass = "block text-sm font-semibold text-paper-700";
 const hintClass = "mt-1 text-sm text-paper-700";
-const errorClass = "mt-1 text-sm font-semibold text-paper-900";
+const errorClass = "mt-1 text-base font-semibold text-paper-900";
+
+const hasErrors = computed(() => errorList.value.length > 0 || !!submitError.value);
 </script>
 
 <template>
@@ -254,8 +323,10 @@ const errorClass = "mt-1 text-sm font-semibold text-paper-900";
           Published.
         </h2>
         <p class="mt-1 text-base text-paper-700">
-          The event is saved. It appears on the community page once the site
-          finishes rebuilding, usually within a few minutes.
+          The event is saved. The site rebuilds itself before it shows up, which
+          usually takes a few minutes, so
+          <NuxtLink to="/community">the community page</NuxtLink> won't list it
+          the instant you look.
         </p>
         <button
           type="button"
@@ -267,7 +338,7 @@ const errorClass = "mt-1 text-sm font-semibold text-paper-900";
       </div>
 
       <template v-else>
-        <p class="text-lg text-paper-700">
+        <p class="text-base text-paper-700 sm:text-lg">
           Signed in as {{ user.name }}. Events publish straight to the site, so
           check the details before you submit.
         </p>
@@ -278,17 +349,37 @@ const errorClass = "mt-1 text-sm font-semibold text-paper-900";
           class="mt-6 space-y-5"
           @submit.prevent="onSubmit"
         >
+          <!-- Named problems, each a link to the field that has it. On a phone
+               the offending field is often several screens down, so a summary
+               that only said "check the highlighted fields below" left the
+               coordinator to hunt for them. -->
           <div
-            v-if="submitError"
+            v-if="hasErrors"
             ref="errorSummaryRef"
             tabindex="-1"
             class="border-2 border-paper-900 bg-paper-100 p-4"
             role="alert"
           >
-            <p class="font-semibold text-paper-900">
-              There's a problem with the form
+            <p class="text-base font-semibold text-paper-900">
+              {{
+                errorList.length === 1
+                  ? "One thing needs fixing before this can publish"
+                  : "There's a problem with the form"
+              }}
             </p>
-            <p class="text-base text-paper-700">{{ submitError }}</p>
+            <ul v-if="errorList.length" class="mt-3 space-y-2">
+              <li v-for="item in errorList" :key="item.id">
+                <a
+                  :href="`#${item.id}`"
+                  class="text-base font-medium text-paper-900"
+                  @click="focusField(item.id)"
+                  >{{ item.label }}: {{ item.message }}</a
+                >
+              </li>
+            </ul>
+            <p v-if="submitError" class="mt-2 text-base text-paper-700">
+              {{ submitError }}
+            </p>
           </div>
 
           <div>
@@ -301,7 +392,7 @@ const errorClass = "mt-1 text-sm font-semibold text-paper-900";
               type="text"
               required
               maxlength="200"
-              :class="fieldClass"
+              :class="fieldClass(Boolean(fieldErrors.title))"
               :aria-invalid="Boolean(fieldErrors.title)"
               :aria-describedby="fieldErrors.title ? 'event-title-error' : undefined"
             />
@@ -311,14 +402,14 @@ const errorClass = "mt-1 text-sm font-semibold text-paper-900";
           </div>
 
           <div class="grid gap-5 sm:grid-cols-2">
-            <div>
+            <div class="min-w-0">
               <label :class="labelClass" for="event-date">Date (required)</label>
               <input
                 id="event-date"
                 v-model="form.date"
                 type="date"
                 required
-                :class="fieldClass"
+                :class="fieldClass(Boolean(fieldErrors.date))"
                 :aria-invalid="Boolean(fieldErrors.date)"
                 :aria-describedby="fieldErrors.date ? 'event-date-error' : undefined"
               />
@@ -326,13 +417,13 @@ const errorClass = "mt-1 text-sm font-semibold text-paper-900";
                 {{ fieldErrors.date[0] }}
               </p>
             </div>
-            <div>
+            <div class="min-w-0">
               <label :class="labelClass" for="event-time">Start time</label>
               <input
                 id="event-time"
                 v-model="form.time"
                 type="time"
-                :class="fieldClass"
+                :class="fieldClass()"
                 aria-describedby="event-time-hint"
               />
               <p id="event-time-hint" :class="hintClass">
@@ -351,7 +442,7 @@ const errorClass = "mt-1 text-sm font-semibold text-paper-900";
               type="text"
               required
               maxlength="200"
-              :class="fieldClass"
+              :class="fieldClass(Boolean(fieldErrors.location))"
               :aria-invalid="Boolean(fieldErrors.location)"
               :aria-describedby="fieldErrors.location ? 'event-location-error' : undefined"
             />
@@ -373,7 +464,7 @@ const errorClass = "mt-1 text-sm font-semibold text-paper-900";
               v-model="form.description"
               rows="6"
               maxlength="2000"
-              :class="fieldClass"
+              :class="fieldClass(Boolean(fieldErrors.description))"
               :aria-invalid="Boolean(fieldErrors.description)"
               :aria-describedby="
                 fieldErrors.description
@@ -401,7 +492,7 @@ const errorClass = "mt-1 text-sm font-semibold text-paper-900";
               type="url"
               inputmode="url"
               placeholder="https://"
-              :class="fieldClass"
+              :class="fieldClass(Boolean(fieldErrors.linkUrl))"
               :aria-invalid="Boolean(fieldErrors.linkUrl)"
               :aria-describedby="
                 fieldErrors.linkUrl ? 'event-link-error' : 'event-link-hint'
@@ -421,7 +512,7 @@ const errorClass = "mt-1 text-sm font-semibold text-paper-900";
               id="event-image"
               type="file"
               accept="image/jpeg,image/png,image/webp"
-              :class="fieldClass"
+              :class="fieldClass()"
               aria-describedby="event-image-hint"
               @change="onImageChange"
             />
@@ -445,7 +536,7 @@ const errorClass = "mt-1 text-sm font-semibold text-paper-900";
               v-model="form.imageCredit"
               type="text"
               maxlength="200"
-              :class="fieldClass"
+              :class="fieldClass()"
             />
           </div>
 
