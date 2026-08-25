@@ -1,5 +1,9 @@
 ---
 title: The Gull, the Raccoon, and the Last Maple
+artists:
+  - name: Amanda Cordner
+    role: Narrator
+conductor: Evan Mitchell
 date: 2027-05-16T14:30:00
 description: A contemporary fable for baroque orchestra and narrator, The Gull, the Raccoon, and the Last Maple is inspired by the need for collaboration in the face of climate change.
 image: /images/orchestra/kws-ensemble.jpg
@@ -12,5 +16,5 @@ venue: St. Matthews Centre, Kitchener
 
 ## Programme
 
-- Abigail Richardson-Schulte - *The Gull, The Raccoon, and the Last Maple* 
-- Emilie Lebel - *Kiwis Can't Play the Violin*
+- Abigail Richardson-Schulte — *The Gull, The Raccoon, and the Last Maple* 
+- Emilie Lebel — *Kiwis Can't Play the Violin*
