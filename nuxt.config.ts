@@ -9,12 +9,13 @@
 // redeploy.
 const siteUrl = process.env.NUXT_SITE_URL || "https://kwsymphony.netlify.app";
 
-// Only let the real production domain be indexed. The pre-cutover netlify.app
-// deploy now self-canonicalises and ships a sitemap, so without this it could
-// get indexed and compete with www after launch. @nuxtjs/robots reads this and
-// emits Disallow: / + noindex on the staging host; it flips to indexable when
-// NUXT_SITE_URL points at www at cutover.
-const indexable = siteUrl.includes("www.kwsymphony.com");
+// Only let the real production domain be indexed. @nuxtjs/robots reads this and
+// emits Disallow: / + noindex everywhere else. Two conditions, because either
+// one alone leaks: NUXT_SITE_URL is set at the site level, so branch deploys and
+// deploy previews inherit the www value and would otherwise come up crawlable at
+// their own hostname. Netlify sets CONTEXT per deploy; it is undefined locally.
+const isProductionDeploy = !process.env.CONTEXT || process.env.CONTEXT === "production";
+const indexable = siteUrl.includes("www.kwsymphony.com") && isProductionDeploy;
 
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
