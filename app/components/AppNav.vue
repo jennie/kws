@@ -46,13 +46,20 @@ watch(() => route.path, () => { open.value = false })
         <span class="font-display text-2xl font-semibold leading-none tracking-tight text-paper-900 sm:hidden">KWS</span>
       </NuxtLink>
 
+      <!-- Tighter link padding and gap between md and lg. The five labels plus
+           the logo need 813px at the lg spacing, so from 768px (where this row
+           replaces the menu button) to about 813px the last link ran off the
+           right edge and the page scrolled sideways - 768px being iPad
+           portrait, not a hypothetical width. The lg spacing returns at
+           1024px, and the labels are hardcoded, so this fits by measurement
+           rather than by luck. -->
       <nav class="hidden md:block" aria-label="Primary">
-        <ul class="flex items-center gap-2">
+        <ul class="flex items-center gap-1 lg:gap-2">
           <li v-for="link in links" :key="link.to">
             <NuxtLink
               :to="link.to"
               :class="[
-                'inline-flex items-center px-3 py-2 text-base no-underline transition-colors',
+                'inline-flex items-center px-2 py-2 text-base no-underline transition-colors lg:px-3',
                 isActive(link.to)
                   ? 'font-bold text-paper-900'
                   : 'font-medium text-paper-700 hover:text-paper-900'
