@@ -62,6 +62,13 @@ export default defineNuxtConfig({
       // They're served at request time by the Netlify Image CDN (or IPX in dev),
       // and 404 at build time, which would otherwise fail the prerender.
       ignore: ["/.netlify/images", "/_ipx"],
+      // Emit about.html rather than about/index.html. With the subfolder form,
+      // /about/ is the real path on disk and Netlify 301s /about to it - while
+      // the canonical tag, the sitemap, and every internal link say /about. That
+      // put all 15 sitemap URLs on a redirect and pointed each canonical at a
+      // URL that doesn't serve. Flat files let Netlify's Pretty URLs serve
+      // /about directly, so the whole site agrees on the no-slash form.
+      autoSubfolderIndex: false,
     },
   },
 
@@ -75,31 +82,40 @@ export default defineNuxtConfig({
   // cutover. Source paths are every URL in the old site's sitemap.xml. Nitro
   // matches most-specific first, so the per-concert rules win over the
   // /allconcerts/** catch-all.
+  //
+  // `prerender: false` on every redirect is required, not tidiness. The Netlify
+  // preset writes all of these into _redirects, but a Netlify build also prerenders
+  // each redirect route to a static HTML file containing
+  // <meta http-equiv="refresh">. Netlify evaluates non-forced _redirects rules
+  // *after* static files, so that file wins and the old URL answers 200 with a
+  // refresh hint instead of a 301. Only the /allconcerts/** wildcard escaped it,
+  // because no static file can exist at an arbitrary path. Opting the routes out
+  // of prerendering removes the file and lets the redirect rule run.
   routeRules: {
     // Top-level pages.
-    "/home": { redirect: { to: "/", statusCode: 301 } },
-    "/allconcerts": { redirect: { to: "/", statusCode: 301 } },
-    "/news": { redirect: { to: "/", statusCode: 301 } },
-    "/update": { redirect: { to: "/", statusCode: 301 } },
-    "/gemmell-video": { redirect: { to: "/", statusCode: 301 } },
+    "/home": { redirect: { to: "/", statusCode: 301 }, prerender: false },
+    "/allconcerts": { redirect: { to: "/", statusCode: 301 }, prerender: false },
+    "/news": { redirect: { to: "/", statusCode: 301 }, prerender: false },
+    "/update": { redirect: { to: "/", statusCode: 301 }, prerender: false },
+    "/gemmell-video": { redirect: { to: "/", statusCode: 301 }, prerender: false },
     // Concert slugs that carried into the new season.
-    "/allconcerts/beauty-power": { redirect: { to: "/concerts/beauty-and-power", statusCode: 301 } },
-    "/allconcerts/folk-dances": { redirect: { to: "/concerts/folk-dances", statusCode: 301 } },
-    "/allconcerts/yuletide-pops": { redirect: { to: "/concerts/yuletide-pops", statusCode: 301 } },
-    "/allconcerts/solace": { redirect: { to: "/concerts/solace", statusCode: 301 } },
-    "/allconcerts/the-journey-home": { redirect: { to: "/concerts/the-journey-home", statusCode: 301 } },
+    "/allconcerts/beauty-power": { redirect: { to: "/concerts/beauty-and-power", statusCode: 301 }, prerender: false },
+    "/allconcerts/folk-dances": { redirect: { to: "/concerts/folk-dances", statusCode: 301 }, prerender: false },
+    "/allconcerts/yuletide-pops": { redirect: { to: "/concerts/yuletide-pops", statusCode: 301 }, prerender: false },
+    "/allconcerts/solace": { redirect: { to: "/concerts/solace", statusCode: 301 }, prerender: false },
+    "/allconcerts/the-journey-home": { redirect: { to: "/concerts/the-journey-home", statusCode: 301 }, prerender: false },
     // Every other (past-season) concert page → the concert listing.
-    "/allconcerts/**": { redirect: { to: "/", statusCode: 301 } },
+    "/allconcerts/**": { redirect: { to: "/", statusCode: 301 }, prerender: false },
     // About-section content that no longer has its own page.
-    "/our-musicians": { redirect: { to: "/about", statusCode: 301 } },
-    "/board-of-directors-and-staff": { redirect: { to: "/about", statusCode: 301 } },
-    "/kws-in-the-community": { redirect: { to: "/about", statusCode: 301 } },
-    "/orchestral-musician-school-visits": { redirect: { to: "/about", statusCode: 301 } },
-    "/mnbios": { redirect: { to: "/about", statusCode: 301 } },
-    "/artist-bios": { redirect: { to: "/about", statusCode: 301 } },
+    "/our-musicians": { redirect: { to: "/about", statusCode: 301 }, prerender: false },
+    "/board-of-directors-and-staff": { redirect: { to: "/about", statusCode: 301 }, prerender: false },
+    "/kws-in-the-community": { redirect: { to: "/about", statusCode: 301 }, prerender: false },
+    "/orchestral-musician-school-visits": { redirect: { to: "/about", statusCode: 301 }, prerender: false },
+    "/mnbios": { redirect: { to: "/about", statusCode: 301 }, prerender: false },
+    "/artist-bios": { redirect: { to: "/about", statusCode: 301 }, prerender: false },
     // Jobs/apply (old /jobs is in the legacy sitemap; /apply is a known alias).
-    "/jobs": { redirect: { to: "/about/jobs", statusCode: 301 } },
-    "/apply": { redirect: { to: "/about/jobs", statusCode: 301 } },
+    "/jobs": { redirect: { to: "/about/jobs", statusCode: 301 }, prerender: false },
+    "/apply": { redirect: { to: "/about/jobs", statusCode: 301 }, prerender: false },
   },
 
   app: {
