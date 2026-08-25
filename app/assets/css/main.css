@@ -109,6 +109,24 @@
     border-top: 1px solid var(--color-paper-300);
   }
 
+  /* iOS renders date and time inputs as a native widget whose shadow tree
+     carries its own intrinsic width, and that width wins over `width: 100%`
+     on the host: on the LCE entry form both fields ran off the right edge of
+     the page while every text field beside them sat flush. Turning the
+     appearance off drops the widget sizing and the control lays out like an
+     ordinary field; it still opens the system picker on tap. `max-width` is
+     the backstop in case any engine keeps sizing from content.
+
+     Not reproducible off-device — desktop WebKit ships a plain text field for
+     these types, so it sizes correctly with or without this rule. Verified
+     there only that turning appearance off changes neither width nor height. */
+  input[type="date"],
+  input[type="time"] {
+    -webkit-appearance: none;
+    appearance: none;
+    max-width: 100%;
+  }
+
   /* An email address or URL in running copy is one unbreakable token.
      community.engagement@kwsymphony.com sets ~360px at the body size, which is
      wider than the reading column on any phone narrower than about 410px, and
