@@ -74,6 +74,8 @@ useSeoMeta({
               width="800"
               height="533"
               sizes="100vw sm:400px"
+              fit="cover"
+              :modifiers="{ position: 'top' }"
               loading="lazy"
               format="webp"
               quality="80"
