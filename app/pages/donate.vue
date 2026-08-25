@@ -6,6 +6,8 @@ useSeoMeta({
   ogDescription: 'Support the Kitchener-Waterloo Symphony with a tax-deductible donation through Canada Helps.'
 })
 
+const DONATION_FRAME_TITLE = 'Donation form (Canada Helps)'
+
 // The Canada Helps embed (cdf_embed.2.js) injects its donation form immediately
 // after its own <script> element. Vue templates don't execute inline scripts, so
 // append it to the target container on the client and the form renders inside it.
@@ -34,6 +36,12 @@ onMounted(() => {
   const startedAt = performance.now()
   pollTimer = setInterval(() => {
     const iframe = embedContainer.value?.querySelector('iframe')
+    // Canada Helps names its own frame `title="iframe"`, which is what a screen
+    // reader announces on entering it. Rename it as soon as it exists; the
+    // element is in our document, only its content is cross-origin.
+    if (iframe && iframe.title !== DONATION_FRAME_TITLE) {
+      iframe.title = DONATION_FRAME_TITLE
+    }
     const hasForm = !!iframe && iframe.getBoundingClientRect().height > 0
     if (hasForm || performance.now() - startedAt > 8000) {
       loaded.value = true
@@ -97,7 +105,9 @@ onBeforeUnmount(() => clearInterval(pollTimer))
       <p>
         For donations of securities and corporate sponsorship please reach out
         to our Communications Manager, Katherine Ronzio, at
-        <a href="mailto:communications.manager@kwsymphony.com" class="underline"
+        <a
+          href="mailto:communications.manager@kwsymphony.com"
+          class="underline break-words"
           >communications.manager@kwsymphony.com</a
         >.
       </p>

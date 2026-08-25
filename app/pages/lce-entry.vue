@@ -423,10 +423,16 @@ const hasErrors = computed(() => errorList.value.length > 0 || !!submitError.val
                 id="event-time"
                 v-model="form.time"
                 type="time"
-                :class="fieldClass()"
-                aria-describedby="event-time-hint"
+                :class="fieldClass(Boolean(fieldErrors.time))"
+                :aria-invalid="Boolean(fieldErrors.time)"
+                :aria-describedby="
+                  fieldErrors.time ? 'event-time-error' : 'event-time-hint'
+                "
               />
-              <p id="event-time-hint" :class="hintClass">
+              <p v-if="fieldErrors.time" id="event-time-error" :class="errorClass">
+                {{ fieldErrors.time[0] }}
+              </p>
+              <p v-else id="event-time-hint" :class="hintClass">
                 Leave blank if the event has no set start time.
               </p>
             </div>

@@ -62,12 +62,17 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
 
-    /* The homepage series nav is `sticky top-0` at 62px. Without this, moving
-       focus backwards up the page scrolls the target flush to the viewport top,
+    /* The homepage series nav is `sticky top-0`. Without this, moving focus
+       backwards up the page scrolls the target flush to the viewport top,
        where the bar covers it completely: concert title links (29px) and Buy
        tickets buttons (60px) both disappear behind it. WCAG 2.2 SC 2.4.11.
-       Also keeps in-page anchor targets clear of the bar. */
-    scroll-padding-top: 5rem;
+       Also keeps in-page anchor targets clear of the bar.
+
+       7rem, not 5rem: the bar is 62px once the four series labels fit on one
+       line, but below about 600px they wrap and it becomes 105px. 5rem cleared
+       the desktop bar and left the top 15px of every focused control under the
+       phone one, focus ring included. */
+    scroll-padding-top: 7rem;
   }
 
   body {
