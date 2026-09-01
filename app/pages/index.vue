@@ -252,10 +252,10 @@ onMounted(() => {
         </div>
       </section>
 
-      <!-- Sticky series jump-nav -->
+      <!-- Sticky section jump-nav -->
       <nav
         v-if="grouped.length > 1"
-        aria-label="Jump to series"
+        aria-label="Jump to section"
         class="sticky top-0 z-20 -mx-6 mb-10 border-y border-paper-300 bg-paper-50 px-6 py-3 lg:-mx-10 lg:px-10"
       >
         <ul class="flex flex-wrap gap-x-6 gap-y-2">
@@ -271,6 +271,23 @@ onMounted(() => {
               "
             >
               {{ group.series }}
+            </a>
+          </li>
+          <!-- Community events are not a series, so they hang off the end of
+               the data-driven list rather than being faked into `grouped`.
+               Guarded on the same condition as the section itself. -->
+          <li v-if="lceUpcoming.length">
+            <a
+              href="#community"
+              :aria-current="activeSeriesId === 'community' ? 'true' : undefined"
+              class="inline-block py-1 -my-1 text-base no-underline hover:text-paper-900 hover:underline"
+              :class="
+                activeSeriesId === 'community'
+                  ? 'font-semibold text-paper-900'
+                  : 'font-medium text-paper-700'
+              "
+            >
+              Community
             </a>
           </li>
         </ul>
@@ -358,12 +375,14 @@ onMounted(() => {
       Learning & community engagement. Full-bleed band so it reads as its own
       thing next to the season, distinct through tone and structure rather than
       colour. Sits outside the season conditional above so it survives the
-      season-ended empty state. Deliberately not in the "Jump to series" nav.
+      season-ended empty state.
     -->
     <section
       v-if="lceUpcoming.length"
+      id="community"
       aria-labelledby="lce-heading"
-      class="border-y border-paper-300 bg-paper-100"
+      data-jump-target
+      class="scroll-mt-20 border-y border-paper-300 bg-paper-100"
     >
       <div class="mx-auto max-w-shell px-6 py-12 lg:px-10 lg:py-16">
         <div

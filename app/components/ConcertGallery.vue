@@ -69,7 +69,10 @@ const visibleImages = computed(() =>
           <!-- paper-500 is the lightest step that still clears WCAG AA on
                paper-50 at this size: 4.73:1 against a 4.5 floor. -->
           <figcaption v-if="img.description || img.credit" class="mt-2 max-w-reading text-base">
-            <span v-if="img.description" class="block text-paper-600">{{ img.description }}</span>
+            <span v-if="img.description" class="block text-paper-600">
+              <span class="font-semibold text-paper-700">Photo description:</span>
+              {{ img.description }}
+            </span>
             <span v-if="img.credit" class="block italic text-paper-500">{{ img.credit }}</span>
           </figcaption>
         </figure>
