@@ -1,6 +1,7 @@
 ---
 title: Learning & community engagement
 description: The KWS brings musicians into schools, libraries, festivals, and community spaces across Waterloo Region.
+emptyMessage: New events are announced through the season.
 ---
 
 As a performing arts organization deeply rooted in Waterloo Region, the Kitchener-Waterloo Symphony believes in being present in the places where people live, learn, work, gather, and connect. Through our Learning & Community Engagement activities, we work to build relationships throughout the region and find meaningful ways for the KWS to participate beyond our traditional concert performances.

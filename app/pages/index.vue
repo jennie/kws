@@ -39,6 +39,16 @@ const performanceCount = computed(() =>
   upcoming.value.reduce((sum, c) => sum + (c.performances?.length ?? 1), 0),
 );
 
+// Seasons run September to June, so a date before July belongs to the season
+// that began the previous calendar year.
+const seasonLabel = computed(() => {
+  const first = upcoming.value[0];
+  if (!first) return "";
+  const d = new Date(first.date);
+  const start = d.getMonth() >= 6 ? d.getFullYear() : d.getFullYear() - 1;
+  return `${start}/${String(start + 1).slice(-2)}`;
+});
+
 const SERIES_ORDER = ["Masterworks", "Pops", "Baroque & Beyond", "Family"];
 const NUMBER_WORDS = [
   "Zero",
@@ -173,7 +183,7 @@ onMounted(() => {
           <span class="font-semibold text-paper-900"
             >{{ performanceCount }} performances</span
           >
-          across the 2026/27 season
+          across the {{ seasonLabel }} season
         </p>
       </div>
 
@@ -351,7 +361,7 @@ onMounted(() => {
         </h1>
         <p class="mx-auto mt-5 max-w-xl text-lg leading-[1.55] text-paper-700">
           The season concludes shortly. Sign up for season announcements,
-          revisit past programmes, or reach the us while we finalize the year
+          revisit past programmes, or reach us while we finalize the year
           ahead.
         </p>
         <div class="mt-9 flex flex-wrap items-center justify-center gap-4">

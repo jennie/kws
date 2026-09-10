@@ -1,12 +1,11 @@
 <script setup lang="ts">
-// Intro copy and the coordinator contact block live in content/community.md so
-// the client edits them in Studio. The file may not exist yet (copy lands with
-// the Aug 14 drop); the page renders its events list either way. The two
-// collections are unrelated, so fetch them concurrently rather than letting the
-// intro query gate the events query.
+// Intro copy, the coordinator contact block and the empty-state message live in
+// content/community.md so the client edits them in Studio. The two collections
+// are unrelated, so fetch them concurrently rather than letting the intro query
+// gate the events query.
 const [{ data: page }, { data: events }] = await Promise.all([
   useAsyncData('community-page', () =>
-    queryCollection('pages').path('/community').first()
+    queryCollection('community').path('/community').first()
   ),
   useAsyncData('lce-events', () =>
     queryCollection('lceEvents').order('date', 'ASC').all()
@@ -42,7 +41,7 @@ useSeoMeta({
   <div class="mx-auto max-w-shell px-6 py-12 lg:px-10">
     <header class="max-w-reading">
       <h1 class="font-display text-3xl font-bold tracking-tight text-paper-900 sm:text-4xl">
-        Learning &amp; community engagement
+        {{ page?.title ?? 'Learning & community engagement' }}
       </h1>
     </header>
 
@@ -116,9 +115,9 @@ useSeoMeta({
         </li>
       </ul>
 
-      <p v-else class="text-lg text-paper-700">
-        New events are announced through the season.
-      </p>
+      <div v-else-if="page" class="prose dark:prose-invert text-lg text-paper-700">
+        <MDC :value="page.emptyMessage" />
+      </div>
     </section>
 
     <section

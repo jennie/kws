@@ -1,31 +1,30 @@
 <script setup lang="ts">
-const { data: musicians } = await useAsyncData('musicians', () =>
-  queryCollection('musicians').all()
-)
+const [{ data: page }, { data: musicians }] = await Promise.all([
+  useAsyncData('orchestra-page', () =>
+    queryCollection('pages').path('/about/orchestra').first()
+  ),
+  useAsyncData('musicians', () => queryCollection('musicians').all())
+])
 
 const sections = computed(() => groupMusicians(musicians.value ?? []))
 
 useSeoMeta({
-  title: 'The orchestra',
-  description:
-    'The musicians of the Kitchener-Waterloo Symphony, by section and instrument.',
-  ogTitle: 'The orchestra',
-  ogDescription:
-    'The musicians of the Kitchener-Waterloo Symphony, by section and instrument.'
+  title: () => page.value?.title ?? 'The orchestra',
+  description: () => page.value?.description,
+  ogTitle: () => page.value?.title ?? 'The orchestra',
+  ogDescription: () => page.value?.description
 })
 </script>
 
 <template>
   <div class="mx-auto max-w-shell px-6 py-12 lg:px-10">
     <AboutSubNav />
-    <header class="mb-12 max-w-reading">
-      <h1 class="font-display text-3xl font-semibold tracking-tight text-paper-900 sm:text-4xl">
-        The orchestra
-      </h1>
-      <p class="mt-4 text-base text-paper-800">
-        The musicians of the Kitchener-Waterloo Symphony.
-      </p>
-    </header>
+    <article
+      v-if="page"
+      class="prose dark:prose-invert mb-12 max-w-reading [&_h1]:text-3xl sm:[&_h1]:text-4xl"
+    >
+      <ContentRenderer :value="page" />
+    </article>
 
     <div v-if="sections.length" class="space-y-12 lg:space-y-16">
       <section v-for="group in sections" :key="group.section">

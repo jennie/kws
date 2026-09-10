@@ -75,11 +75,26 @@ export default defineContentConfig({
         aboutEmpty: z.string()
       })
     }),
+    community: defineCollection({
+      type: 'page',
+      source: 'community.md',
+      schema: z.object({
+        emptyMessage: z.string()
+      })
+    }),
+    contact: defineCollection({
+      type: 'page',
+      source: 'contact.md',
+      schema: z.object({
+        formIntro: z.string(),
+        replyNote: z.string()
+      })
+    }),
     pages: defineCollection({
       type: 'page',
       source: {
         include: '**/*.md',
-        exclude: ['concerts/**', 'about/jobs.md']
+        exclude: ['concerts/**', 'about/jobs.md', 'community.md', 'contact.md']
       }
     })
   }

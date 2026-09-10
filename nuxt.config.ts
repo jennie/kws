@@ -176,6 +176,13 @@ export default defineNuxtConfig({
     },
   },
 
+  // Dev-only Netlify emulation. The site emits no edge functions, and the edge
+  // runtime emulator spawns `deno eval --allow-scripts`, which Deno 2.9 rejects,
+  // so the dev server restart-loops with it on.
+  netlify: {
+    edgeFunctions: { enabled: false },
+  },
+
   // nuxt-studio detects the repo from CI env vars (e.g. Netlify) at deploy time;
   // set it explicitly so local production builds also resolve a repository.
   // Branch follows the deploy: Netlify sets BRANCH per context, so a branch

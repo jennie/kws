@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const { data: page } = await useAsyncData("contact-page", () =>
-  queryCollection("pages").path("/contact").first(),
+  queryCollection("contact").path("/contact").first(),
 );
 
 useSeoMeta({
@@ -55,8 +55,7 @@ const labelClass = "block text-sm font-semibold text-paper-700";
         Get in touch
       </h2>
       <p class="mt-2 text-lg text-paper-700">
-        For general inquiries, complete the form below and a member of the KWS
-        team will connect with you.
+        {{ page?.formIntro }}
       </p>
 
       <div
@@ -67,11 +66,9 @@ const labelClass = "block text-sm font-semibold text-paper-700";
         <h3 class="font-display text-xl font-semibold text-paper-900">
           Thanks, your message is on its way.
         </h3>
-        <p class="mt-1 text-base text-paper-700">
-          A member of the KWS team will reply by email. For anything urgent,
-          reach us at
-          <a href="mailto:info@kwsymphony.com">info@kwsymphony.com</a>.
-        </p>
+        <div class="prose dark:prose-invert mt-1 text-base text-paper-700">
+          <MDC v-if="page" :value="page.replyNote" />
+        </div>
       </div>
 
       <form
