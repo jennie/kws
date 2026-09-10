@@ -107,7 +107,7 @@ watch(() => route.path, () => { open.value = false })
       </nav>
       <div class="mt-4 border-t border-paper-200 pt-4 text-base text-paper-700">
         <p><a href="mailto:info@kwsymphony.com">info@kwsymphony.com</a></p>
-        <p>14 Huntingwood Court, Kitchener</p>
+        <p>c/o Catalyst Commons, 210-137 Glasgow St, Office# 315, Kitchener, ON N2G&nbsp;4X8</p>
       </div>
     </div>
   </header>

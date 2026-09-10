@@ -102,10 +102,10 @@ export function organisationJsonLd() {
     email: 'info@kwsymphony.com',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: '14 Huntingwood Court',
+      streetAddress: 'c/o Catalyst Commons, 210-137 Glasgow St, Office# 315',
       addressLocality: 'Kitchener',
       addressRegion: 'ON',
-      postalCode: 'N2P 2A7',
+      postalCode: 'N2G 4X8',
       addressCountry: 'CA',
     },
     sameAs: ['https://facebook.com/kwsymphony'],

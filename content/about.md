@@ -5,6 +5,10 @@ description: Meet the musicians, board, and staff of the Kitchener-Waterloo Symp
 
 # About the Kitchener-Waterloo Symphony
 
+Founded in 1945, the Kitchener-Waterloo Symphony's original purpose was to accompany the Grand Philharmonic Choir in concert, and it has been an important part of the cultural life of Waterloo Region ever since. Its long, storied, and complex history has helped shape the identity of this region and contributed to the development of orchestral music in Canada.
+
+Today, the Symphony is in a new phase of its history. We are building the organization anew, with a commitment to creating a successful and sustainable arts enterprise and ensuring that our orchestra continues to contribute meaningfully to the region we inhabit. As we look to the future, our aim is to reach, reflect, and engage the people of Waterloo Region while building an organization that is responsible, resilient, and sustainable for generations to come.
+
 :jobs-callout
 
 ## Our musicians
