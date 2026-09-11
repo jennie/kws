@@ -23,6 +23,19 @@ const accessibleName = computed(() =>
     : undefined
 )
 
+// Plausible reads goal names and props from class tokens
+// (`plausible-event-name=…`, `plausible-event-<prop>=…`), decoding `+` as a
+// space. Declared this way rather than as a click handler because the script
+// then suppresses its own generic "Outbound Link: Click" for this element and
+// still counts middle-clicks. The concert title reuses the accessible-name
+// prop, so tour stops report as "Title, date".
+const token = (value: string) => value.replace(/\s+/g, '+')
+const goalClasses = computed(() => [
+  'plausible-event-name=Tickets+Click',
+  props.concertTitle ? `plausible-event-concert=${token(props.concertTitle)}` : '',
+  props.provider ? `plausible-event-provider=${token(props.provider)}` : ''
+])
+
 const sizeClass = {
   sm: 'px-4 py-2 text-base min-h-[2.75rem]',
   md: 'px-5 py-2.5 text-base min-h-[3rem]',
@@ -41,7 +54,8 @@ const sizeClass = {
       'group inline-flex items-center justify-center gap-2.5 font-sans font-bold no-underline border-2 transition-colors',
       'bg-paper-900 text-paper-50 border-paper-900 hover:bg-paper-50 hover:text-paper-900',
       sizeClass[size],
-      block ? 'w-full' : ''
+      block ? 'w-full' : '',
+      ...goalClasses
     ]"
   >
     <span>{{ label }}</span>

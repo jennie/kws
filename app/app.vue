@@ -14,6 +14,7 @@ useHead({
 // Open Graph / Twitter defaults. Pages override ogTitle, ogDescription, and (on
 // concert pages) ogImage; everything else falls back to the brand card.
 useSeoMeta({
+  ogUrl: () => absUrl(route.path),
   ogSiteName: "Kitchener-Waterloo Symphony",
   ogType: "website",
   ogLocale: "en_CA",

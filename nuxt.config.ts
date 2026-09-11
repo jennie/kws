@@ -146,14 +146,20 @@ export default defineNuxtConfig({
         { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
         { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
       ],
-      // Privacy-friendly analytics by Plausible
-      script: [
-        { src: "https://plausible.io/js/pa-doXDrDsuK2WHd80WGXTIr.js", async: true },
-        {
-          innerHTML:
-            "window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()",
-        },
-      ],
+      // Privacy-friendly analytics by Plausible. Production only: the site's
+      // domain is baked into the hosted script, so a branch deploy or local
+      // preview loading it would report as real traffic. Same gate as indexing.
+      // The first inline line keeps `window.plausible()` callable before the
+      // script arrives, so the class-based goals never throw.
+      script: indexable
+        ? [
+            { src: "https://plausible.io/js/pa-doXDrDsuK2WHd80WGXTIr.js", async: true },
+            {
+              innerHTML:
+                "window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()",
+            },
+          ]
+        : [],
     },
   },
 

@@ -30,13 +30,16 @@ useSeoMeta({
   ogTitle: () => concert.value?.title,
   ogDescription: () => concert.value?.description,
   ogImage: () =>
-    hero.value ? ogConcertImage(hero.value.src) : absUrl('/images/og-default.png')
+    hero.value ? ogConcertImage(hero.value.src) : absUrl('/images/og-default.png'),
+  // The default alt in app.vue names the brand card; once the image is the
+  // concert photo the alt has to follow it.
+  ogImageAlt: () => hero.value?.description ?? concert.value?.title
 })
 
 // MusicEvent + breadcrumb structured data for Google rich results.
 useHead({
   script: [
-    { type: 'application/ld+json', innerHTML: ldJson(concertJsonLd(concert.value!)) },
+    { type: 'application/ld+json', innerHTML: ldJson(concertJsonLd(concert.value!, route.path)) },
     { type: 'application/ld+json', innerHTML: ldJson(breadcrumbJsonLd(concert.value!.title, route.path)) }
   ]
 })

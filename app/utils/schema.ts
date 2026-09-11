@@ -58,11 +58,12 @@ function performers(concert: Concert) {
   return list
 }
 
-export function concertJsonLd(concert: Concert) {
+export function concertJsonLd(concert: Concert, path: string) {
   const base = {
     '@context': 'https://schema.org',
     '@type': 'MusicEvent',
     name: concert.title,
+    url: absUrl(path),
     description: concert.description,
     // images is `.min(1)` in the content schema, so the hero always exists.
     image: [absUrl(heroImage(concert)!.src)],
@@ -89,6 +90,36 @@ export function concertJsonLd(concert: Concert) {
     }
   })
   return events.length === 1 ? events[0] : events
+}
+
+type LceEvent = {
+  title: string
+  date: string
+  time?: string
+  location: string
+  description?: string
+  image?: string
+}
+
+// Free public events on /community, one Event per upcoming listing. The
+// archive is history and not eligible for rich results, so callers pass only
+// the upcoming list. A listing with no clock time gets a date-only startDate
+// rather than a fabricated midnight.
+export function lceEventsJsonLd(events: LceEvent[]) {
+  return events.map((event) => ({
+    '@context': 'https://schema.org',
+    '@type': 'Event',
+    name: event.title,
+    startDate: event.time ? eventDateTime(event) : event.date,
+    location: place(event.location),
+    isAccessibleForFree: true,
+    eventStatus: 'https://schema.org/EventScheduled',
+    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+    organizer: organisation(),
+    performer: organisation(),
+    ...(event.description ? { description: event.description } : {}),
+    ...(event.image ? { image: [absUrl(event.image)] } : {}),
+  }))
 }
 
 export function organisationJsonLd() {

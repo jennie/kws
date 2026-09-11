@@ -79,7 +79,7 @@ const labelClass = "block text-sm font-semibold text-paper-700";
         data-netlify="true"
         netlify-honeypot="bot-field"
         novalidate
-        class="mt-6 space-y-5"
+        class="mt-6 space-y-5 plausible-event-name=Contact:+Submit"
         @submit.prevent="onSubmit"
       >
         <input type="hidden" name="form-name" value="contact" />

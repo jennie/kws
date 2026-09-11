@@ -73,7 +73,7 @@ function onSubmit(event: Event) {
           N2G&nbsp;4X8
         </address>
         <p class="text-base text-paper-700">
-          <a href="mailto:info@kwsymphony.com">info@kwsymphony.com</a>
+          <a href="mailto:info@kwsymphony.com" class="plausible-event-name=Box+office:+Email">info@kwsymphony.com</a>
         </p>
         <p class="text-base text-paper-700">Charitable registration #: <span style="white-space:nowrap">122524713 RR0001</span></p>
       </div>

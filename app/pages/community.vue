@@ -35,6 +35,14 @@ useSeoMeta({
     page.value?.description ??
     'Learning and community engagement events from the Kitchener-Waterloo Symphony.'
 })
+
+// Event structured data for the upcoming listings. Omitted entirely when there
+// are none rather than emitting an empty array.
+useHead({
+  script: listings.value.upcoming.length
+    ? [{ type: 'application/ld+json', innerHTML: ldJson(lceEventsJsonLd(listings.value.upcoming)) }]
+    : []
+})
 </script>
 
 <template>
