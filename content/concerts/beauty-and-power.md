@@ -7,7 +7,7 @@ images:
   - src: /images/artists/andrei-feher.jpg
 series: Masterworks
 ticketProvider: Centre In The Square
-ticketUrl: https://kwtickets.evenue.net/event/26-27/26EE0926?_gl=1*jvnb4y*_gcl_au*NzQwNTA3OTg0LjE3ODE2MTcyMzk.*_ga*MjA0Njg1MzA4LjE3ODE2MTcyMzk.*_ga_68T6DJE3KG*czE3ODE3OTI5NDYkbzYkZzEkdDE3ODE3OTI5NTIkajU0JGwwJGgxMzc2ODE1ODc4
+ticketUrl: https://kwtickets.evenue.net/event/26-27/26EE0926
 venue: Centre In The Square, Kitchener
 ---
 
