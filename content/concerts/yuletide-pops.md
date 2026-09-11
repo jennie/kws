@@ -18,4 +18,16 @@ venue: Centre In The Square, Kitchener
 
 ## Programme
 
-A festive programme of holiday favourites with the Grand Philharmonic Choir and Grand Philharmonic Children's Choir. Full repertoire to be announced.
+A festive programme of holiday favourites with the Grand Philharmonic Choir and Grand Philharmonic Children's Choir.
+
+- Christmas Overture
+- Musical Sleigh Ride
+- Concert Suite from The Polar Express
+- Chanukah Festival Overture
+- The Hockey Sweater
+- Sleigh Ride
+- Holiday Songs from Home Alone
+- Star Carol
+- Christmas Morning
+- "You're A Mean One, Mr. Grinch"
+- Yuletide Singalong
