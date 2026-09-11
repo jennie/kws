@@ -1,0 +1,7 @@
+# The production deploy also answers on its netlify.app alias, which is fully
+# crawlable and, because the Plausible domain is baked into the script, reports
+# as production traffic. Send the alias to the real host. Branch deploys and
+# deploy previews have their own hostnames and are untouched. The legacy
+# Squarespace redirects live in nuxt.config routeRules; Nitro merges this file
+# with those at build time.
+https://kwsymphony.netlify.app/* https://www.kwsymphony.com/:splat 301!

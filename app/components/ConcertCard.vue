@@ -11,6 +11,7 @@ const props = withDefaults(defineProps<{
   date: string
   venue?: string
   image?: string
+  imageAlt?: string
   slug: string
   ticketUrl?: string
   ticketProvider?: string
@@ -65,12 +66,14 @@ onMounted(() => {
         v-if="showImage"
         ref="imgRef"
         :src="image"
-        :alt="title"
+        :alt="imageAlt || title"
         width="600"
         height="400"
         sizes="100vw sm:50vw lg:440px"
+        fit="cover"
+        :modifiers="{ position: 'top' }"
         loading="lazy"
-        class="block aspect-[3/2] w-full object-cover object-[center_30%] border-b border-paper-300"
+        class="block aspect-[3/2] w-full object-cover border-b border-paper-300"
         @error="imageBroken = true"
       />
       <div
@@ -108,7 +111,7 @@ onMounted(() => {
         </dl>
         <p v-if="performerLine" class="mb-5 text-sm font-medium text-paper-600">{{ performerLine }}</p>
         <div class="mt-auto border-t border-paper-200 pt-5">
-          <TicketButton :url="ticketUrl" :provider="ticketProvider" block />
+          <TicketButton :url="ticketUrl" :provider="ticketProvider" :concert-title="title" block />
         </div>
       </template>
 
@@ -129,7 +132,7 @@ onMounted(() => {
               </span>
               <span class="block text-xs text-paper-600">{{ p.venue }}</span>
             </div>
-            <TicketButton :url="p.ticketUrl" :provider="p.ticketProvider" size="sm" />
+            <TicketButton :url="p.ticketUrl" :provider="p.ticketProvider" :concert-title="`${title}, ${shortDate(p.date)}`" size="sm" />
           </li>
         </ul>
       </template>

@@ -13,6 +13,7 @@ useSeoMeta({
 
 <template>
   <div class="mx-auto max-w-shell px-6 py-12 lg:px-10">
+    <AboutSubNav />
     <article v-if="page" class="prose dark:prose-invert max-w-reading [&_h1]:text-3xl sm:[&_h1]:text-4xl">
       <ContentRenderer :value="page" />
     </article>

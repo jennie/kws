@@ -15,6 +15,9 @@ const { data: allConcerts } = await useAsyncData('concerts-all', () =>
 
 const isTouring = computed(() => (concert.value?.performances?.length ?? 0) > 0)
 
+const hero = computed(() => heroImage(concert.value))
+const heroCaption = computed(() => imageCaption(hero.value?.credit))
+
 const moreInSeries = computed(() =>
   (allConcerts.value ?? [])
     .filter((c) => c.series && c.series === concert.value?.series && c.path !== concert.value?.path)
@@ -27,13 +30,16 @@ useSeoMeta({
   ogTitle: () => concert.value?.title,
   ogDescription: () => concert.value?.description,
   ogImage: () =>
-    concert.value?.image ? ogConcertImage(concert.value.image) : absUrl('/images/og-default.png')
+    hero.value ? ogConcertImage(hero.value.src) : absUrl('/images/og-default.png'),
+  // The default alt in app.vue names the brand card; once the image is the
+  // concert photo the alt has to follow it.
+  ogImageAlt: () => hero.value?.description ?? concert.value?.title
 })
 
 // MusicEvent + breadcrumb structured data for Google rich results.
 useHead({
   script: [
-    { type: 'application/ld+json', innerHTML: ldJson(concertJsonLd(concert.value!)) },
+    { type: 'application/ld+json', innerHTML: ldJson(concertJsonLd(concert.value!, route.path)) },
     { type: 'application/ld+json', innerHTML: ldJson(breadcrumbJsonLd(concert.value!.title, route.path)) }
   ]
 })
@@ -42,7 +48,7 @@ useHead({
 <template>
   <article v-if="concert" class="mx-auto max-w-shell px-6 py-12 lg:px-10">
     <div class="max-w-reading">
-      <NuxtLink to="/" class="inline-block text-base font-medium text-paper-700 no-underline hover:text-paper-900 hover:underline">
+      <NuxtLink to="/" class="inline-block text-base font-medium">
         ← All concerts
       </NuxtLink>
 
@@ -54,7 +60,7 @@ useHead({
       </h1>
 
       <!-- Single-date meta -->
-      <dl v-if="!isTouring" class="mt-8 space-y-2">
+      <dl v-if="!isTouring" class="mt-6 space-y-2">
         <div>
           <dt class="sr-only">Date and time</dt>
           <dd class="text-lg text-paper-800">{{ longDate(concert.date) }} · {{ timeOf(concert.date) }}</dd>
@@ -65,32 +71,41 @@ useHead({
         </div>
       </dl>
 
-      <p v-if="concert.description" class="mt-8 text-lg leading-relaxed text-paper-800">
+      <p v-if="concert.description" class="mt-6 text-lg leading-relaxed text-paper-800">
         {{ concert.description }}
       </p>
     </div>
 
-    <figure class="mt-8 max-w-4xl">
+    <!--
+      The hero is never cropped. It is the concert's key art, and a ratio crop
+      throws away the detail that makes the photograph worth showing: the 16:9
+      version of the Opera Pops hero cut the conductor's baton out of frame.
+      Passing height as well as width would make the image pipeline crop to
+      that ratio server-side, so only width is set here. Height is bounded
+      instead, because the sources are mixed orientation and an uncropped
+      1600px portrait at full column width runs taller than the viewport and
+      buries the ticket button underneath it.
+    -->
+    <figure v-if="hero" class="mt-10 max-w-4xl">
       <NuxtImg
-        :src="concert.image"
-        :alt="concert.title"
+        :src="hero.src"
+        :alt="hero.description ?? concert.title"
         width="1600"
-        height="900"
-        sizes="md:100vw lg:896px"
+        sizes="md:100vw lg:1008px"
         fetchpriority="high"
-        class="aspect-video w-full border border-paper-300 object-cover"
+        class="block h-auto max-h-[36rem] w-auto max-w-full border border-paper-300"
       />
-      <figcaption v-if="concert.imageCredit" class="mt-2 text-sm text-paper-600">
-        Photo: {{ concert.imageCredit }}
+      <figcaption v-if="heroCaption" class="mt-2 text-base italic text-paper-500">
+        {{ heroCaption }}
       </figcaption>
     </figure>
 
     <div v-if="!isTouring" class="mt-8 max-w-reading">
-      <TicketButton :url="concert.ticketUrl" :provider="concert.ticketProvider" size="lg" />
+      <TicketButton :url="concert.ticketUrl" :provider="concert.ticketProvider" :concert-title="concert.title" size="lg" />
     </div>
 
     <!-- Touring: performances block replaces single date/venue + CTA -->
-    <section v-else class="mt-10 max-w-reading" aria-labelledby="performances">
+    <section v-else class="mt-8 max-w-reading" aria-labelledby="performances">
       <h2 id="performances" class="font-display text-2xl font-semibold tracking-tight text-paper-900">
         Performances
       </h2>
@@ -104,7 +119,7 @@ useHead({
             <p class="text-lg font-semibold text-paper-900">{{ longDate(p.date) }} · {{ timeOf(p.date) }}</p>
             <p class="text-base text-paper-600">{{ p.venue }}</p>
           </div>
-          <TicketButton :url="p.ticketUrl" :provider="p.ticketProvider" size="lg" />
+          <TicketButton :url="p.ticketUrl" :provider="p.ticketProvider" :concert-title="`${concert.title}, ${longDate(p.date)}`" size="lg" />
         </li>
       </ul>
     </section>
@@ -113,7 +128,7 @@ useHead({
     <section
       v-if="concert.conductor || concert.artists?.length"
       aria-label="Performers"
-      class="mt-10 max-w-reading space-y-1 text-lg text-paper-800"
+      class="mt-14 max-w-reading space-y-1 text-lg text-paper-800"
     >
       <p v-if="concert.conductor">
         <span class="font-semibold">Conductor</span> · {{ concert.conductor }}
@@ -128,35 +143,47 @@ useHead({
       <ContentRenderer :value="concert" />
     </div>
 
+    <ConcertGallery :images="concert.images.slice(1)" />
+
     <!-- Repeat CTA for single-date concerts -->
-    <div v-if="!isTouring" class="mt-10 border-t border-paper-300 pt-8 max-w-reading">
-      <TicketButton :url="concert.ticketUrl" :provider="concert.ticketProvider" size="lg" />
+    <div v-if="!isTouring" class="mt-14 border-t border-paper-300 pt-8 max-w-reading">
+      <TicketButton :url="concert.ticketUrl" :provider="concert.ticketProvider" :concert-title="concert.title" size="lg" />
     </div>
 
     <!-- More in series -->
-    <section v-if="moreInSeries.length" :aria-label="`More in ${concert.series}`" class="mt-14">
+    <section v-if="moreInSeries.length" :aria-label="`More in ${concert.series}`" class="mt-20 max-w-4xl">
       <h2 class="font-display text-2xl font-semibold tracking-tight text-paper-900">
         More in {{ concert.series }}
       </h2>
-      <div class="mt-5 grid gap-4 sm:grid-cols-3">
+      <!--
+        Card at sm and up, same anatomy as the home-page concert card minus the
+        series label, venue and ticket button. The earlier 64px thumb was the
+        one image on this page still sized like a favicon, and its 3-up row was
+        the only block running the full shell width, which made the least
+        important content the widest thing here. Mobile keeps the compact row:
+        three stacked 3:2 cards cost about 950px of scroll on a phone.
+      -->
+      <div class="mt-5 grid gap-4 sm:grid-cols-3 sm:gap-6">
         <NuxtLink
           v-for="c in moreInSeries"
           :key="c.path"
           :to="c.path"
-          class="flex gap-3 border border-paper-300 p-4 no-underline transition-colors hover:border-paper-900"
+          class="flex items-center gap-3 border border-paper-300 p-3 no-underline transition-colors hover:border-paper-900 sm:block sm:p-0"
         >
           <NuxtImg
-            :src="c.image"
+            :src="heroImage(c)?.src"
             alt=""
-            width="64"
-            height="64"
-            sizes="64px"
+            width="318"
+            height="212"
+            sizes="108px sm:318px"
+            fit="cover"
+            :modifiers="{ position: 'top' }"
             loading="lazy"
-            class="aspect-square w-16 shrink-0 border border-paper-300 object-cover"
+            class="block aspect-[3/2] w-24 shrink-0 border border-paper-300 object-cover sm:w-full sm:border-0 sm:border-b sm:border-paper-300"
           />
-          <div>
+          <div class="sm:p-4">
             <span class="block font-display text-lg font-semibold leading-tight text-paper-900">{{ c.title }}</span>
-            <span class="mt-1 block text-sm text-paper-600">{{ longDate(c.date) }}</span>
+            <span class="mt-1 block text-base text-paper-600">{{ longDate(c.date) }}</span>
           </div>
         </NuxtLink>
       </div>

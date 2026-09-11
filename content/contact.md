@@ -1,8 +1,10 @@
 ---
 title: Contact
 description: Get in touch with the Kitchener-Waterloo Symphony.
+formIntro: For general inquiries, complete the form below and a member of the KWS team will connect with you.
 navigation:
   icon: i-ic:baseline-email
+replyNote: A member of the KWS team will reply by email. For anything urgent, reach us at [info@kwsymphony.com](mailto:info@kwsymphony.com).
 ---
 
 ## Other ways to reach us

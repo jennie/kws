@@ -1,12 +1,16 @@
 ---
 title: Moving Pictures
-description: CBC Radio's Tom Allen hosts a programme of works that were inspired by or that make reference to visual artworks and literature.
 artists:
   - name: Tom Allen
     role: Host
 conductor: James Sommerville
 date: 2027-01-08T19:30:00
-image: /images/artists/james-sommerville.jpg
+description: CBC Radio's Tom Allen hosts a programme of works that were inspired by or that make reference to visual artworks and literature.
+images:
+  - src: /images/artists/james-sommerville.jpg
+  - src: /images/artists/tom-allen.jpg
+    description: Tom Allen speaking into a handheld microphone on stage, holding a script.
+    credit: Curtis Perry
 performances:
   - date: 2027-01-08T19:30:00
     venue: St. Matthews Centre, Kitchener

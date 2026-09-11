@@ -5,41 +5,15 @@ description: Meet the musicians, board, and staff of the Kitchener-Waterloo Symp
 
 # About the Kitchener-Waterloo Symphony
 
-## Join the KWS
+Founded in 1945, the Kitchener-Waterloo Symphony's original purpose was to accompany the Grand Philharmonic Choir in concert, and it has been an important part of the cultural life of Waterloo Region ever since. Its long, storied, and complex history has helped shape the identity of this region and contributed to the development of orchestral music in Canada.
+
+Today, the Symphony is in a new phase of its history. We are building the organization anew, with a commitment to creating a successful and sustainable arts enterprise and ensuring that our orchestra continues to contribute meaningfully to the region we inhabit. As we look to the future, our aim is to reach, reflect, and engage the people of Waterloo Region while building an organization that is responsible, resilient, and sustainable for generations to come.
 
 :jobs-callout
 
 ## Our musicians
 
-### Strings
-
-- **First Violin** – Bénédicte Lauzière (Concertmaster), Lance Ouellette (Associate Concertmaster), Jung Tsai (Second Associate Concertmaster), Peter Carter, Allene Chomyn, Julia Dixon, Kenneth Kwan, Anna Luhowy
-- **Second Violin** – Anita Walsh (Principal), Roxolana Toews (Associate Principal), Elspeth Durward (Assistant Principal), Sophie Drouin, Vicky Dvorak, Sheilanne Lindsay, Michael Steinberg
-- **Viola** – Natasha Sharko (Principal), Jody Davenport (Associate Principal), Rebecca Diderrich, Brenna Hardy-Kavanagh, David Wadley
-- **Cello** – John Helmers (Principal), Cathy Anderson (Associate Principal), Rebecca Morton (Assistant Principal), Kendra Grittani, Miriam Stewart-Kroeker
-- **Bass** – Ian Whitman (Principal), Talia Hatcher (Associate Principal), Bruce McGillivray
-
-### Woodwinds
-
-- **Flute** – Kevin O'Donnell
-- **Oboe** – Lief Mosbaugh (Principal), Melissa Scott
-- **Clarinet** – Ross Edwards (Principal), Barbara Hankins
-- **Bassoon** – Ian Hopkin (Principal)
-
-### Brass
-
-- **Horn** – Katherine Robertson, Marie-Sonja Cotineau, Deborah Stroh
-- **Trumpet** – Matheus Moraes (Principal)
-- **Trombone** – Nate Fanning (Principal), Rachel Thomas, Doug Lavell (Bass Trombone)
-- **Tuba** – Jennifer Stephen (Principal)
-
-### Percussion
-
-- Ron Brown (Principal Timpani)
-
-### Harp
-
-- Lori Gemmell
+The full roster, by section and instrument, is on [the orchestra page](/about/orchestra).
 
 ## Board of Directors
 
@@ -59,8 +33,19 @@ description: Meet the musicians, board, and staff of the Kitchener-Waterloo Symp
 
 - Jason Doell – Executive Director
 - James Sommerville – Artistic Advisor
-- Katherine Ronzio – Communications Manager
+
+### Artistic Operations
+
 - Andrew Mellanby – Artistic Operations Manager
 - Miriam Stewart-Kroeker – Orchestra Personnel Manager
-- Meaghan McCracken - Orchestra Librarian
+- Meaghan McCracken – Orchestra Librarian
+- Josh Brach – Artistic Operations Coordinator
+
+### Marketing & Development
+
+- Katherine Ronzio – Communications Manager
+- Misha Bedi – Marketing Coordinator
+
+### Learning & Community Engagement
+
 - Ian Whitman – Learning and Community Engagement Coordinator

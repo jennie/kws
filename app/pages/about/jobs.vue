@@ -17,6 +17,7 @@ useSeoMeta({
 
 <template>
   <div class="mx-auto max-w-shell px-6 py-12 lg:px-10">
+    <AboutSubNav />
     <header class="max-w-reading">
       <h1 class="font-display text-3xl font-bold tracking-tight text-paper-900 sm:text-4xl">Work with the KWS</h1>
     </header>

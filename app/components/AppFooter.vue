@@ -65,7 +65,7 @@ function onSubmit(event: Event) {
   <footer class="border-t border-paper-200">
     <div class="mx-auto grid max-w-shell gap-x-12 gap-y-8 px-6 py-12 md:grid-cols-2 lg:grid-cols-[1.4fr_0.6fr_1.5fr] lg:px-10">
       <div class="space-y-2">
-        <h3 class="font-semibold text-paper-900">Kitchener-Waterloo Symphony</h3>
+        <h2 class="font-semibold text-paper-900">Kitchener-Waterloo Symphony</h2>
         <address class="text-base not-italic leading-relaxed text-paper-700">
           c/o Catalyst Commons<br>
           210-137 Glasgow St, Office# 315<br>
@@ -73,23 +73,24 @@ function onSubmit(event: Event) {
           N2G&nbsp;4X8
         </address>
         <p class="text-base text-paper-700">
-          <a href="mailto:info@kwsymphony.com" class="hover:underline">info@kwsymphony.com</a>
+          <a href="mailto:info@kwsymphony.com" class="plausible-event-name=Box+office:+Email">info@kwsymphony.com</a>
         </p>
         <p class="text-base text-paper-700">Charitable registration #: <span style="white-space:nowrap">122524713 RR0001</span></p>
       </div>
 
       <nav class="space-y-2" aria-label="Footer">
-        <h3 class="font-semibold text-paper-900">Explore</h3>
+        <h2 class="font-semibold text-paper-900">Explore</h2>
         <ul class="space-y-1 text-base">
-          <li><NuxtLink to="/" class="text-paper-700 hover:underline">Home</NuxtLink></li>
-          <li><NuxtLink to="/about" class="text-paper-700 hover:underline">About</NuxtLink></li>
-          <li><NuxtLink to="/donate" class="text-paper-700 hover:underline">Donate</NuxtLink></li>
-          <li><NuxtLink to="/contact" class="text-paper-700 hover:underline">Contact</NuxtLink></li>
+          <li><NuxtLink to="/">Home</NuxtLink></li>
+          <li><NuxtLink to="/about">About</NuxtLink></li>
+          <li><NuxtLink to="/community">Community</NuxtLink></li>
+          <li><NuxtLink to="/donate">Donate</NuxtLink></li>
+          <li><NuxtLink to="/contact">Contact</NuxtLink></li>
         </ul>
       </nav>
 
       <div class="min-w-0 space-y-3 md:col-span-2 md:max-w-md lg:col-span-1 lg:max-w-none">
-        <h3 class="font-semibold text-paper-900">Newsletter</h3>
+        <h2 class="font-semibold text-paper-900">Newsletter</h2>
         <p class="text-base text-paper-700">
           Subscribe for season announcements and concert reminders.
         </p>
@@ -106,6 +107,7 @@ function onSubmit(event: Event) {
               name="EMAIL"
               placeholder="you@example.com"
               required
+              autocomplete="email"
               aria-label="Email address"
               class="min-h-12 w-full min-w-0 flex-1 border border-paper-500 bg-paper-50 px-3 py-2.5 text-base text-paper-900 placeholder:text-paper-600"
             >

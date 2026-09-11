@@ -58,7 +58,21 @@ export default defineNuxtConfig({
       // robots.txt isn't reachable by link-crawling, so name it explicitly to
       // emit it as a static file (with the Sitemap: line the sitemap module
       // injects) rather than leaving it to a request-time function.
-      routes: ["/", "/robots.txt"],
+      // /lce-entry is staff-only and deliberately unlinked, so crawlLinks can't
+      // reach it. Name it explicitly or it never gets emitted.
+      // /about/orchestra is only linked from about.md, which the client edits
+      // in Studio; a deleted link there would silently drop the route.
+      // /community is reachable through the AppNav and AppFooter links, but it
+      // is named here anyway: if the page ever loses its last link it stops
+      // rendering, drops out of the sitemap, and turns the two
+      // /kws-in-the-community redirects below into 404s.
+      routes: [
+        "/",
+        "/robots.txt",
+        "/lce-entry",
+        "/about/orchestra",
+        "/community",
+      ],
       // Don't prerender image-transform URLs the crawler finds in <img>/srcset.
       // They're served at request time by the Netlify Image CDN (or IPX in dev),
       // and 404 at build time, which would otherwise fail the prerender.
@@ -93,6 +107,12 @@ export default defineNuxtConfig({
   // because no static file can exist at an arbitrary path. Opting the routes out
   // of prerendering removes the file and lets the redirect rule run.
   routeRules: {
+    // Staff-only LCE entry screen. This emits <meta name="robots"
+    // content="noindex, nofollow"> on the page and drops it from sitemap.xml;
+    // it does not add a robots.txt Disallow, which is what we want (a Disallow
+    // stops crawling but doesn't deindex a URL someone already knows). Access
+    // is enforced by the API, not by the URL being unlisted.
+    "/lce-entry": { robots: false },
     // Top-level pages.
     "/home": { redirect: { to: "/", statusCode: 301 }, prerender: false },
     "/allconcerts": { redirect: { to: "/", statusCode: 301 }, prerender: false },
@@ -108,11 +128,11 @@ export default defineNuxtConfig({
     // Every other (past-season) concert page → the concert listing.
     "/allconcerts/**": { redirect: { to: "/", statusCode: 301 }, prerender: false },
     // About-section content that no longer has its own page.
-    "/our-musicians": { redirect: { to: "/about", statusCode: 301 }, prerender: false },
+    "/our-musicians": { redirect: { to: "/about/orchestra", statusCode: 301 }, prerender: false },
     "/board-of-directors-and-staff": { redirect: { to: "/about", statusCode: 301 }, prerender: false },
-    "/kws-in-the-community": { redirect: { to: "/about", statusCode: 301 }, prerender: false },
-    "/orchestral-musician-school-visits": { redirect: { to: "/about", statusCode: 301 }, prerender: false },
-    "/mnbios": { redirect: { to: "/about", statusCode: 301 }, prerender: false },
+    "/kws-in-the-community": { redirect: { to: "/community", statusCode: 301 }, prerender: false },
+    "/orchestral-musician-school-visits": { redirect: { to: "/community", statusCode: 301 }, prerender: false },
+    "/mnbios": { redirect: { to: "/about/orchestra", statusCode: 301 }, prerender: false },
     "/artist-bios": { redirect: { to: "/about", statusCode: 301 }, prerender: false },
     // Jobs/apply (old /jobs is in the legacy sitemap; /apply is a known alias).
     "/jobs": { redirect: { to: "/about/jobs", statusCode: 301 }, prerender: false },
@@ -126,14 +146,20 @@ export default defineNuxtConfig({
         { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
         { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
       ],
-      // Privacy-friendly analytics by Plausible
-      script: [
-        { src: "https://plausible.io/js/pa-doXDrDsuK2WHd80WGXTIr.js", async: true },
-        {
-          innerHTML:
-            "window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()",
-        },
-      ],
+      // Privacy-friendly analytics by Plausible. Production only: the site's
+      // domain is baked into the hosted script, so a branch deploy or local
+      // preview loading it would report as real traffic. Same gate as indexing.
+      // The first inline line keeps `window.plausible()` callable before the
+      // script arrives, so the class-based goals never throw.
+      script: indexable
+        ? [
+            { src: "https://plausible.io/js/pa-doXDrDsuK2WHd80WGXTIr.js", async: true },
+            {
+              innerHTML:
+                "window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()",
+            },
+          ]
+        : [],
     },
   },
 
@@ -156,14 +182,24 @@ export default defineNuxtConfig({
     },
   },
 
+  // Dev-only Netlify emulation. The site emits no edge functions, and the edge
+  // runtime emulator spawns `deno eval --allow-scripts`, which Deno 2.9 rejects,
+  // so the dev server restart-loops with it on.
+  netlify: {
+    edgeFunctions: { enabled: false },
+  },
+
   // nuxt-studio detects the repo from CI env vars (e.g. Netlify) at deploy time;
   // set it explicitly so local production builds also resolve a repository.
+  // Branch follows the deploy: Netlify sets BRANCH per context, so a branch
+  // deploy's Studio commits to that branch instead of publishing to production.
+  // Hardcoding "main" here would override the module's own BRANCH detection.
   studio: {
     repository: {
       provider: "github",
       owner: "jennie",
       repo: "kws",
-      branch: "main",
+      branch: process.env.BRANCH || "main",
     },
   },
 });

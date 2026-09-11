@@ -1,7 +1,20 @@
 <script setup lang="ts">
-const { data: concerts } = await useAsyncData("concerts-upcoming", () =>
-  queryCollection("concerts").order("date", "ASC").all(),
-);
+// Coarse lower bound on the LCE query: the module shows three events, and
+// without it the homepage payload carries every event ever entered, a list that
+// only grows. A day of slack absorbs the gap between the build container's
+// clock and local time; the exact boundary is applied in `lceUpcoming` below.
+const lceSince = new Date(Date.now() - 86_400_000).toISOString().slice(0, 10);
+
+// The two collections are unrelated, so fetch them concurrently rather than
+// letting the concert query gate the LCE one.
+const [{ data: concerts }, { data: lceEvents }] = await Promise.all([
+  useAsyncData("concerts-upcoming", () =>
+    queryCollection("concerts").order("date", "ASC").all(),
+  ),
+  useAsyncData("lce-upcoming", () =>
+    queryCollection("lceEvents").where("date", ">=", lceSince).all(),
+  ),
+]);
 
 const upcoming = computed(() => {
   const now = Date.now();
@@ -11,12 +24,30 @@ const upcoming = computed(() => {
   });
 });
 
+// Three, per the signed SOW. Shows fewer if fewer exist; the section hides
+// entirely at zero.
+const LCE_MODULE_LIMIT = 3;
+const lceUpcoming = computed(() =>
+  splitLceEvents(lceEvents.value ?? []).upcoming.slice(0, LCE_MODULE_LIMIT),
+);
+
 const next = computed(() => upcoming.value[0]);
 const nextPath = computed(() => next.value?.path);
+const nextImage = computed(() => heroImage(next.value));
 
 const performanceCount = computed(() =>
   upcoming.value.reduce((sum, c) => sum + (c.performances?.length ?? 1), 0),
 );
+
+// Seasons run September to June, so a date before July belongs to the season
+// that began the previous calendar year.
+const seasonLabel = computed(() => {
+  const first = upcoming.value[0];
+  if (!first) return "";
+  const d = new Date(first.date);
+  const start = d.getMonth() >= 6 ? d.getFullYear() : d.getFullYear() - 1;
+  return `${start}/${String(start + 1).slice(-2)}`;
+});
 
 const SERIES_ORDER = ["Masterworks", "Pops", "Baroque & Beyond", "Family"];
 const NUMBER_WORDS = [
@@ -152,7 +183,7 @@ onMounted(() => {
           <span class="font-semibold text-paper-900"
             >{{ performanceCount }} performances</span
           >
-          across the 2026/27 season
+          across the {{ seasonLabel }} season
         </p>
       </div>
 
@@ -168,25 +199,29 @@ onMounted(() => {
           class="block aspect-video border-b border-paper-900 no-underline lg:aspect-auto lg:border-b-0 lg:border-r"
         >
           <NuxtImg
-            v-if="next.image"
-            :src="next.image"
-            :alt="next.title"
+            v-if="nextImage"
+            :src="nextImage.src"
+            :alt="nextImage.description || next.title"
             width="1600"
             height="900"
             sizes="md:100vw lg:55vw"
+            fit="cover"
+            :modifiers="{ position: 'top' }"
             fetchpriority="high"
             class="h-full w-full object-cover"
-            style="object-position: center 30%"
           />
         </NuxtLink>
-        <div class="flex flex-col justify-center p-8 lg:p-10">
-          <div class="mb-4 flex items-baseline justify-between gap-4">
+        <div class="flex flex-col justify-center p-6 sm:p-8 lg:p-10">
+          <!-- The two labels each stay whole: at 360px "Next concert" was
+               breaking mid-label against the series name. Wrapping the row
+               drops it to its own line instead. -->
+          <div class="mb-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
             <span
               v-if="next.series"
               class="text-base font-medium text-paper-600"
               >{{ next.series }}</span
             >
-            <span class="kws-eyebrow kws-eyebrow--ink">Next concert</span>
+            <span class="kws-eyebrow kws-eyebrow--ink whitespace-nowrap">Next concert</span>
           </div>
           <h2
             id="lead-title"
@@ -198,7 +233,7 @@ onMounted(() => {
           </h2>
           <p
             v-if="next.description"
-            class="mb-6 max-w-[46ch] text-lg text-paper-600"
+            class="mb-6 max-w-[46ch] text-base text-paper-600 sm:text-lg"
           >
             {{ next.description }}
           </p>
@@ -220,16 +255,17 @@ onMounted(() => {
             <TicketButton
               :url="next.ticketUrl"
               :provider="next.ticketProvider"
+              :concert-title="next.title"
               size="lg"
             />
           </div>
         </div>
       </section>
 
-      <!-- Sticky series jump-nav -->
+      <!-- Sticky section jump-nav -->
       <nav
         v-if="grouped.length > 1"
-        aria-label="Jump to series"
+        aria-label="Jump to section"
         class="sticky top-0 z-20 -mx-6 mb-10 border-y border-paper-300 bg-paper-50 px-6 py-3 lg:-mx-10 lg:px-10"
       >
         <ul class="flex flex-wrap gap-x-6 gap-y-2">
@@ -245,6 +281,23 @@ onMounted(() => {
               "
             >
               {{ group.series }}
+            </a>
+          </li>
+          <!-- Community events are not a series, so they hang off the end of
+               the data-driven list rather than being faked into `grouped`.
+               Guarded on the same condition as the section itself. -->
+          <li v-if="lceUpcoming.length">
+            <a
+              href="#community"
+              :aria-current="activeSeriesId === 'community' ? 'true' : undefined"
+              class="inline-block py-1 -my-1 text-base no-underline hover:text-paper-900 hover:underline"
+              :class="
+                activeSeriesId === 'community'
+                  ? 'font-semibold text-paper-900'
+                  : 'font-medium text-paper-700'
+              "
+            >
+              Community
             </a>
           </li>
         </ul>
@@ -279,7 +332,8 @@ onMounted(() => {
               :title="concert.title"
               :date="concert.date"
               :venue="concert.venue"
-              :image="concert.image"
+              :image="heroImage(concert)?.src"
+              :image-alt="heroImage(concert)?.description"
               :slug="concert.path"
               :ticket-url="concert.ticketUrl"
               :ticket-provider="concert.ticketProvider"
@@ -307,7 +361,7 @@ onMounted(() => {
         </h1>
         <p class="mx-auto mt-5 max-w-xl text-lg leading-[1.55] text-paper-700">
           The season concludes shortly. Sign up for season announcements,
-          revisit past programmes, or reach the us while we finalize the year
+          revisit past programmes, or reach us while we finalize the year
           ahead.
         </p>
         <div class="mt-9 flex flex-wrap items-center justify-center gap-4">
@@ -326,5 +380,64 @@ onMounted(() => {
         </div>
       </section>
     </div>
+
+    <!--
+      Learning & community engagement. Full-bleed band so it reads as its own
+      thing next to the season, distinct through tone and structure rather than
+      colour. Sits outside the season conditional above so it survives the
+      season-ended empty state.
+    -->
+    <section
+      v-if="lceUpcoming.length"
+      id="community"
+      aria-labelledby="lce-heading"
+      data-jump-target
+      class="scroll-mt-20 border-y border-paper-300 bg-paper-100"
+    >
+      <div class="mx-auto max-w-shell px-6 py-12 lg:px-10 lg:py-16">
+        <div
+          class="mb-8 flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
+        >
+          <h2
+            id="lce-heading"
+            class="font-display text-2xl font-semibold tracking-tight text-paper-900 lg:text-3xl"
+          >
+            Learning &amp; community engagement
+          </h2>
+          <NuxtLink
+            to="/community"
+            class="text-base font-semibold"
+          >
+            See all community events
+          </NuxtLink>
+        </div>
+
+        <!--
+          Rows carry no link of their own: LCE events are listing-only, so every
+          row would point at /community and repeat the link above it.
+        -->
+        <ul
+          class="max-w-4xl divide-y divide-paper-300 border-y border-paper-300"
+        >
+          <li
+            v-for="event in lceUpcoming"
+            :key="event.id"
+            class="py-5 sm:flex sm:gap-8"
+          >
+            <p class="text-base font-medium text-paper-600 sm:w-52 sm:shrink-0">
+              {{ longDate(eventDateTime(event)) }}
+            </p>
+            <div class="mt-1 min-w-0 sm:mt-0">
+              <h3
+                class="font-display text-xl font-semibold tracking-tight text-paper-900"
+              >
+                {{ event.title }}
+              </h3>
+              <p class="mt-1 text-base text-paper-800">{{ event.location }}</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
   </div>
 </template>

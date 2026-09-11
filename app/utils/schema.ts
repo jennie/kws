@@ -1,7 +1,7 @@
 // schema.org JSON-LD builders. Concert pages emit MusicEvent (one event per
 // performance) to qualify for Google's event rich results; the home page emits
-// a MusicGroup for the organisation knowledge panel. splitVenue, absUrl and
-// SITE_URL are auto-imported from the sibling util files.
+// a MusicGroup for the organisation knowledge panel. splitVenue, absUrl,
+// SITE_URL and heroImage are auto-imported from the sibling util files.
 
 // A function (not a constant) so the url resolves against the live host at call
 // time rather than at module load, when the Nuxt context isn't available.
@@ -17,7 +17,7 @@ type Concert = {
   title: string
   date: string
   venue: string
-  image: string
+  images: { src: string; description?: string; credit?: string }[]
   description: string
   conductor?: string
   artists?: { name: string; role: string }[]
@@ -58,13 +58,15 @@ function performers(concert: Concert) {
   return list
 }
 
-export function concertJsonLd(concert: Concert) {
+export function concertJsonLd(concert: Concert, path: string) {
   const base = {
     '@context': 'https://schema.org',
     '@type': 'MusicEvent',
     name: concert.title,
+    url: absUrl(path),
     description: concert.description,
-    image: [absUrl(concert.image)],
+    // images is `.min(1)` in the content schema, so the hero always exists.
+    image: [absUrl(heroImage(concert)!.src)],
     eventStatus: 'https://schema.org/EventScheduled',
     eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
     performer: performers(concert),
@@ -90,6 +92,36 @@ export function concertJsonLd(concert: Concert) {
   return events.length === 1 ? events[0] : events
 }
 
+type LceEvent = {
+  title: string
+  date: string
+  time?: string
+  location: string
+  description?: string
+  image?: string
+}
+
+// Free public events on /community, one Event per upcoming listing. The
+// archive is history and not eligible for rich results, so callers pass only
+// the upcoming list. A listing with no clock time gets a date-only startDate
+// rather than a fabricated midnight.
+export function lceEventsJsonLd(events: LceEvent[]) {
+  return events.map((event) => ({
+    '@context': 'https://schema.org',
+    '@type': 'Event',
+    name: event.title,
+    startDate: event.time ? eventDateTime(event) : event.date,
+    location: place(event.location),
+    isAccessibleForFree: true,
+    eventStatus: 'https://schema.org/EventScheduled',
+    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+    organizer: organisation(),
+    performer: organisation(),
+    ...(event.description ? { description: event.description } : {}),
+    ...(event.image ? { image: [absUrl(event.image)] } : {}),
+  }))
+}
+
 export function organisationJsonLd() {
   return {
     '@context': 'https://schema.org',
@@ -101,10 +133,10 @@ export function organisationJsonLd() {
     email: 'info@kwsymphony.com',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: '14 Huntingwood Court',
+      streetAddress: 'c/o Catalyst Commons, 210-137 Glasgow St, Office# 315',
       addressLocality: 'Kitchener',
       addressRegion: 'ON',
-      postalCode: 'N2P 2A7',
+      postalCode: 'N2G 4X8',
       addressCountry: 'CA',
     },
     sameAs: ['https://facebook.com/kwsymphony'],

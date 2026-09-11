@@ -35,5 +35,6 @@ logs
 docs
 wireframe/*
 
-# Local source images from the client, not for the repo
-Artist Images & Bios/
+# Client source drops (originals, not for the repo)
+/Artist Images & Bios/
+supertool

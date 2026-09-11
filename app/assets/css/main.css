@@ -15,15 +15,23 @@
   --text-lg--line-height: 1.55;
   --text-xl: 1.5rem;
   --text-xl--line-height: 1.4;
-  --text-2xl: 1.875rem;
+
+  /* Display steps are fluid between a 360px phone and a 768px tablet, then
+     hold at the values the design system specifies. Sized for the desktop
+     column, 2xl and up overrun a phone: the page H1 at 2.375rem needs ~380px
+     and breaks "Concerts & events" onto two lines below about 410px, and a
+     concert title at 3rem lands three words to a line. Each clamp keeps a rem
+     term in the middle so browser zoom still scales the heading (SC 1.4.4);
+     the vw term only decides where between the two ends it sits. */
+  --text-2xl: clamp(1.625rem, 1.404rem + 1.103vw, 1.875rem);
   --text-2xl--line-height: 1.25;
-  --text-3xl: 2.375rem;
+  --text-3xl: clamp(1.875rem, 1.434rem + 2.206vw, 2.375rem);
   --text-3xl--line-height: 1.15;
-  --text-4xl: 3rem;
+  --text-4xl: clamp(2.25rem, 1.588rem + 3.309vw, 3rem);
   --text-4xl--line-height: 1.08;
-  --text-5xl: 4rem;
+  --text-5xl: clamp(2.75rem, 1.647rem + 5.515vw, 4rem);
   --text-5xl--line-height: 1.02;
-  --text-6xl: 5.25rem;
+  --text-6xl: clamp(3.25rem, 1.485rem + 8.824vw, 5.25rem);
   --text-6xl--line-height: 0.98;
 
   /* Width system. Two tiers: the page frame (nav, footer, listing, and the
@@ -53,6 +61,18 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+
+    /* The homepage series nav is `sticky top-0`. Without this, moving focus
+       backwards up the page scrolls the target flush to the viewport top,
+       where the bar covers it completely: concert title links (29px) and Buy
+       tickets buttons (60px) both disappear behind it. WCAG 2.2 SC 2.4.11.
+       Also keeps in-page anchor targets clear of the bar.
+
+       7rem, not 5rem: the bar is 62px once the four series labels fit on one
+       line, but below about 600px they wrap and it becomes 105px. 5rem cleared
+       the desktop bar and left the top 15px of every focused control under the
+       phone one, focus ring included. */
+    scroll-padding-top: 7rem;
   }
 
   body {
@@ -78,14 +98,48 @@
   }
 
   a {
-    color: inherit;
+    color: var(--color-paper-900);
+    text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 0.2em;
+  }
+
+  /* Heading permalink anchors wrap the whole heading; they are not inline links. */
+  :is(h1, h2, h3, h4, h5, h6) > a {
+    text-decoration: none;
   }
 
   hr {
     border: 0;
     border-top: 1px solid var(--color-paper-300);
+  }
+
+  /* iOS renders date and time inputs as a native widget whose shadow tree
+     carries its own intrinsic width, and that width wins over `width: 100%`
+     on the host: on the LCE entry form both fields ran off the right edge of
+     the page while every text field beside them sat flush. Turning the
+     appearance off drops the widget sizing and the control lays out like an
+     ordinary field; it still opens the system picker on tap. `max-width` is
+     the backstop in case any engine keeps sizing from content.
+
+     Not reproducible off-device — desktop WebKit ships a plain text field for
+     these types, so it sizes correctly with or without this rule. Verified
+     there only that turning appearance off changes neither width nor height. */
+  input[type="date"],
+  input[type="time"] {
+    -webkit-appearance: none;
+    appearance: none;
+    max-width: 100%;
+  }
+
+  /* An email address or URL in running copy is one unbreakable token.
+     community.engagement@kwsymphony.com sets ~360px at the body size, which is
+     wider than the reading column on any phone narrower than about 410px, and
+     pushed /community into horizontal scroll. `break-word` (not `anywhere`)
+     only breaks when the address cannot fit on a line of its own, so on wider
+     screens it still sets unbroken. */
+  .prose :is(a, code) {
+    overflow-wrap: break-word;
   }
 }
 
@@ -121,5 +175,24 @@
   font-weight: 600;
   color: var(--color-paper-900);
 }
-</content>
-</invoke>
+
+/* The Studio editor mounts itself on every route: nuxt-studio's client plugin
+   appends a <nuxt-studio> element to <body> whenever a Studio session cookie is
+   present, with no route awareness and no supported way to opt a page out. The
+   LCE entry screen is the one place that's wrong. Its whole point is a narrow,
+   fixed-field surface, and the coordinator has Studio access only as a side
+   effect of reusing that session for auth, so dropping the full editor chrome
+   on top of the form works against it. The page sets this class on <body>. */
+body.kws-no-studio-editor nuxt-studio {
+  display: none;
+}
+
+/* Studio also injects `body[data-studio-active][data-expand-sidebar] {
+   margin-left: 760px }` at runtime to make room for its sidebar. With the
+   editor hidden that offset just shoves the page off to the right, so undo it.
+   The injected <style> arrives after this file and matches at equal
+   specificity, hence !important. */
+body.kws-no-studio-editor {
+  margin-left: 0 !important;
+  transition: none !important;
+}
