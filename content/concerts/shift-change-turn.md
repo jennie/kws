@@ -9,6 +9,8 @@ description: Léa Moisan-Perrier joins the KWS for a programme featuring classic
 images:
   - src: /images/artists/Moisan-Perrier-cropped.jpg
     credit: Nadia Zheng
+  - src: /images/artists/DSC-4900-2.jpg
+    credit: Sam Gaetz
 performances:
   - date: 2026-10-16T19:30:00
     venue: Knox Presbyterian Church, Waterloo
