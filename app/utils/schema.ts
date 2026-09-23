@@ -118,7 +118,9 @@ export function lceEventsJsonLd(events: LceEvent[]) {
     organizer: organisation(),
     performer: organisation(),
     ...(event.description ? { description: event.description } : {}),
-    ...(event.image ? { image: [absUrl(event.image)] } : {}),
+    // Google recommends an image; listings without one use the brand card,
+    // the same fallback app.vue uses for og:image.
+    image: [absUrl(event.image || '/images/og-default.png')],
   }))
 }
 
