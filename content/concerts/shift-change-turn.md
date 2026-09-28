@@ -25,12 +25,14 @@ performances:
     ticketUrl: https://ticketscene.ca/events/62435/
     ticketProvider: Ticketscene
 series: Baroque & Beyond
+ticketProvider: Ticketscene
+ticketUrl: https://ticketscene.ca/series/1681/
 venue: Knox Presbyterian Church, Waterloo
 ---
 
 ## Programme
 
 - Emilie Maier — Overture No. 2 in D Major
-- Emily Doolittle — A Short Slow Life
+- Emily Doolittle — A Short, Slow Life
 - Jessie Montgomery — Shift, Change, Turn
 - W\.A. Mozart — Symphony No. 39
