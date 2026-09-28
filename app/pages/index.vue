@@ -35,6 +35,16 @@ const next = computed(() => upcoming.value[0]);
 const nextPath = computed(() => next.value?.path);
 const nextImage = computed(() => heroImage(next.value));
 
+// Touring concerts carry ticket links per performance rather than at the top
+// level; the hero shows one button regardless, so it falls back to the first
+// stop rather than showing "on sale soon" for a concert that's on sale.
+const nextTicketUrl = computed(
+  () => next.value?.ticketUrl ?? next.value?.performances?.[0]?.ticketUrl,
+);
+const nextTicketProvider = computed(
+  () => next.value?.ticketProvider ?? next.value?.performances?.[0]?.ticketProvider,
+);
+
 const performanceCount = computed(() =>
   upcoming.value.reduce((sum, c) => sum + (c.performances?.length ?? 1), 0),
 );
@@ -253,8 +263,8 @@ onMounted(() => {
           </dl>
           <div>
             <TicketButton
-              :url="next.ticketUrl"
-              :provider="next.ticketProvider"
+              :url="nextTicketUrl"
+              :provider="nextTicketProvider"
               :concert-title="next.title"
               size="lg"
             />
