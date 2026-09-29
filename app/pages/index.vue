@@ -247,7 +247,26 @@ onMounted(() => {
           >
             {{ next.description }}
           </p>
-          <dl class="mb-7">
+          <!-- A touring concert is one programme played in several cities.
+               Showing only the first stop's date and venue made it read as a
+               single show and left the other stops looking missing from the
+               series list below, so list every stop here instead. -->
+          <div v-if="next.performances?.length" class="mb-7">
+            <p class="text-base font-medium text-paper-800">
+              {{ next.performances.length }} performances
+            </p>
+            <ul class="mt-3">
+              <li
+                v-for="(p, i) in next.performances"
+                :key="i"
+                class="text-base text-paper-800"
+              >
+                <time :datetime="isoDate(p.date)">{{ shortDate(p.date) }}</time>
+                <span class="text-paper-600"> · {{ splitVenue(p.venue).city }}</span>
+              </li>
+            </ul>
+          </div>
+          <dl v-else class="mb-7">
             <dt class="sr-only">Date and time</dt>
             <dd class="text-base text-paper-800">
               {{ longDate(next.date) }} · {{ timeOf(next.date) }}
