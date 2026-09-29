@@ -45,19 +45,28 @@ const nextTicketProvider = computed(
   () => next.value?.ticketProvider ?? next.value?.performances?.[0]?.ticketProvider,
 );
 
-const performanceCount = computed(() =>
-  upcoming.value.reduce((sum, c) => sum + (c.performances?.length ?? 1), 0),
-);
-
 // Seasons run September to June, so a date before July belongs to the season
 // that began the previous calendar year.
-const seasonLabel = computed(() => {
-  const first = upcoming.value[0];
-  if (!first) return "";
-  const d = new Date(first.date);
-  const start = d.getMonth() >= 6 ? d.getFullYear() : d.getFullYear() - 1;
-  return `${start}/${String(start + 1).slice(-2)}`;
-});
+const seasonStartYear = (value: string) => {
+  const d = new Date(value);
+  return d.getMonth() >= 6 ? d.getFullYear() : d.getFullYear() - 1;
+};
+const seasonStart = computed(() =>
+  upcoming.value[0] ? seasonStartYear(upcoming.value[0].date) : undefined,
+);
+const seasonLabel = computed(() =>
+  seasonStart.value === undefined
+    ? ""
+    : `${seasonStart.value}/${String(seasonStart.value + 1).slice(-2)}`,
+);
+
+// The season total, so concerts already played still count once they've
+// happened; only the list below is limited to what's upcoming.
+const performanceCount = computed(() =>
+  (concerts.value ?? [])
+    .filter((c) => seasonStartYear(c.date) === seasonStart.value)
+    .reduce((sum, c) => sum + (c.performances?.length ?? 1), 0),
+);
 
 const SERIES_ORDER = ["Masterworks", "Pops", "Baroque & Beyond", "Family"];
 const NUMBER_WORDS = [
@@ -247,7 +256,26 @@ onMounted(() => {
           >
             {{ next.description }}
           </p>
-          <dl class="mb-7">
+          <!-- A touring concert is one programme played in several cities.
+               Showing only the first stop's date and venue made it read as a
+               single show and left the other stops looking missing from the
+               series list below, so list every stop here instead. -->
+          <div v-if="next.performances?.length" class="mb-7">
+            <p class="text-base font-medium text-paper-800">
+              {{ next.performances.length }} performances
+            </p>
+            <ul class="mt-3">
+              <li
+                v-for="(p, i) in next.performances"
+                :key="i"
+                class="text-base text-paper-800"
+              >
+                <time :datetime="isoDate(p.date)">{{ shortDate(p.date) }}</time>
+                <span class="text-paper-600"> · {{ splitVenue(p.venue).city }}</span>
+              </li>
+            </ul>
+          </div>
+          <dl v-else class="mb-7">
             <dt class="sr-only">Date and time</dt>
             <dd class="text-base text-paper-800">
               {{ longDate(next.date) }} · {{ timeOf(next.date) }}
