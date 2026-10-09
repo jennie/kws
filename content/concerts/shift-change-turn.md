@@ -5,7 +5,7 @@ artists:
     role: Soprano
 conductor: Léa Moisan-Perrier
 date: 2026-10-16T19:30:00
-description: Making her KW Symphony debut, Léa Moisan-Perrier joins us for the first concert in our Baroque & Beyond Series. The program begins with Emilie Mayer's dramatic and romantic Overture No. 2 followed by A Short, Slow Life by Canadian composer Emily Doolittle. The piece honours poet Elizabeth Bishop, drawing on her delicate natural imagery and textures, and it is brought to life by Soprano Aemilia Moser, recent winner of the Eckhardt-Gramatté Competition.  GRAMMY Award-winning composer Jessie Montgomery’s work, Shift, Change Turn, “is a musical exploration of both the external and internal seasons which at times seem to be changing along the same axis.” The program concludes with Mozart’s vibrant and kinetic Symphony No. 39, the first in his final trilogy of symphonies.
+description: Making her KW Symphony debut, Léa Moisan-Perrier joins us for the first concert in our Baroque & Beyond Series.
 images:
   - src: /images/artists/Moisan-Perrier-cropped.jpg
     credit: Nadia Zheng
