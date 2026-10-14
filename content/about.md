@@ -54,7 +54,7 @@ The full roster, by section and instrument, is on [the orchestra page](/about/or
 
 The KWSVC has been in existence since 1948 to support the Kitchener-Waterloo Symphony in a variety of ways.
 
-The Volunteer Committee is an unincorporated self-governing organization holding charitable status under the Canada Revenue Agency with responsibility for an investment fund dedicated to the support of youth orchestral musicians in Waterloo Region, Guelph and Stratford through an annual scholarship program.
+The Volunteer Committee is an unincorporated self-governing organization holding charitable status under the Canada Revenue Agency with responsibility for an investment fund dedicated to the support of youth orchestral musicians in in Waterloo Region and area []  through an annual scholarship program.
 
 Over the course of the last twenty-five years the Volunteer Committee undertook large fund-raising projects to provide financial assistance to the Symphony such as the House and Garden Tour of Note and the Love of Music Marathon as well as card parties and the Showcase boutique that was open at KWS concerts at Centre in the Square. Members of the Volunteer Committee provided refreshments for musicians at dress rehearsals for many years and continues to provide hands-on support for Symphony staff by inserting flyers in concert programs, bundling subscription tickets and mailings and distributing promotional materials. Since 2023, members of the KWSVC served as the front-of-house team for concerts at the St. Matthews Centre and other venues.
 
