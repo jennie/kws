@@ -16,37 +16,31 @@ const [{ data: concerts }, { data: lceEvents }] = await Promise.all([
   ),
 ]);
 
-// A concert with several performances stays listed until its last one starts;
-// `date` is only the first, so filtering on it dropped a weekend run after
-// Friday's show while Saturday and Sunday were still on sale.
-const upcoming = computed(() => {
-  const now = Date.now();
-  return (concerts.value ?? []).filter((c) => {
-    const dates = [c.date, ...(c.performances ?? []).map((p) => p.date)];
-    const t = Math.max(...dates.map((d) => new Date(d).getTime()));
-    return !Number.isNaN(t) && t >= now;
-  });
-});
+const now = useNow();
+const upcoming = computed(() => upcomingConcerts(concerts.value ?? [], now.value));
 
 // Three, per the signed SOW. Shows fewer if fewer exist; the section hides
 // entirely at zero.
 const LCE_MODULE_LIMIT = 3;
 const lceUpcoming = computed(() =>
-  splitLceEvents(lceEvents.value ?? []).upcoming.slice(0, LCE_MODULE_LIMIT),
+  splitLceEvents(lceEvents.value ?? [], now.value).upcoming.slice(0, LCE_MODULE_LIMIT),
 );
 
 const next = computed(() => upcoming.value[0]);
 const nextPath = computed(() => next.value?.path);
 const nextImage = computed(() => heroImage(next.value));
+const nextPerformances = computed(() =>
+  upcomingPerformances(next.value?.performances, now.value),
+);
 
 // Touring concerts carry ticket links per performance rather than at the top
-// level; the hero shows one button regardless, so it falls back to the first
+// level; the hero shows one button regardless, so it falls back to the next
 // stop rather than showing "on sale soon" for a concert that's on sale.
 const nextTicketUrl = computed(
-  () => next.value?.ticketUrl ?? next.value?.performances?.[0]?.ticketUrl,
+  () => next.value?.ticketUrl ?? nextPerformances.value[0]?.ticketUrl,
 );
 const nextTicketProvider = computed(
-  () => next.value?.ticketProvider ?? next.value?.performances?.[0]?.ticketProvider,
+  () => next.value?.ticketProvider ?? nextPerformances.value[0]?.ticketProvider,
 );
 
 // Seasons run September to June, so a date before July belongs to the season
@@ -264,13 +258,13 @@ onMounted(() => {
                Showing only the first stop's date and venue made it read as a
                single show and left the other stops looking missing from the
                series list below, so list every stop here instead. -->
-          <div v-if="next.performances?.length" class="mb-7">
+          <div v-if="nextPerformances.length" class="mb-7">
             <p class="text-base font-medium text-paper-800">
-              {{ next.performances.length }} performances
+              {{ nextPerformances.length }} performance{{ nextPerformances.length === 1 ? "" : "s" }}
             </p>
             <ul class="mt-3">
               <li
-                v-for="(p, i) in next.performances"
+                v-for="(p, i) in nextPerformances"
                 :key="i"
                 class="text-base text-paper-800"
               >
@@ -382,7 +376,7 @@ onMounted(() => {
               :series="concert.series"
               :conductor="concert.conductor"
               :artists="concert.artists"
-              :performances="concert.performances"
+              :performances="upcomingPerformances(concert.performances, now)"
               :featured="concert.path === nextPath"
             />
           </div>

@@ -44,7 +44,10 @@ const performerLine = computed(() => {
 })
 
 const statusLabel = computed(() => {
-  if (isTouring.value) return `${props.performances!.length} performances`
+  if (isTouring.value) {
+    const n = props.performances!.length
+    return `${n} performance${n === 1 ? '' : 's'}`
+  }
   if (props.featured) return 'Next concert'
   return props.ticketUrl ? 'On sale' : 'On sale soon'
 })

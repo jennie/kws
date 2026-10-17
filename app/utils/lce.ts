@@ -21,7 +21,7 @@ export function splitLceEvents<T extends LceEventLike>(events: T[], now = Date.n
   const upcoming: T[] = []
   const past: T[] = []
   for (const event of events) {
-    const at = new Date(eventDateTime(event)).getTime()
+    const at = venueTime(eventDateTime(event))
     if (Number.isNaN(at)) continue
     if (at >= now) upcoming.push(event)
     else past.push(event)

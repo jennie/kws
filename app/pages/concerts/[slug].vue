@@ -18,8 +18,9 @@ const isTouring = computed(() => (concert.value?.performances?.length ?? 0) > 0)
 const hero = computed(() => heroImage(concert.value))
 const heroCaption = computed(() => imageCaption(hero.value?.credit))
 
+const now = useNow()
 const moreInSeries = computed(() =>
-  (allConcerts.value ?? [])
+  upcomingConcerts(allConcerts.value ?? [], now.value)
     .filter((c) => c.series && c.series === concert.value?.series && c.path !== concert.value?.path)
     .slice(0, 3)
 )
