@@ -16,10 +16,14 @@ const [{ data: concerts }, { data: lceEvents }] = await Promise.all([
   ),
 ]);
 
+// A concert with several performances stays listed until its last one starts;
+// `date` is only the first, so filtering on it dropped a weekend run after
+// Friday's show while Saturday and Sunday were still on sale.
 const upcoming = computed(() => {
   const now = Date.now();
   return (concerts.value ?? []).filter((c) => {
-    const t = new Date(c.date).getTime();
+    const dates = [c.date, ...(c.performances ?? []).map((p) => p.date)];
+    const t = Math.max(...dates.map((d) => new Date(d).getTime()));
     return !Number.isNaN(t) && t >= now;
   });
 });
