@@ -5,7 +5,7 @@ artists:
     role: Soprano
 conductor: Léa Moisan-Perrier
 date: 2026-10-16T19:30:00
-description: Léa Moisan-Perrier joins the KWS for a programme featuring classical and contemporary works that challenge and inspire.
+description: Making her KW Symphony debut, Léa Moisan-Perrier joins us for the first concert in our Baroque & Beyond Series.
 images:
   - src: /images/artists/Moisan-Perrier-cropped.jpg
     credit: Nadia Zheng
@@ -24,6 +24,9 @@ performances:
     venue: Harcourt United Church, Guelph
     ticketUrl: https://ticketscene.ca/events/62435/
     ticketProvider: Ticketscene
+seo:
+  title: Shift, Change, Turn
+  description: Léa Moisan-Perrier joins the KWS for a programme featuring classical and contemporary works that challenge and inspire.
 series: Baroque & Beyond
 ticketProvider: Ticketscene
 ticketUrl: https://ticketscene.ca/series/1681/
